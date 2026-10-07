@@ -72,7 +72,7 @@ $$
 - range: actual outputs
 
 $$
-\operatorname{range}(x)\subseteq\operatorname{codomain}(x)
+\mathrm{range}(x)\subseteq\mathrm{codomain}(x)
 $$
 
 Symbols: $\forall$ all · $\exists$ exists · $\in$ belongs · $:$ such that.
@@ -394,7 +394,7 @@ $$
 $$
 r=|z|=\sqrt{x^2+y^2},
 \qquad
-\theta=\operatorname{atan2}(y,x)
+\theta=\mathrm{atan2}(y,x)
 $$
 
 $$
