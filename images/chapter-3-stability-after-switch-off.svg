@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="650" viewBox="0 0 960 650" role="img" aria-labelledby="title desc">
+<title id="title">Responses after a truncated input is switched off</title>
+<desc id="desc">A stable response decays to zero, a marginally stable response remains bounded, and an unstable response grows without bound after the input is switched off.</desc>
+<defs>
+  <style>
+    .axis{stroke:#374151;stroke-width:2}.grid{stroke:#D1D5DB;stroke-width:2;stroke-dasharray:8 7}.input{stroke:#2563EB;stroke-width:5;fill:none}.stable{stroke:#059669;stroke-width:5;fill:none}.marginal{stroke:#D97706;stroke-width:5;fill:none}.unstable{stroke:#DC2626;stroke-width:5;fill:none}.head{font:bold 25px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#111827}.label{font:21px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#374151}.small{font:18px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#6B7280}.green{font:bold 20px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#059669}.orange{font:bold 20px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#D97706}.red{font:bold 20px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#DC2626}
+  </style>
+</defs>
+<rect width="960" height="650" fill="white"/>
+
+<text x="55" y="45" class="head">Truncated input: x(t) = 0 after t₀</text>
+<line x1="70" y1="140" x2="900" y2="140" class="axis"/>
+<line x1="120" y1="70" x2="120" y2="175" class="axis"/>
+<path d="M70 140 H250 V85 H430 V140 H900" class="input"/>
+<line x1="430" y1="65" x2="430" y2="600" class="grid"/>
+<text x="414" y="168" class="label">t₀</text>
+
+<text x="55" y="230" class="green">stable</text>
+<line x1="180" y1="245" x2="900" y2="245" class="axis"/>
+<path d="M180 205 H430 C520 205,560 242,760 245" class="stable"/>
+<text x="770" y="224" class="small">y(t) → 0</text>
+
+<text x="55" y="370" class="orange">marginally stable</text>
+<line x1="180" y1="385" x2="900" y2="385" class="axis"/>
+<path d="M180 345 H430 C470 305,520 425,570 345 S670 425,720 345 S820 425,875 345" class="marginal"/>
+<text x="710" y="320" class="small">|y(t)| ≤ M eventually</text>
+
+<text x="55" y="520" class="red">unstable</text>
+<line x1="180" y1="535" x2="900" y2="535" class="axis"/>
+<path d="M180 500 H430 C520 495,640 440,865 300" class="unstable"/>
+<text x="715" y="455" class="small">no finite bound M</text>
+
+<text x="55" y="625" class="small">Marginal does not require convergence: constant or bounded oscillation.</text>
+</svg>
