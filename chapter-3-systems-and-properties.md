@@ -107,7 +107,7 @@ y=S_2v
 $$
 
 $$
-\boxed{S_{\mathrm c}=S_2\circ S_1}
+\boxed{S_{\mathrm{c}}=S_2\circ S_1}
 $$
 
 Right first. Composition; not multiplication.
@@ -115,7 +115,7 @@ Right first. Composition; not multiplication.
 **Parallel**
 
 $$
-\boxed{S_{\mathrm p}=S_1+S_2}
+\boxed{S_{\mathrm{p}}=S_1+S_2}
 $$
 
 $$
@@ -504,19 +504,19 @@ Pulse:
 $$
 v_{\mathrm{in}}(t)=
 \begin{cases}
-1\ \mathrm V,&0\le t<RC\\
+1\,\mathrm{V},&0\le t<RC\\
 0,&\text{otherwise}
 \end{cases}
 $$
 
 $$
-E_{\mathrm{in}}=(1\ \mathrm V)^2RC<\infty
+E_{\mathrm{in}}=(1\,\mathrm{V})^2RC<\infty
 $$
 
 After $RC$:
 
 $$
-v_{\mathrm{out}}(t)=-1\ \mathrm V
+v_{\mathrm{out}}(t)=-1\,\mathrm{V}
 \Rightarrow
 E_{\mathrm{out}}=\infty
 $$

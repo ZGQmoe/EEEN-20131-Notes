@@ -296,7 +296,7 @@ For
 $$
 v_{\mathrm{in}}(t)=
 \begin{cases}
-1\ \mathrm V,&0\le t<RC\\
+1\,\mathrm{V},&0\le t<RC\\
 0,&\text{otherwise},
 \end{cases}
 $$
@@ -317,7 +317,7 @@ $$
 At switch-off:
 
 $$
-v_{\mathrm{out}}(RC)=-1\ \mathrm V.
+v_{\mathrm{out}}(RC)=-1\,\mathrm{V}.
 $$
 
 After switch-off:
@@ -325,16 +325,16 @@ After switch-off:
 $$
 \frac{dv_{\mathrm{out}}}{dt}=0
 \Rightarrow
-v_{\mathrm{out}}(t)=-1\ \mathrm V.
+v_{\mathrm{out}}(t)=-1\,\mathrm{V}.
 $$
 
 $$
-E_{\mathrm{in}}=(1\ \mathrm V)^2RC<\infty,
+E_{\mathrm{in}}=(1\,\mathrm{V})^2RC<\infty,
 $$
 
 $$
 E_{\mathrm{out}}
-\ge\int_{RC}^{\infty}(1\ \mathrm V)^2dt
+\ge\int_{RC}^{\infty}(1\,\mathrm{V})^2dt
 =\infty.
 $$
 
