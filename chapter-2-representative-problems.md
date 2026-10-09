@@ -17,7 +17,7 @@ Tests: [operations / calculus](./chapter-2-signals-and-properties.md#operations)
 Let $f(t)\ge0$ and
 
 $$
-g(T)=\int_{-T}^{T}f(t)\,dt,qquad T\ge0.
+g(T)=\int_{-T}^{T}f(t)\,dt,\qquad T\ge0.
 $$
 
 Show that $g$ is nondecreasing. Does $f(t)\ge0$ imply that $f$ is increasing?
@@ -57,7 +57,7 @@ Tests: [energy / power / RMS](./chapter-2-signals-and-properties.md#energy) · [
 Classify each signal. Find $E_\infty$, $P_\infty$, and $x_{\mathrm{RMS}}$.
 
 $$
-x_1(t)=e^{-2t}u(t),qquad
+x_1(t)=e^{-2t}u(t),\qquad
 x_2(t)=3e^{j(4t+\pi/3)}.
 $$
 
@@ -69,8 +69,8 @@ $$
 $$
 
 $$
-E_\infty=\int_0^\infty e^{-4t}dt=\frac14,qquad
-P_\infty=0,qquad
+E_\infty=\int_0^\infty e^{-4t}dt=\frac14,\qquad
+P_\infty=0,\qquad
 x_{\mathrm{RMS}}=0.
 $$
 
@@ -84,8 +84,8 @@ $$
 $$
 
 $$
-E_\infty=\infty,qquad
-P_\infty=9,qquad
+E_\infty=\infty,\qquad
+P_\infty=9,\qquad
 x_{\mathrm{RMS}}=3.
 $$
 
@@ -121,7 +121,7 @@ find the new breakpoints and describe the transform.
 Match $x(a(t-t_0))$:
 
 $$
-a=-\frac12,qquad t_0=-4.
+a=-\frac12,\qquad t_0=-4.
 $$
 
 Point map:
@@ -157,7 +157,7 @@ Tests: [complex exponential](./chapter-2-signals-and-properties.md#complex-signa
 Determine periodicity and, when it exists, $T_0$:
 
 $$
-x_1(t)=\frac12e^{1+j10t},qquad
+x_1(t)=\frac12e^{1+j10t},\qquad
 x_2(t)=\frac12e^{(1+j10)t}.
 $$
 
@@ -284,7 +284,7 @@ $$
 Level changes:
 
 $$
-t=0:+1,qquad t=1:-3,qquad t=2:+2.
+t=0:+1,\qquad t=1:-3,\qquad t=2:+2.
 $$
 
 $$
@@ -331,8 +331,8 @@ $$
 Jumps:
 
 $$
-J_{-2}=-2-0=-2,qquad
-J_0=2-0=2,qquad
+J_{-2}=-2-0=-2,\qquad
+J_0=2-0=2,\qquad
 J_2=0-0=0.
 $$
 
@@ -391,6 +391,76 @@ $$
 $$
 
 $1/|a|$ preserves unit area after horizontal scaling.
+
+</details>
+
+---
+
+<!-- AI-assisted addition: lecture quiz image supplied 2026-10-08 + user discussion. -->
+<a id="p10-window-derivative"></a>
+
+## P10 — Window Derivative
+
+Tests: [operations / calculus](./chapter-2-signals-and-properties.md#operations) · [Dirac delta](./chapter-2-signals-and-properties.md#impulse) · [piecewise derivative](./chapter-2-signals-and-properties.md#piecewise-derivative)
+
+Let
+
+$$
+x(t)=(3-t)[u(t+2)-u(t)].
+$$
+
+Find $Dx(t)$. In particular, simplify
+
+$$
+(3-t)[\delta(t+2)-\delta(t)].
+$$
+
+<details>
+<summary>Answer</summary>
+
+Product + chain rules:
+
+$$
+Dx(t)=-[u(t+2)-u(t)]
++(3-t)[\delta(t+2)-\delta(t)].
+$$
+
+Impulse locations:
+
+$$
+t+2=0\Rightarrow t=-2,
+\qquad
+t=0.
+$$
+
+Sampling:
+
+$$
+(3-t)\delta(t+2)=5\delta(t+2),
+$$
+
+$$
+-(3-t)\delta(t)=-3\delta(t).
+$$
+
+Therefore
+
+$$
+\boxed{
+Dx(t)=-[u(t+2)-u(t)]
++5\delta(t+2)-3\delta(t)
+}.
+$$
+
+Jump check:
+
+$$
+t=-2:\ 5-0=+5,
+\qquad
+t=0:\ 0-3=-3.
+$$
+
+Quiz-image warning: the coefficient of $\delta(t+2)$ is $+5$, not $-5$.
 
 </details>
 

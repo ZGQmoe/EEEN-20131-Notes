@@ -94,6 +94,14 @@ $$
 $$
 
 $$
+\frac{d}{dt}x(g(t))=x'(g(t))g'(t),
+\qquad
+\frac{d}{dt}[f(t)g(t)]=f'g+fg'
+$$
+
+Chain rule → transformed argument · product rule → signal × window.
+
+$$
 y(t)=\int_{-\infty}^{t}x(\tau)\,d\tau
 $$
 
@@ -316,7 +324,7 @@ $$
 n,&|t|\le\dfrac{1}{2n}\\
 0,&\text{otherwise}
 \end{cases}
-,qquad
+,\qquad
 \int_{-\infty}^{\infty}\delta_n(t)dt=1
 $$
 
@@ -361,6 +369,13 @@ $$
 \boxed{
 \frac{d}{dt}u(t-a)=\delta(t-a)
 }
+$$
+
+$$
+\frac{d}{dt}u(c(t-a))
+=c\delta(c(t-a))
+=\frac{c}{|c|}\delta(t-a)
+\qquad(c\ne0)
 $$
 
 ![Rectangular pulse and its derivative impulses](./images/chapter-2-step-impulse.svg)
@@ -527,6 +542,17 @@ Practice: [level-change method](./chapter-2-representative-problems.md#p7-step-c
 
 **Piecewise derivative**
 
+For differentiable $f$ and $a<b$:
+
+$$
+\boxed{
+\begin{aligned}
+\frac{d}{dt}\{f(t)[u(t-a)-u(t-b)]\}
+={}&f'(t)[u(t-a)-u(t-b)]\\
+&+f(a)\delta(t-a)-f(b)\delta(t-b)
+\end{aligned}}
+$$
+
 $$
 \boxed{
 Dx=
@@ -562,7 +588,7 @@ $$
 
 ↔ [step](#step) · [impulse](#impulse)
 
-Practice: [rectangular pulse](./chapter-2-representative-problems.md#p6-pulse-forms) · [slopes + jumps](./chapter-2-representative-problems.md#p8-piecewise-derivative)
+Practice: [rectangular pulse](./chapter-2-representative-problems.md#p6-pulse-forms) · [slopes + jumps](./chapter-2-representative-problems.md#p8-piecewise-derivative) · [window derivative quiz](./chapter-2-representative-problems.md#p10-window-derivative)
 
 **Fast checks**
 
