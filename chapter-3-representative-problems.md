@@ -294,11 +294,11 @@ $$
 For
 
 $$
-v_{\mathrm{in}}(t)=
-\begin{cases}
-1\,\mathrm{V},&0\le t<RC\\
-0,&\text{otherwise},
-\end{cases}
+v_{\mathrm{in}}(t)=1\,\mathrm{V}
+\quad(0\le t<RC),
+\qquad
+v_{\mathrm{in}}(t)=0
+\quad\text{otherwise}.
 $$
 
 with zero initial output, find $v_{\mathrm{out}}$ and test finite-energy stability.
