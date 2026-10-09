@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
+<title id="title">Ideal inverting op-amp integrator</title>
+<desc id="desc">Input passes through resistor R to the inverting node. Capacitor C feeds the output back to the inverting node. The non-inverting input is grounded.</desc>
+<defs><style>
+  .wire{stroke:#374151;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}.res{stroke:#2563EB;stroke-width:4;fill:none;stroke-linejoin:round}.cap{stroke:#EA580C;stroke-width:5}.op{stroke:#059669;stroke-width:4;fill:#ECFDF5}.node{fill:#111827}.ground{stroke:#374151;stroke-width:3}.head{font:bold 27px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#111827}.label{font:22px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#374151}.eq{font:23px Georgia,'Times New Roman',serif;fill:#111827}.note{font:19px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#6B7280}
+</style></defs>
+<rect width="1000" height="500" fill="white"/>
+<text x="55" y="48" class="head">Ideal inverting op-amp integrator</text>
+<text x="38" y="226" class="label">vᵢₙ(t)</text>
+<path d="M120 218 H185" class="wire"/>
+<path d="M185 218 l15 -14 22 28 22 -28 22 28 22 -28 22 28 15 -14" class="res"/>
+<text x="250" y="185" class="label">R</text>
+<path d="M325 218 H420" class="wire"/>
+<circle cx="380" cy="218" r="6" class="node"/>
+<path d="M420 155 L420 330 L610 242 Z" class="op"/>
+<text x="442" y="220" class="label">−</text>
+<text x="442" y="292" class="label">+</text>
+<path d="M420 285 H380 V365" class="wire"/>
+<path d="M345 365 H415 M355 376 H405 M368 387 H392" class="ground"/>
+<path d="M610 242 H720" class="wire"/>
+<circle cx="665" cy="242" r="6" class="node"/>
+<text x="650" y="205" class="label">vₒᵤₜ(t)</text>
+<path d="M380 218 V105 H475" class="wire"/>
+<line x1="475" y1="75" x2="475" y2="135" class="cap"/>
+<line x1="500" y1="75" x2="500" y2="135" class="cap"/>
+<path d="M500 105 H665 V242" class="wire"/>
+<text x="475" y="65" class="label">C</text>
+<text x="745" y="220" class="eq">dvₒᵤₜ/dt = −vᵢₙ/(RC)</text>
+<text x="745" y="265" class="note">virtual ground: v₋ = v₊ = 0</text>
+<text x="745" y="302" class="note">input current flows through C</text>
+</svg>

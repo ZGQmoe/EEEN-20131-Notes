@@ -65,15 +65,15 @@ Many-to-one → not invertible.
 
 Tests: [invertibility](./chapter-3-systems-and-properties.md#invertibility)
 
-Let
+Let the anchored integrator $I_0$ be
 
 $$
-(Ix)(t)=\int_0^t x(\tau)d\tau,
+(I_0x)(t)=\int_0^t x(\tau)d\tau,
 \qquad
 (Dx)(t)=x'(t).
 $$
 
-Find $DIx$ and $IDx$. Explain the lost information.
+Find $DI_0x$ and $I_0Dx$. Explain the lost information.
 
 <details>
 <summary>Answer</summary>
@@ -81,7 +81,7 @@ Find $DIx$ and $IDx$. Explain the lost information.
 Fundamental theorem:
 
 $$
-DIx
+DI_0x
 =\frac{d}{dt}\int_0^t x(\tau)d\tau
 =x(t).
 $$
@@ -89,7 +89,7 @@ $$
 But:
 
 $$
-IDx
+I_0Dx
 =\int_0^t x'(\tau)d\tau
 =x(t)-x(0).
 $$
@@ -106,7 +106,7 @@ x(t)=t^2+3
 t^2.
 $$
 
-$ID=P_1$ only on signals with fixed $x(0)=0$.
+$I_0D=P_1$ only on signals with fixed $x(0)=0$.
 
 </details>
 

@@ -285,10 +285,16 @@ Memory $\ne$ nonlinearity:
 **Invertibility**
 
 $$
+S^{-1}:S(\mathcal X)\to\mathcal X
+$$
+
+$$
 \boxed{
 S^{-1}S=SS^{-1}=P_1
 }
 $$
+
+$S^{-1}S=P_1$ on $\mathcal X$ · $SS^{-1}=P_1$ on $S(\mathcal X)$.
 
 $$
 S^{-1}(Sx)=x,
@@ -420,14 +426,18 @@ Practice: [backward energy](./chapter-3-representative-problems.md#p3-backward-e
 
 **Voltage divider**
 
+![Resistive voltage-divider circuit](./images/chapter-3-voltage-divider.svg)
+
 $$
 v_{\mathrm{out}}(t)
 =\frac{R_2}{R_1+R_2}v_{\mathrm{in}}(t)
 $$
 
-Gain · memoryless · linear · invertible if $R_2\ne0$ · finite-energy stable.
+Gain $k=R_2/(R_1+R_2)$ · memoryless · linear · invertible if $k\ne0$ · finite-energy stable.
 
 **RC circuit**
+
+![RC low-pass circuit with output across the capacitor](./images/chapter-3-rc-circuit.svg)
 
 $$
 E_C(t)=\frac12Cv_{\mathrm{out}}^2(t)
@@ -449,11 +459,27 @@ $$
 
 Pulse removed → exponential decay to $0$.
 
+**Ideal half-wave rectifier**
+
+![Ideal half-wave rectifier circuit](./images/chapter-3-half-wave-rectifier.svg)
+
+$$
+v_{\mathrm{out}}(t)=\max\{0,v_{\mathrm{in}}(t)\}
+$$
+
+Diode conducts for positive input · blocks negative input.
+
+Memoryless · nonlinear · noninvertible · finite-energy stable.
+
 **Rectifier + capacitor**
+
+![Rectifier with capacitor and load resistor](./images/chapter-3-rectifier-capacitor.svg)
 
 Diode switching → nonlinear · capacitor voltage → memory.
 
 **Ideal op-amp integrator**
+
+![Ideal inverting op-amp integrator](./images/chapter-3-op-amp-integrator.svg)
 
 $$
 v_-=v_+=0,
