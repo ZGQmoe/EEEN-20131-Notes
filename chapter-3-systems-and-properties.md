@@ -2,7 +2,7 @@
 
 # Chapter 3 — Systems and Properties
 
-Current scope: representation → interconnection → memory · linearity · invertibility · stability.
+Current scope: system properties · discussion through 3.5.6. Not a completion record.
 
 ---
 
@@ -28,9 +28,16 @@ flowchart TD
     CA -. physical circuit .-> LO["Loading / Buffer"]
 
     PR --> ME[Memory]
+    PR --> CU[Causality]
+    PR --> TI[Time Invariance]
     PR --> LI[Linearity]
     PR --> IN[Invertibility]
     PR --> SB[Stability]
+    ME -. memoryless implies .-> CU
+    TI --> LT[LTI]
+    LI --> LT
+    LT --> PU["Shift / Scale / Add"]
+    LI --> EU["Euler / Known Responses"]
 
     CE --> VD[Voltage Divider]
     CE --> RC[RC Circuit]
@@ -248,6 +255,89 @@ $$
 - $t>0$: reads past $-t<t$
 - overall: has memory
 
+Memoryless: present only. Memory: past **or future**.
+
+Practice: [nine systems](./chapter-3-representative-problems.md#p8-system-properties)
+
+<a id="causality"></a>
+
+**Causality**
+
+$$
+x_1(\tau)=x_2(\tau)\quad\forall\tau\le t_0
+\quad\Rightarrow\quad
+(Sx_1)(t_0)=(Sx_2)(t_0)
+$$
+
+Past + present allowed; future forbidden.
+
+$$
+\text{memoryless}\Rightarrow\text{causal},
+\qquad
+\text{noncausal}\Rightarrow\text{has memory}
+$$
+
+For $y(t)=x(g(t))$: require $g(t)\le t$ for **every** $t$ in the domain.
+
+$$
+t=-3:\quad x(t/3)=x(-1),\quad -1>-3
+\quad\Rightarrow\quad\text{noncausal}
+$$
+
+**Check negative times.** Negative time $\ne$ future; compare read time with present time.
+
+Differentiator, differentiable inputs:
+
+$$
+x'(t)=\lim_{h\to0^+}\frac{x(t)-x(t-h)}h
+$$
+
+Past-side limit → causal; current value alone does not determine slope → memory.
+
+Nearby values $\ne$ necessarily future. Causal $\ne$ perfectly physically realisable.
+
+Practice: [S8 / S9](./chapter-3-representative-problems.md#p8-system-properties) · [graph tests](./chapter-3-representative-problems.md#p13-graph-tests)
+
+<a id="time-invariance"></a>
+
+**Time Invariance**
+
+Let $z(t)=x(t-d)$:
+
+$$
+\boxed{(Sz)(t)=(Sx)(t-d)\quad\forall x,t,d}
+$$
+
+Shift input → keep system rule fixed. Compare with whole output shifted.
+
+- TI: all admissible inputs / shifts.
+- TV: one input + shift + time with unequal outputs.
+- Different read times: try $x(t)=t$; different gains: try $x(t)=1$.
+- Gate: compare conditions **and** branch formulas.
+
+$$
+y(t)=x(2t):\quad
+(Sz)(t)=x(2t-d),\qquad y(t-d)=x(2t-2d)
+$$
+
+Input shift $d$ → output shift $d/2$; TV. Constant input hides the difference.
+
+Chain rule, differentiator:
+
+$$
+\frac{d}{dt}x(t-d)
+=x'(t-d)\underbrace{\frac{d}{dt}(t-d)}_{1}
+=y(t-d)
+$$
+
+$$
+\frac{d}{dt}x(at+b)=a\,x'(at+b)
+$$
+
+Delay $\ne$ TV; future access $\ne$ TV; TI $\ne$ linearity.
+
+Practice: [S6 / S7](./chapter-3-representative-problems.md#p8-system-properties) · [two-path tests](./chapter-3-representative-problems.md#p9-linear-ti)
+
 <a id="linearity"></a>
 
 **Linearity**
@@ -267,6 +357,20 @@ S(x_1+x_2)=Sx_1+Sx_2,
 S(\alpha x)=\alpha Sx
 $$
 
+Substitute $z=\alpha x_1+\beta x_2$ → compute $Sz$ → compare with $\alpha Sx_1+\beta Sx_2$.
+
+$$
+y(t)=c(t)x(t):\quad\text{linear even when }c(t)\text{ varies}
+$$
+
+$$
+y(t)=x(t-1)x(t-2):\quad S(kx)=k^2Sx\ne kSx
+$$
+
+Linearity: input combinations, not straight-line graphs.
+
+Practice: [linear / TI independently](./chapter-3-representative-problems.md#p9-linear-ti)
+
 Fixed zero initial condition required for RC superposition.
 
 $$
@@ -279,6 +383,55 @@ Memory $\ne$ nonlinearity:
 - RC: linear · memory
 - ideal rectifier: nonlinear · memoryless
 - rectifier + capacitor: nonlinear · memory
+
+<a id="euler-responses"></a>
+
+**Euler → Known Responses**
+
+$$
+e^{\pm j\theta}=\cos\theta\pm j\sin\theta
+$$
+
+$$
+\boxed{\cos\theta=\frac{e^{j\theta}+e^{-j\theta}}2},
+\qquad
+\boxed{\sin\theta=\frac{e^{j\theta}-e^{-j\theta}}{2j}}
+$$
+
+Add → cos; subtract → sin. **Sin denominator: $2j$.**
+
+Same system, multiple experiments:
+
+$$
+Sx_1=y_1,\quad Sx_2=y_2
+\quad\Rightarrow\quad S(ax_1+bx_2)=ay_1+by_2
+$$
+
+Split input → retain coefficients → replace responses → recombine.
+
+$$
+e^{j(\omega t+\phi)}=e^{j\phi}e^{j\omega t}
+$$
+
+Phase factor: constant. Complex coefficients use complex-linearity (3.5.4).
+
+Practice: [Euler / phase](./chapter-3-representative-problems.md#p11-euler-responses)
+
+<a id="lti-building-blocks"></a>
+
+**LTI → Building Blocks**
+
+$$
+Sx=y
+\quad\Rightarrow\quad
+S\!\left[\sum_k a_kx(t-d_k)\right]=\sum_k a_ky(t-d_k)
+$$
+
+TI → horizontal shift. Linear → amplitude scale / sign / addition.
+
+**Not guaranteed:** time compression / stretching / reversal.
+
+Practice: [rectangle → triangle](./chapter-3-representative-problems.md#p12-lti-pulses)
 
 <a id="invertibility"></a>
 
@@ -305,6 +458,17 @@ $$
 $$
 (P_1x)(t)=x(t)
 $$
+
+Method: solve $y=Sx$ for $x$ → unique recovery? → verify both compositions.
+
+$$
+y(t)=x(t-d)\quad\Rightarrow\quad x(t)=y(t+d)
+$$
+
+$d>0$: inverse reads future → noncausal; no arbitrary-input real-time inverse.
+Offline processing differs; causality alone does not guarantee ideal implementation.
+
+Practice: [cascade / inverse](./chapter-3-representative-problems.md#p10-cascade-inverse)
 
 Recovery requires one-to-one mapping:
 
@@ -542,5 +706,11 @@ Practice: [op-amp integrator](./chapter-3-representative-problems.md#p6-op-amp-i
 - truncated: input permanently off after $t_0$
 - marginal: bounded; not necessarily constant
 - one counterexample defeats “for every input” stability
+- causality: entire domain, including negative $t$
+- $\sin(x(t))$: value operation; $x(\sin t)$: time selection
+- TI: shift input vs shift output; keep system rule fixed
+- graph evidence: contradiction → impossible; compatibility $\ne$ proven
+
+<!-- AI-assisted additions: causality, TI, Euler/LTI methods and practice links; full notes Ch. 3 pp. 50–60; SnS_09Oct.pdf slides 35–51; user discussion through 3.5.6. -->
 
 [Representative problems](./chapter-3-representative-problems.md)
