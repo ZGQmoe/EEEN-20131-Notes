@@ -2,7 +2,7 @@
 
 # Chapter 3 — Systems and Properties
 
-Current scope: system properties · discussion through 3.5.6. Not a completion record.
+Scope: through 3.5.6 · discussion ≠ completion / mastery
 
 ---
 
@@ -62,56 +62,56 @@ Jump: [System](#system) · [Interconnection](#interconnection) · [Properties](#
 
 ## System
 
-$$
+```math
 S:\mathcal X\to\mathcal Y,
 \qquad
 x\mapsto y=Sx
-$$
+```
 
-$$
+```math
 y(t)=(Sx)(t)
-$$
+```
 
 - $x,y$: whole signals
 - $Sx$: whole output signal
 - $(Sx)(t)$: output value at $t$
 - parameters + initial conditions: fixed parts of $S$
 
-Rule $\ne$ input $\ne$ known response pair. Multiple pairs: same $S$, different experiments.
+Rule ≠ input ≠ response pair · multiple pairs → same $S$
 
-$$
-(Sx)(t)=t\,x(t-2)\quad\Rightarrow\quad (Sz)(t)=t\,z(t-2)
-$$
+```math
+(Sx)(t)=t\thinspace x(t-2)\quad\Rightarrow\quad (Sz)(t)=t\thinspace z(t-2)
+```
 
-Replace input only; keep clock / parameters / rule fixed.
+New input · fixed $S$
 
-$$
-v(t)=t\,x(t-2)\quad\Rightarrow\quad v(t-1)=(t-1)x(t-3)
-$$
+```math
+v(t)=t\thinspace x(t-2)\quad\Rightarrow\quad v(t-1)=(t-1)x(t-3)
+```
 
-Evaluating the whole signal at a new time replaces every time argument.
+Whole-signal evaluation → all time arguments
 
 Basic systems:
 
-$$
+```math
 (Bx)(t)=x(-t)
 \qquad\text{time reversal}
-$$
+```
 
-$$
-(Ix)(t)=\int_{-\infty}^{t}x(\tau)\,d\tau
+```math
+(Ix)(t)=\int_{-\infty}^{t}x(\tau)\thinspace d\tau
 \qquad\text{integration}
-$$
+```
 
-$$
+```math
 (Dx)(t)=\frac{dx}{dt}(t)
 \qquad\text{differentiation}
-$$
+```
 
-$$
-(P_kx)(t)=kx(t)
+```math
+(P_{k}x)(t)=kx(t)
 \qquad\text{gain}
-$$
+```
 
 ---
 
@@ -121,50 +121,50 @@ $$
 
 **Cascade**
 
-$$
-v=S_1x,
+```math
+v=S_{1}x,
 \qquad
-y=S_2v
-$$
+y=S_{2}v
+```
 
-$$
-\boxed{S_{\mathrm{c}}=S_2\circ S_1}
-$$
+```math
+\boxed{S_{\mathrm{c}}=S_{2}\circ S_{1}}
+```
 
-Right first. Composition; not multiplication.
+Right first · composition ≠ multiplication
 
 **Parallel**
 
-$$
-\boxed{S_{\mathrm{p}}=S_1+S_2}
-$$
+```math
+\boxed{S_{\mathrm{p}}=S_{1}+S_{2}}
+```
 
-$$
-((S_1+S_2)x)(t)
-=(S_1x)(t)+(S_2x)(t)
-$$
+```math
+((S_{1}+S_{2})x)(t)
+=(S_{1}x)(t)+(S_{2}x)(t)
+```
 
 **Feedback**
 
-$$
-e=x+\sigma S_2y,
+```math
+e=x+\sigma S_{2}y,
 \qquad
-y=S_1e,
+y=S_{1}e,
 \qquad
-\sigma\in\{-1,+1\}
-$$
+\sigma\in\lbrace -1,+1\rbrace
+```
 
-$$
-y=S_1(x+\sigma S_2y)
-$$
+```math
+y=S_{1}(x+\sigma S_{2}y)
+```
 
 Well posed:
 
-$$
-\forall x,\ \exists!\,y
-$$
+```math
+\forall x,\ \exists!\thinspace y
+```
 
-One input → one unique output.
+Input → unique output
 
 <a id="loading"></a>
 
@@ -172,35 +172,35 @@ One input → one unique output.
 
 Isolated divider:
 
-$$
-v_1=\frac{R_2}{R_1+R_2}v_{\mathrm{in}}
-$$
+```math
+v_{1}=\frac{R_{2}}{R_{1}+R_{2}}v_{\mathrm{in}}
+```
 
 Second divider attached:
 
-$$
-R_2\longrightarrow R_2\parallel(R_3+R_4)
-$$
+```math
+R_{2}\longrightarrow R_{2}\parallel(R_{3}+R_{4})
+```
 
-$$
-v_1=
-\frac{R_2\parallel(R_3+R_4)}
-{R_1+R_2\parallel(R_3+R_4)}v_{\mathrm{in}}
-$$
+```math
+v_{1}=
+\frac{R_{2}\parallel(R_{3}+R_{4})}
+{R_{1}+R_{2}\parallel(R_{3}+R_{4})}v_{\mathrm{in}}
+```
 
-Second stage changes first → block mappings not preserved.
+Loading → changed mapping
 
 Voltage follower:
 
-$$
+```math
 R_{\mathrm{in}}\to\infty,
 \qquad
 R_{\mathrm{out}}\to0,
 \qquad
 \text{gain}=1
-$$
+```
 
-Isolation → valid cascade.
+Buffer → isolation → cascade
 
 ![Loading and buffering in a physical cascade](./images/chapter-3-loading-buffer.svg)
 
@@ -214,84 +214,83 @@ Isolation → valid cascade.
 
 **One workflow**
 
-Read rule + domain → choose probe(s) → apply unchanged $S$ → compare → state evidence.
+Rule + domain → probe → $S$ → comparison → evidence
 
-Prove: all admissible inputs. Disprove: one explicit counterexample.
-Known pairs / graphs: contradiction → impossible; otherwise **could be**, not proven.
+Proof: $\forall$ inputs · disproof: $\exists$ counterexample
+Graphs: contradiction → impossible · no contradiction → possible
 
-Four separate questions: **present? future? shift? superposition?**
+**Present · future · shift · superposition**
 
 ![Property sets: memoryless within causal; LTI is linear intersect time invariant](./images/chapter-3-property-venn.svg)
 
-Two panels, independent tests; no additional inclusion implied.
+Memoryless ⊂ causal · LTI = linear ∩ TI
 
 <a id="memory"></a>
 
 **Memory**
 
-**Ask:** current input value alone enough?
+Present only
 
-**Test:** for every admissible $x_1,x_2,t$,
+$\forall x_{1},x_{2},t$:
 
-$$
-x_1(t)=x_2(t)
+```math
+x_{1}(t)=x_{2}(t)
 \Rightarrow
-(Sx_1)(t)=(Sx_2)(t)
-$$
+(Sx_{1})(t)=(Sx_{2})(t)
+```
 
 Pointwise form:
 
-$$
+```math
 (Sx)(t)=f(t,x(t))
-$$
+```
 
 Time-independent case:
 
-$$
+```math
 (Sx)(t)=f(x(t))
-$$
+```
 
-**Disprove:** same input value at $t_0$, unequal outputs at $t_0$.
+Counterexample: same present input · different output
 
-**Trap:** using current input somewhere $\ne$ using current input only.
-Past **or future** counts as memory; fixed rule / waveform shape does not decide it.
+Present term ≠ present-only dependence
+Past / future → memory · shape ≠ test
 
 Gain:
 
-$$
-(P_kx)(t)=kx(t)
-$$
+```math
+(P_{k}x)(t)=kx(t)
+```
 
 Saturation:
 
-$$
-\mathrm{sat}_L(x)=
+```math
+\mathrm{sat}_{L}(x)=
 \begin{cases}
 -L,&x<-L\\
 x,&-L\le x\le L\\
 L,&x>L
 \end{cases}
-$$
+```
 
-Has memory: depends on $x(\tau)$ for some $\tau\ne t$.
+Memory: dependence on $x(\tau)$, $\tau\ne t$
 
-$$
+```math
 x(t-1):\text{ past memory}
 \qquad
 x(t+1):\text{ future memory}
-$$
+```
 
 Backward system:
 
-$$
+```math
 (Bx)(t)=x(-t)
-$$
+```
 
 - $t<0$: reads future $-t>t$
 - $t>0$: reads past $-t<t$
 - overall: has memory
 
-Memoryless: present only. Memory: past **or future**.
 
 Practice: [nine systems](./chapter-3-representative-problems.md#p8-system-properties)
 
@@ -299,47 +298,47 @@ Practice: [nine systems](./chapter-3-representative-problems.md#p8-system-proper
 
 **Causality**
 
-**Ask:** entire input history up to now enough?
+Past + present
 
-**Test:** for every admissible $x_1,x_2,t_0$,
+$\forall x_{1},x_{2},t_{0}$:
 
-$$
-x_1(\tau)=x_2(\tau)\quad\forall\tau\le t_0
+```math
+x_{1}(\tau)=x_{2}(\tau)\quad\forall\tau\le t_{0}
 \quad\Rightarrow\quad
-(Sx_1)(t_0)=(Sx_2)(t_0)
-$$
+(Sx_{1})(t_{0})=(Sx_{2})(t_{0})
+```
 
-Past + present allowed; future forbidden.
+Future → noncausal
 
-**Disprove:** identical histories for $\tau\le t_0$, unequal outputs at $t_0$.
+Counterexample: same history · different current output
 
-**Trap:** equal inputs at one instant is insufficient; that is the memoryless test.
-Output onset alone is not a general test (offsets / fixed initial conditions).
+Same present ≠ same history
+Onset alone ≠ causality test · offsets / initial conditions
 
-$$
+```math
 \text{memoryless}\Rightarrow\text{causal},
 \qquad
 \text{noncausal}\Rightarrow\text{has memory}
-$$
+```
 
-For unrestricted inputs $y(t)=x(g(t))$: require $g(t)\le t$ for **every** $t$ in the domain.
+Unrestricted inputs: $y(t)=x(g(t))$ · causal iff $g(t)\le t$, $\forall t$
 
-$$
+```math
 t=-3:\quad x(t/3)=x(-1),\quad -1>-3
 \quad\Rightarrow\quad\text{noncausal}
-$$
+```
 
-**Check negative times.** Negative time $\ne$ future; compare read time with present time.
+**Negative times included** · read time vs present time
 
 Differentiator, differentiable inputs:
 
-$$
+```math
 x'(t)=\lim_{h\to0^+}\frac{x(t)-x(t-h)}h
-$$
+```
 
-Past-side limit → causal; current value alone does not determine slope → memory.
+Past-side limit → causal · value ≠ slope → memory
 
-Nearby values $\ne$ necessarily future. Causal $\ne$ perfectly physically realisable.
+Nearby ≠ future · causal ≠ ideal realisation
 
 Practice: [S8 / S9](./chapter-3-representative-problems.md#p8-system-properties) · [graph tests](./chapter-3-representative-problems.md#p13-graph-tests)
 
@@ -347,50 +346,50 @@ Practice: [S8 / S9](./chapter-3-representative-problems.md#p8-system-properties)
 
 **Time Invariance**
 
-**Ask:** delayed experiment → same output, equally delayed?
+Same delay · same shape
 
-**Test:** let $z(t)=x(t-d)$, $y=Sx$; compute separately:
+$z(t)=x(t-d)$ · $y=Sx$
 
-$$
+```math
 A(t)=(Sz)(t),\qquad B(t)=y(t-d)
-$$
+```
 
-$$
+```math
 \boxed{(Sz)(t)=(Sx)(t-d)\quad\forall x,t,d}
-$$
+```
 
-Shift input → keep system rule fixed. Compare with whole output shifted.
+Input shifted → fixed $S$ · output shifted → all time arguments
 
-**Disprove:** choose $x,d,t_0$ with $A(t_0)\ne B(t_0)$.
+Counterexample: $x,d,t_{0}$ · $A(t_{0})\ne B(t_{0})$
 
-**Trap:** one passing signal does not prove TI. System delay $\ne$ test delay.
-Changing output $\ne$ changing system; explicit $t$ alone is not a proof.
+One passing probe ≠ TI · system delay ≠ test delay
+Changing output ≠ TV · explicit $t$ ≠ TV proof
 
-- Different read times: try $x(t)=t$; different gains: try $x(t)=1$.
-- Gate: compare conditions **and** branch formulas.
-- Input-controlled gate alone does not guarantee TI.
-- Branch condition: rule selection; not domain / range / codomain.
+- read times → $x(t)=t$ · gains → $x(t)=1$
+- gate → conditions + branches
+- input gate alone ≠ TI
+- branch condition ≠ domain / range / codomain
 
-$$
+```math
 y(t)=x(2t):\quad
 (Sz)(t)=x(2t-d),\qquad y(t-d)=x(2t-2d)
-$$
+```
 
-Input shift $d$ → output shift $d/2$; TV. Constant input hides the difference.
+Input shift $d$ → output shift $\frac{d}{2}$ · TV · constant probe: hidden difference
 
 Chain rule, differentiator:
 
-$$
+```math
 \frac{d}{dt}x(t-d)
 =x'(t-d)\underbrace{\frac{d}{dt}(t-d)}_{1}
 =y(t-d)
-$$
+```
 
-$$
-\frac{d}{dt}x(at+b)=a\,x'(at+b)
-$$
+```math
+\frac{d}{dt}x(at+b)=a\thinspace x'(at+b)
+```
 
-Delay $\ne$ TV; future access $\ne$ TV; TI $\ne$ linearity.
+Delay ≠ TV · future ≠ TV · TI ≠ linear
 
 Practice: [S6 / S7](./chapter-3-representative-problems.md#p8-system-properties) · [two-path tests](./chapter-3-representative-problems.md#p9-linear-ti)
 
@@ -398,52 +397,51 @@ Practice: [S6 / S7](./chapter-3-representative-problems.md#p8-system-properties)
 
 **Linearity**
 
-**Ask:** combine inputs → same combination of outputs?
+Superposition
 
-**Test:** $z=\alpha x_1+\beta x_2$; compare $Sz$ with $\alpha Sx_1+\beta Sx_2$.
+$z=\alpha x_{1}+\beta x_{2}$
 
-$$
+```math
 \boxed{
-S(\alpha x_1+\beta x_2)
-=\alpha Sx_1+\beta Sx_2
+S(\alpha x_{1}+\beta x_{2})
+=\alpha Sx_{1}+\beta Sx_{2}
 }
-$$
+```
 
 Equivalent:
 
-$$
-S(x_1+x_2)=Sx_1+Sx_2,
+```math
+S(x_{1}+x_{2})=Sx_{1}+Sx_{2},
 \qquad
 S(\alpha x)=\alpha Sx
-$$
+```
 
-**Disprove:** one failed scaling / addition test; choose inputs with relevant nonzero response.
+Counterexample: failed scaling / addition
 
-$$
+```math
 S0\ne0\Rightarrow\text{nonlinear};
-\qquad S0=0\text{ alone does not prove linearity}
-$$
+\qquad S0=0\nRightarrow\text{linear}
+```
 
-**Trap:** fixed time-dependent coefficient allowed; input-dependent gain / switching requires testing.
-Straight-line graph, memorylessness and TI are not linearity tests.
+Fixed $c(t)$ → linear gain · input-dependent gain → test
+Linearity ≠ straight graph / memoryless / TI
 
-$$
-y(t)=c(t)x(t):\quad\text{linear even when }c(t)\text{ varies}
-$$
+```math
+y(t)=c(t)x(t):\quad\text{linear}
+```
 
-$$
-y(t)=x(t-1)x(t-2):\quad S(kx)=k^2Sx\ne kSx
-$$
+```math
+y(t)=x(t-1)x(t-2):\quad S(kx)=k^{2}Sx\ne kSx
+```
 
-Linearity: input combinations, not straight-line graphs.
 
 Practice: [linear / TI independently](./chapter-3-representative-problems.md#p9-linear-ti)
 
-Fixed zero initial condition required for RC superposition.
+RC superposition: initial rest
 
-$$
+```math
 RC\frac{dv_{\mathrm{out}}}{dt}+v_{\mathrm{out}}=v_{\mathrm{in}}
-$$
+```
 
 Memory $\ne$ nonlinearity:
 
@@ -456,32 +454,32 @@ Memory $\ne$ nonlinearity:
 
 **Euler → Known Responses**
 
-$$
+```math
 e^{\pm j\theta}=\cos\theta\pm j\sin\theta
-$$
+```
 
-$$
+```math
 \boxed{\cos\theta=\frac{e^{j\theta}+e^{-j\theta}}2},
 \qquad
 \boxed{\sin\theta=\frac{e^{j\theta}-e^{-j\theta}}{2j}}
-$$
+```
 
-Add → cos; subtract → sin. **Sin denominator: $2j$.**
+Add → cos · subtract → sin · **$2j$**
 
-Same system, multiple experiments:
+Same $S$ · known pairs:
 
-$$
-Sx_1=y_1,\quad Sx_2=y_2
-\quad\Rightarrow\quad S(ax_1+bx_2)=ay_1+by_2
-$$
+```math
+Sx_{1}=y_{1},\quad Sx_{2}=y_{2}
+\quad\Rightarrow\quad S(ax_{1}+bx_{2})=ay_{1}+by_{2}
+```
 
-Split input → retain coefficients → replace responses → recombine.
+Split → coefficients → responses → recombine
 
-$$
+```math
 e^{j(\omega t+\phi)}=e^{j\phi}e^{j\omega t}
-$$
+```
 
-Phase factor: constant. Complex coefficients use complex-linearity (3.5.4).
+Phase → constant factor · complex coefficients → complex-linearity
 
 Practice: [Euler / phase](./chapter-3-representative-problems.md#p11-euler-responses)
 
@@ -489,13 +487,13 @@ Practice: [Euler / phase](./chapter-3-representative-problems.md#p11-euler-respo
 
 **LTI → Building Blocks**
 
-$$
+```math
 Sx=y
 \quad\Rightarrow\quad
-S\!\left[\sum_k a_kx(t-d_k)\right]=\sum_k a_ky(t-d_k)
-$$
+S\negthinspace \left[\sum_{k} a_{k}x(t-d_{k})\right]=\sum_{k} a_{k}y(t-d_{k})
+```
 
-TI → horizontal shift. Linear → amplitude scale / sign / addition.
+TI → shift · linear → amplitude / sign / sum
 
 **Not guaranteed:** time compression / stretching / reversal.
 
@@ -505,81 +503,81 @@ Practice: [rectangle → triangle](./chapter-3-representative-problems.md#p12-lt
 
 **Invertibility**
 
-$$
+```math
 S^{-1}:S(\mathcal X)\to\mathcal X
-$$
+```
 
-$$
+```math
 \boxed{
-S^{-1}S=SS^{-1}=P_1
+S^{-1}S=SS^{-1}=P_{1}
 }
-$$
+```
 
-$S^{-1}S=P_1$ on $\mathcal X$ · $SS^{-1}=P_1$ on $S(\mathcal X)$.
+$S^{-1}S=P_{1}$ on $\mathcal X$ · $SS^{-1}=P_{1}$ on $S(\mathcal X)$.
 
-$$
+```math
 S^{-1}(Sx)=x,
 \qquad
 S(S^{-1}y)=y
-$$
+```
 
-$$
-(P_1x)(t)=x(t)
-$$
+```math
+(P_{1}x)(t)=x(t)
+```
 
-Method: solve $y=Sx$ for $x$ → unique recovery? → verify both compositions.
+Solve → uniqueness → both compositions
 
-$$
+```math
 y(t)=x(t-d)\quad\Rightarrow\quad x(t)=y(t+d)
-$$
+```
 
-$d>0$: inverse reads future → noncausal; no arbitrary-input real-time inverse.
-Offline processing differs; causality alone does not guarantee ideal implementation.
+$d>0$: advance → noncausal → no real-time inverse
+Offline ≠ real-time · causal ≠ ideal implementation
 
 Practice: [cascade / inverse](./chapter-3-representative-problems.md#p10-cascade-inverse)
 
-Recovery requires one-to-one mapping:
+One-to-one:
 
-$$
-x_1\ne x_2
+```math
+x_{1}\ne x_{2}
 \quad\text{but}\quad
-Sx_1=Sx_2
+Sx_{1}=Sx_{2}
 \Rightarrow
 \text{not invertible}
-$$
+```
 
 Gain:
 
-$$
-P_k^{-1}=P_{1/k},
+```math
+P_{k}^{-1}=P_{1/k},
 \qquad k\ne0
-$$
+```
 
-$$
-P_0x=0\quad\forall x
+```math
+P_{0}x=0\quad\forall x
 \Rightarrow
 \text{information lost}
-$$
+```
 
 Half-wave rectifier:
 
-$$
-(Sx)(t)=\max\{0,x(t)\}
-$$
+```math
+(Sx)(t)=\max\lbrace 0,x(t)\rbrace
+```
 
-All negative values $\mapsto0$ → not invertible.
+Negative values → $0$ → information loss
 
 Integrator / differentiator:
 
-$$
-DI=P_1
-$$
+```math
+DI=P_{1}
+```
 
-$$
+```math
 IDx=x-x(-\infty)
-$$
+```
 
-$ID=P_1$ only with fixed $x(-\infty)=0$.
+$ID=P_{1}$: $x(-\infty)=0$
 
 Practice: [information loss](./chapter-3-representative-problems.md#p1-invertibility) · [integration / differentiation](./chapter-3-representative-problems.md#p2-integration-differentiation)
 
@@ -587,51 +585,51 @@ Practice: [information loss](./chapter-3-representative-problems.md#p1-invertibi
 
 **Finite-energy input-output stability**
 
-$$
-E_x=\int_{-\infty}^{\infty}|x(t)|^2dt
-$$
+```math
+E_{x}=\int_{-\infty}^{\infty}|x(t)|^{2}dt
+```
 
-$$
+```math
 \boxed{
-E_x<\infty
+E_{x}<\infty
 \Rightarrow
 E_{Sx}<\infty
 }
-$$
+```
 
-Not required: $E_{Sx}<E_x$ · $y(t)\to$ constant · bounded amplitude alone.
+Not required: $E_{Sx}<E_{x}$ · $y(t)\to$ constant · bounded amplitude alone.
 
 Backward system:
 
-$$
+```math
 \begin{aligned}
 E_{Bx}
-&=\int_{-\infty}^{\infty}|x(-t)|^2dt\\
-&=\int_{-\infty}^{\infty}|x(\tau)|^2d\tau\\
-&=E_x
+&=\int_{-\infty}^{\infty}|x(-t)|^{2}dt\\
+&=\int_{-\infty}^{\infty}|x(\tau)|^{2}d\tau\\
+&=E_{x}
 \end{aligned}
-$$
+```
 
-Time reversal preserves area; not amplitude negation.
+Time reversal → same energy · reversal ≠ amplitude negation
 
 Rectifier:
 
-$$
-|Sx(t)|^2\le|x(t)|^2
+```math
+|Sx(t)|^{2}\le|x(t)|^{2}
 \Rightarrow
-E_{Sx}\le E_x
-$$
+E_{Sx}\le E_{x}
+```
 
 **After switch-off**
 
 Truncated input:
 
-$$
-\exists t_0:\quad x(t)=0,
-\qquad \forall t>t_0
-$$
+```math
+\exists t_{0}:\quad x(t)=0,
+\qquad \forall t>t_{0}
+```
 
-$$
+```math
 \begin{aligned}
 y(t)\to0
 &\quad\text{stable}\\
@@ -640,13 +638,13 @@ y(t)\not\to0,\ |y(t)|\le M\text{ eventually}
 |y(t)|\text{ unbounded}
 &\quad\text{unstable}
 \end{aligned}
-$$
+```
 
-Marginal: constant or bounded oscillation; convergence not required.
+Marginal: constant / bounded oscillation
 
 ![Stable, marginally stable, and unstable responses after switch-off](./images/chapter-3-stability-after-switch-off.svg)
 
-Two definitions: different tests; not equivalent in general.
+Energy stability ≠ switch-off stability
 
 Practice: [backward energy](./chapter-3-representative-problems.md#p3-backward-energy) · [marginal integrator](./chapter-3-representative-problems.md#p4-marginal-integrator) · [unstable modified integrator](./chapter-3-representative-problems.md#p5-modified-integrator)
 
@@ -660,46 +658,46 @@ Practice: [backward energy](./chapter-3-representative-problems.md#p3-backward-e
 
 ![Resistive voltage-divider circuit](./images/chapter-3-voltage-divider.svg)
 
-$$
+```math
 v_{\mathrm{out}}(t)
-=\frac{R_2}{R_1+R_2}v_{\mathrm{in}}(t)
-$$
+=\frac{R_{2}}{R_{1}+R_{2}}v_{\mathrm{in}}(t)
+```
 
-Gain $k=R_2/(R_1+R_2)$ · memoryless · linear · invertible if $k\ne0$ · finite-energy stable.
+$k=\frac{R_{2}}{R_{1}+R_{2}}$ · memoryless · linear · $k\ne0$: invertible · finite-energy stable
 
 **RC circuit**
 
 ![RC low-pass circuit with output across the capacitor](./images/chapter-3-rc-circuit.svg)
 
-$$
-E_C(t)=\frac12Cv_{\mathrm{out}}^2(t)
-$$
+```math
+E_{C}(t)=\frac{1}{2}Cv_{\mathrm{out}}^{2}(t)
+```
 
-Stored voltage → past information → memory.
+Stored voltage → memory
 
-Unit step, initially discharged:
+Unit step · initial rest · $t\ge0$:
 
-$$
+```math
 v_{\mathrm{out}}(t)=1-e^{-t/(RC)},
 \qquad
 \tau=RC
-$$
+```
 
-$$
+```math
 v_{\mathrm{out}}(\tau)=1-e^{-1}\approx0.632
-$$
+```
 
-Pulse removed → exponential decay to $0$.
+Switch-off → decay → $0$
 
 **Ideal half-wave rectifier**
 
 ![Ideal half-wave rectifier circuit](./images/chapter-3-half-wave-rectifier.svg)
 
-$$
-v_{\mathrm{out}}(t)=\max\{0,v_{\mathrm{in}}(t)\}
-$$
+```math
+v_{\mathrm{out}}(t)=\max\lbrace 0,v_{\mathrm{in}}(t)\rbrace
+```
 
-Diode conducts for positive input · blocks negative input.
+Positive → conduct · negative → block
 
 Memoryless · nonlinear · noninvertible · finite-energy stable.
 
@@ -713,45 +711,45 @@ Diode switching → nonlinear · capacitor voltage → memory.
 
 ![Ideal inverting op-amp integrator](./images/chapter-3-op-amp-integrator.svg)
 
-$$
+```math
 v_-=v_+=0,
 \qquad
 i_-=0
-$$
+```
 
-$$
+```math
 \frac{v_{\mathrm{in}}(t)}{R}
 =-C\frac{dv_{\mathrm{out}}}{dt}
-$$
+```
 
-$$
+```math
 \boxed{
 v_{\mathrm{out}}(t)
-=-\frac1{RC}\int_{-\infty}^{t}v_{\mathrm{in}}(\tau)d\tau
+=-\frac{1}{RC}\int_{-\infty}^{t}v_{\mathrm{in}}(\tau)d\tau
 }
-$$
+```
 
 Pulse:
 
-$$
-v_{\mathrm{in}}(t)=1\,\mathrm{V}
+```math
+v_{\mathrm{in}}(t)=1\thinspace \mathrm{V}
 \quad(0\le t<RC),
 \qquad
 v_{\mathrm{in}}(t)=0
 \quad\text{otherwise}
-$$
+```
 
-$$
-E_{\mathrm{in}}=(1\,\mathrm{V})^2RC<\infty
-$$
+```math
+E_{\mathrm{in}}=(1\thinspace \mathrm{V})^{2}RC<\infty
+```
 
 After $RC$:
 
-$$
-v_{\mathrm{out}}(t)=-1\,\mathrm{V}
+```math
+v_{\mathrm{out}}(t)=-1\thinspace \mathrm{V}
 \Rightarrow
 E_{\mathrm{out}}=\infty
-$$
+```
 
 Finite-energy unstable · truncated-input marginally stable.
 
@@ -763,7 +761,7 @@ Practice: [op-amp integrator](./chapter-3-representative-problems.md#p6-op-amp-i
 
 ## Fast Checks
 
-- $S_2S_1$: $S_1$ first
+- $S_{2}S_{1}$: $S_{1}$ first
 - block cascade $\ne$ automatic physical cascade
 - capacitor / inductor → likely memory
 - diode switching → likely nonlinear
@@ -771,9 +769,9 @@ Practice: [op-amp integrator](./chapter-3-representative-problems.md#p6-op-amp-i
 - $k=0$: many inputs → zero
 - $D(Ix)=x$; $I(Dx)=x-$ initial value
 - finite energy $\ne$ bounded amplitude
-- truncated: input permanently off after $t_0$
+- truncated: input permanently off after $t_{0}$
 - marginal: bounded; not necessarily constant
-- one counterexample defeats “for every input” stability
+- $\exists$ finite-energy counterexample → unstable
 - causality: entire domain, including negative $t$
 - $\sin(x(t))$: value operation; $x(\sin t)$: time selection
 - TI: shift input vs shift output; keep system rule fixed

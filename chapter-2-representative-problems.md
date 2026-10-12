@@ -4,7 +4,7 @@
 
 [Concept map](./chapter-2-signals-and-properties.md#map) · selected D0/D+1/D+3 redo set
 
-Advanced Problems excluded. This file is not a completion record.
+Selected examples · advanced still in scope · not a completion record
 
 ---
 
@@ -16,33 +16,26 @@ Tests: [operations / calculus](./chapter-2-signals-and-properties.md#operations)
 
 Let $f(t)\ge0$ and
 
-$$
-g(T)=\int_{-T}^{T}f(t)\,dt,\qquad T\ge0.
-$$
+```math
+g(T)=\int_{-T}^{T}f(t)\thinspace dt,\qquad T\ge0.
+```
 
-Show that $g$ is nondecreasing. Does $f(t)\ge0$ imply that $f$ is increasing?
+$g$: monotonicity? · $f$: monotonicity?
 
 <details>
 <summary>Answer</summary>
 
-For $T_1\ge T_2\ge0$,
+For $T_{1}\ge T_{2}\ge0$,
 
-$$
-g(T_1)-g(T_2)
-=\int_{-T_1}^{-T_2}f(t)\,dt
-+\int_{T_2}^{T_1}f(t)\,dt
-\ge0.
-$$
+$\displaystyle g(T_{1})-g(T_{2}) =\int_{-T_{1}}^{-T_{2}}f(t)\thinspace dt +\int_{T_{2}}^{T_{1}}f(t)\thinspace dt \ge0.$
 
-Hence $g(T_1)\ge g(T_2)$.
+$g(T_{1})\ge g(T_{2})$
 
 If differentiable:
 
-$$
-g'(T)=f(T)+f(-T)\ge0.
-$$
+$\displaystyle g'(T)=f(T)+f(-T)\ge0.$
 
-$f\ge0$ says values are nonnegative, not that they rise. Example: $f(t)=t^2+3$ decreases for $t<0$ and increases for $t>0$.
+$f\ge0$ ≠ increasing · $f=t^{2}+3$: decreasing for $t<0$
 
 </details>
 
@@ -54,40 +47,27 @@ $f\ge0$ says values are nonnegative, not that they rise. Example: $f(t)=t^2+3$ d
 
 Tests: [energy / power / RMS](./chapter-2-signals-and-properties.md#energy) · [complex modulus](./chapter-2-signals-and-properties.md#complex-number)
 
-Classify each signal. Find $E_\infty$, $P_\infty$, and $x_{\mathrm{RMS}}$.
+Class · $E_\infty$ · $P_\infty$ · $x_{\mathrm{RMS}}$
 
-$$
-x_1(t)=e^{-2t}u(t),\qquad
-x_2(t)=3e^{j(4t+\pi/3)}.
-$$
+```math
+x_{1}(t)=e^{-2t}u(t),\qquad
+x_{2}(t)=3e^{j(4t+\pi/3)}.
+```
 
 <details>
 <summary>Answer</summary>
 
-$$
-|x_1(t)|^2=e^{-4t}u(t)
-$$
+$\displaystyle |x_{1}(t)|^{2}=e^{-4t}u(t)$
 
-$$
-E_\infty=\int_0^\infty e^{-4t}dt=\frac14,\qquad
-P_\infty=0,\qquad
-x_{\mathrm{RMS}}=0.
-$$
+$\displaystyle E_\infty=\int_{0}^\infty e^{-4t}dt=\frac{1}{4},\qquad P_\infty=0,\qquad x_{\mathrm{RMS}}=0.$
 
 Finite-energy signal.
 
-For $x_2$:
+For $x_{2}$:
 
-$$
-|x_2|^2=x_2x_2^*
-=9e^{j(4t+\pi/3)}e^{-j(4t+\pi/3)}=9.
-$$
+$\displaystyle |x_{2}|^{2}=x_{2}x_{2}^{\ast} =9e^{j(4t+\pi/3)}e^{-j(4t+\pi/3)}=9.$
 
-$$
-E_\infty=\infty,\qquad
-P_\infty=9,\qquad
-x_{\mathrm{RMS}}=3.
-$$
+$\displaystyle E_\infty=\infty,\qquad P_\infty=9,\qquad x_{\mathrm{RMS}}=3.$
 
 Power signal.
 
@@ -103,46 +83,36 @@ Tests: [time transform](./chapter-2-signals-and-properties.md#time-transform)
 
 $x(t)$ has breakpoints
 
-$$
-\tau\in\{-2,-1,0,1,2\}.
-$$
+```math
+\tau\in\lbrace -2,-1,0,1,2\rbrace .
+```
 
 For
 
-$$
-y(t)=x\!\left[-\frac12(t+4)\right],
-$$
+```math
+y(t)=x\negthinspace \left[-\frac{1}{2}(t+4)\right],
+```
 
-find the new breakpoints and describe the transform.
+New breakpoints · transform
 
 <details>
 <summary>Answer</summary>
 
-Match $x(a(t-t_0))$:
+Match $x(a(t-t_{0}))$:
 
-$$
-a=-\frac12,\qquad t_0=-4.
-$$
+$\displaystyle a=-\frac{1}{2},\qquad t_{0}=-4.$
 
 Point map:
 
-$$
-t=t_0+\frac{\tau}{a}=-4-2\tau.
-$$
+$\displaystyle t=t_{0}+\frac{\tau}{a}=-4-2\tau.$
 
-$$
-\{-2,-1,0,1,2\}
-\mapsto
-\{0,-2,-4,-6,-8\}.
-$$
+$\displaystyle \lbrace -2,-1,0,1,2\rbrace  \mapsto \lbrace 0,-2,-4,-6,-8\rbrace .$
 
 Sorted:
 
-$$
-\boxed{\{-8,-6,-4,-2,0\}}.
-$$
+$\displaystyle \boxed{\lbrace -8,-6,-4,-2,0\rbrace }.$
 
-$a<0$: reversal. $|a|=1/2$: horizontal expansion by $2$. $t_0=-4$: left shift by $4$.
+$a<0$: reversal · $|a|=\frac{1}{2}$: width ×2 · $t_{0}=-4$: left 4
 
 </details>
 
@@ -154,29 +124,23 @@ $a<0$: reversal. $|a|=1/2$: horizontal expansion by $2$. $t_0=-4$: left shift by
 
 Tests: [complex exponential](./chapter-2-signals-and-properties.md#complex-signal) · [periodicity](./chapter-2-signals-and-properties.md#complex-periodicity)
 
-Determine periodicity and, when it exists, $T_0$:
+Determine periodicity and, when it exists, $T_{0}$:
 
-$$
-x_1(t)=\frac12e^{1+j10t},\qquad
-x_2(t)=\frac12e^{(1+j10)t}.
-$$
+```math
+x_{1}(t)=\frac{1}{2}e^{1+j10t},\qquad
+x_{2}(t)=\frac{1}{2}e^{(1+j10)t}.
+```
 
 <details>
 <summary>Answer</summary>
 
-$$
-x_1(t)=\frac e2e^{j10t}
-$$
+$\displaystyle x_{1}(t)=\frac e2e^{j10t}$
 
 Constant magnitude; periodic:
 
-$$
-\boxed{T_0=\frac{2\pi}{10}=\frac\pi5}.
-$$
+$\displaystyle \boxed{T_{0}=\frac{2\pi}{10}=\frac{\pi}{5}}.$
 
-$$
-x_2(t)=\frac12e^t e^{j10t}
-$$
+$\displaystyle x_{2}(t)=\frac{1}{2}e^{t} e^{j10t}$
 
 $\sigma=1$: magnitude changes with $t$; not periodic.
 
@@ -194,31 +158,20 @@ Tests: [impulse](./chapter-2-signals-and-properties.md#impulse) · [energy](./ch
 
 Let
 
-$$
+```math
 x(t)=\delta(t+2)-\delta(t-2),
 \qquad
-y(t)=\int_{-\infty}^{t}x(\tau)\,d\tau.
-$$
+y(t)=\int_{-\infty}^{t}x(\tau)\thinspace d\tau.
+```
 
-Find $y(t)$ and $E_y$.
+$y(t)$ · $E_{y}$
 
 <details>
 <summary>Answer</summary>
 
-$$
-y(t)=u(t+2)-u(t-2)
-=
-\begin{cases}
-1,&-2\le t<2\quad\text{(endpoint convention)}\\
-0,&\text{elsewhere}
-\end{cases}
-$$
+$\displaystyle y(t)=u(t+2)-u(t-2) = \begin{cases} 1,&-2\le t<2\quad\text{(endpoint convention)}\\ 0,&\text{elsewhere} \end{cases}$
 
-$$
-E_y=\int_{-\infty}^{\infty}|y(t)|^2dt
-=\int_{-2}^{2}1\,dt
-=\boxed4.
-$$
+$\displaystyle E_{y}=\int_{-\infty}^{\infty}|y(t)|^{2}dt =\int_{-2}^{2}1\thinspace dt =\boxed4.$
 
 </details>
 
@@ -239,22 +192,15 @@ For $a<b$, express a unit-height pulse between $a$ and $b$ using:
 <details>
 <summary>Answer</summary>
 
-$$
-p(t)=u(t-a)-u(t-b)
-$$
+$\displaystyle p(t)=u(t-a)-u(t-b)$
 
-$$
-p(t)=u(t-a)u(b-t)
-\qquad\text{a.e.}
-$$
+$\displaystyle p(t)=u(t-a)u(b-t) \qquad\text{a.e.}$
 
-The two forms may differ at one endpoint, depending on $u(0)$; ordinary integrals are unchanged.
+Endpoint: $u(0)$ · same ordinary integrals
 
-$$
-Dp(t)=\delta(t-a)-\delta(t-b).
-$$
+$\displaystyle Dp(t)=\delta(t-a)-\delta(t-b).$
 
-Open at $a$: $+1$. Close at $b$: $-1$.
+Open $a$: $+1$ · close $b$: $-1$
 
 </details>
 
@@ -268,7 +214,7 @@ Tests: [step construction](./chapter-2-signals-and-properties.md#step-constructi
 
 Write in step form, then differentiate:
 
-$$
+```math
 x(t)=
 \begin{cases}
 0,&t<0\\
@@ -276,24 +222,18 @@ x(t)=
 -2,&1\le t<2\\
 0,&t\ge2.
 \end{cases}
-$$
+```
 
 <details>
 <summary>Answer</summary>
 
 Level changes:
 
-$$
-t=0:+1,\qquad t=1:-3,\qquad t=2:+2.
-$$
+$\displaystyle t=0:+1,\qquad t=1:-3,\qquad t=2:+2.$
 
-$$
-\boxed{x(t)=u(t)-3u(t-1)+2u(t-2)}
-$$
+$\displaystyle \boxed{x(t)=u(t)-3u(t-1)+2u(t-2)}$
 
-$$
-\boxed{Dx(t)=\delta(t)-3\delta(t-1)+2\delta(t-2)}
-$$
+$\displaystyle \boxed{Dx(t)=\delta(t)-3\delta(t-1)+2\delta(t-2)}$
 
 Coefficient = new level $-$ old level.
 
@@ -309,7 +249,7 @@ Tests: [piecewise derivative](./chapter-2-signals-and-properties.md#piecewise-de
 
 Find the generalized derivative:
 
-$$
+```math
 x(t)=
 \begin{cases}
 0,&t<-2\\
@@ -317,35 +257,24 @@ t,&-2\le t<0\\
 2-t,&0\le t<2\\
 0,&t\ge2.
 \end{cases}
-$$
+```
 
 <details>
 <summary>Answer</summary>
 
 Ordinary slopes:
 
-$$
-u(t+2)-2u(t)+u(t-2).
-$$
+$\displaystyle u(t+2)-2u(t)+u(t-2).$
 
 Jumps:
 
-$$
-J_{-2}=-2-0=-2,\qquad
-J_0=2-0=2,\qquad
-J_2=0-0=0.
-$$
+$\displaystyle J_{-2}=-2-0=-2,\qquad J_{0}=2-0=2,\qquad J_{2}=0-0=0.$
 
 Therefore
 
-$$
-\boxed{
-Dx(t)=u(t+2)-2u(t)+u(t-2)
--2\delta(t+2)+2\delta(t)
-}.
-$$
+$\displaystyle \boxed{ Dx(t)=u(t+2)-2u(t)+u(t-2) -2\delta(t+2)+2\delta(t) }.$
 
-Corner at $t=2$: slope changes; no jump in $x$; no impulse in $Dx$.
+$t=2$: corner · no jump → no impulse
 
 </details>
 
@@ -359,38 +288,30 @@ Tests: [Dirac delta](./chapter-2-signals-and-properties.md#impulse)
 
 Simplify:
 
-$$
-y(t)=(t^2+1)[\delta(t-3)+\delta(t+1)]
-$$
+```math
+y(t)=(t^{2}+1)[\delta(t-3)+\delta(t+1)]
+```
 
-$$
+```math
 z(t)=\delta(2t-4).
-$$
+```
 
 <details>
 <summary>Answer</summary>
 
 Sampling:
 
-$$
-f(t)\delta(t-a)=f(a)\delta(t-a).
-$$
+$\displaystyle f(t)\delta(t-a)=f(a)\delta(t-a).$
 
-$$
-\boxed{y(t)=10\delta(t-3)+2\delta(t+1)}.
-$$
+$\displaystyle \boxed{y(t)=10\delta(t-3)+2\delta(t+1)}.$
 
 Scaling:
 
-$$
-\delta(a(t-t_0))=\frac1{|a|}\delta(t-t_0).
-$$
+$\displaystyle \delta(a(t-t_{0}))=\frac{1}{|a|}\delta(t-t_{0}).$
 
-$$
-\boxed{z(t)=\frac12\delta(t-2)}.
-$$
+$\displaystyle \boxed{z(t)=\frac{1}{2}\delta(t-2)}.$
 
-$1/|a|$ preserves unit area after horizontal scaling.
+$\frac{1}{|a|}$: unit area
 
 </details>
 
@@ -405,62 +326,42 @@ Tests: [operations / calculus](./chapter-2-signals-and-properties.md#operations)
 
 Let
 
-$$
+```math
 x(t)=(3-t)[u(t+2)-u(t)].
-$$
+```
 
 Find $Dx(t)$. In particular, simplify
 
-$$
+```math
 (3-t)[\delta(t+2)-\delta(t)].
-$$
+```
 
 <details>
 <summary>Answer</summary>
 
 Product + chain rules:
 
-$$
-Dx(t)=-[u(t+2)-u(t)]
-+(3-t)[\delta(t+2)-\delta(t)].
-$$
+$\displaystyle Dx(t)=-[u(t+2)-u(t)] +(3-t)[\delta(t+2)-\delta(t)].$
 
 Impulse locations:
 
-$$
-t+2=0\Rightarrow t=-2,
-\qquad
-t=0.
-$$
+$\displaystyle t+2=0\Rightarrow t=-2, \qquad t=0.$
 
 Sampling:
 
-$$
-(3-t)\delta(t+2)=5\delta(t+2),
-$$
+$\displaystyle (3-t)\delta(t+2)=5\delta(t+2),$
 
-$$
--(3-t)\delta(t)=-3\delta(t).
-$$
+$\displaystyle -(3-t)\delta(t)=-3\delta(t).$
 
 Therefore
 
-$$
-\boxed{
-Dx(t)=-[u(t+2)-u(t)]
-+5\delta(t+2)-3\delta(t)
-}.
-$$
+$\displaystyle \boxed{ Dx(t)=-[u(t+2)-u(t)] +5\delta(t+2)-3\delta(t) }.$
 
 Jump check:
 
-$$
-t=-2:\ 5-0=+5,
-\qquad
-t=0:\ 0-3=-3.
-$$
+$\displaystyle t=-2:\ 5-0=+5, \qquad t=0:\ 0-3=-3.$
 
-Quiz-image warning: the coefficient of $\delta(t+2)$ is $+5$, not $-5$.
+Quiz correction: $\delta(t+2)$ coefficient $+5$
 
 </details>
 
