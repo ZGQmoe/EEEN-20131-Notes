@@ -77,6 +77,20 @@ $$
 - $(Sx)(t)$: output value at $t$
 - parameters + initial conditions: fixed parts of $S$
 
+Rule $\ne$ input $\ne$ known response pair. Multiple pairs: same $S$, different experiments.
+
+$$
+(Sx)(t)=t\,x(t-2)\quad\Rightarrow\quad (Sz)(t)=t\,z(t-2)
+$$
+
+Replace input only; keep clock / parameters / rule fixed.
+
+$$
+v(t)=t\,x(t-2)\quad\Rightarrow\quad v(t-1)=(t-1)x(t-3)
+$$
+
+Evaluating the whole signal at a new time replaces every time argument.
+
 Basic systems:
 
 $$
@@ -196,11 +210,28 @@ Isolation → valid cascade.
 
 ## Properties
 
+<a id="property-method"></a>
+
+**One workflow**
+
+Read rule + domain → choose probe(s) → apply unchanged $S$ → compare → state evidence.
+
+Prove: all admissible inputs. Disprove: one explicit counterexample.
+Known pairs / graphs: contradiction → impossible; otherwise **could be**, not proven.
+
+Four separate questions: **present? future? shift? superposition?**
+
+![Property sets: memoryless within causal; LTI is linear intersect time invariant](./images/chapter-3-property-venn.svg)
+
+Two panels, independent tests; no additional inclusion implied.
+
 <a id="memory"></a>
 
 **Memory**
 
-Memoryless:
+**Ask:** current input value alone enough?
+
+**Test:** for every admissible $x_1,x_2,t$,
 
 $$
 x_1(t)=x_2(t)
@@ -219,6 +250,11 @@ Time-independent case:
 $$
 (Sx)(t)=f(x(t))
 $$
+
+**Disprove:** same input value at $t_0$, unequal outputs at $t_0$.
+
+**Trap:** using current input somewhere $\ne$ using current input only.
+Past **or future** counts as memory; fixed rule / waveform shape does not decide it.
 
 Gain:
 
@@ -263,6 +299,10 @@ Practice: [nine systems](./chapter-3-representative-problems.md#p8-system-proper
 
 **Causality**
 
+**Ask:** entire input history up to now enough?
+
+**Test:** for every admissible $x_1,x_2,t_0$,
+
 $$
 x_1(\tau)=x_2(\tau)\quad\forall\tau\le t_0
 \quad\Rightarrow\quad
@@ -271,13 +311,18 @@ $$
 
 Past + present allowed; future forbidden.
 
+**Disprove:** identical histories for $\tau\le t_0$, unequal outputs at $t_0$.
+
+**Trap:** equal inputs at one instant is insufficient; that is the memoryless test.
+Output onset alone is not a general test (offsets / fixed initial conditions).
+
 $$
 \text{memoryless}\Rightarrow\text{causal},
 \qquad
 \text{noncausal}\Rightarrow\text{has memory}
 $$
 
-For $y(t)=x(g(t))$: require $g(t)\le t$ for **every** $t$ in the domain.
+For unrestricted inputs $y(t)=x(g(t))$: require $g(t)\le t$ for **every** $t$ in the domain.
 
 $$
 t=-3:\quad x(t/3)=x(-1),\quad -1>-3
@@ -302,7 +347,13 @@ Practice: [S8 / S9](./chapter-3-representative-problems.md#p8-system-properties)
 
 **Time Invariance**
 
-Let $z(t)=x(t-d)$:
+**Ask:** delayed experiment → same output, equally delayed?
+
+**Test:** let $z(t)=x(t-d)$, $y=Sx$; compute separately:
+
+$$
+A(t)=(Sz)(t),\qquad B(t)=y(t-d)
+$$
 
 $$
 \boxed{(Sz)(t)=(Sx)(t-d)\quad\forall x,t,d}
@@ -310,10 +361,15 @@ $$
 
 Shift input → keep system rule fixed. Compare with whole output shifted.
 
-- TI: all admissible inputs / shifts.
-- TV: one input + shift + time with unequal outputs.
+**Disprove:** choose $x,d,t_0$ with $A(t_0)\ne B(t_0)$.
+
+**Trap:** one passing signal does not prove TI. System delay $\ne$ test delay.
+Changing output $\ne$ changing system; explicit $t$ alone is not a proof.
+
 - Different read times: try $x(t)=t$; different gains: try $x(t)=1$.
 - Gate: compare conditions **and** branch formulas.
+- Input-controlled gate alone does not guarantee TI.
+- Branch condition: rule selection; not domain / range / codomain.
 
 $$
 y(t)=x(2t):\quad
@@ -342,6 +398,10 @@ Practice: [S6 / S7](./chapter-3-representative-problems.md#p8-system-properties)
 
 **Linearity**
 
+**Ask:** combine inputs → same combination of outputs?
+
+**Test:** $z=\alpha x_1+\beta x_2$; compare $Sz$ with $\alpha Sx_1+\beta Sx_2$.
+
 $$
 \boxed{
 S(\alpha x_1+\beta x_2)
@@ -357,7 +417,15 @@ S(x_1+x_2)=Sx_1+Sx_2,
 S(\alpha x)=\alpha Sx
 $$
 
-Substitute $z=\alpha x_1+\beta x_2$ → compute $Sz$ → compare with $\alpha Sx_1+\beta Sx_2$.
+**Disprove:** one failed scaling / addition test; choose inputs with relevant nonzero response.
+
+$$
+S0\ne0\Rightarrow\text{nonlinear};
+\qquad S0=0\text{ alone does not prove linearity}
+$$
+
+**Trap:** fixed time-dependent coefficient allowed; input-dependent gain / switching requires testing.
+Straight-line graph, memorylessness and TI are not linearity tests.
 
 $$
 y(t)=c(t)x(t):\quad\text{linear even when }c(t)\text{ varies}
@@ -712,5 +780,7 @@ Practice: [op-amp integrator](./chapter-3-representative-problems.md#p6-op-amp-i
 - graph evidence: contradiction → impossible; compatibility $\ne$ proven
 
 <!-- AI-assisted additions: causality, TI, Euler/LTI methods and practice links; full notes Ch. 3 pp. 50–60; SnS_09Oct.pdf slides 35–51; user discussion through 3.5.6. -->
+
+<!-- AI-assisted revision: unified four-property reasoning and diagram, based on recurring substitution / quantifier / evidence confusions; not a mastery assessment. -->
 
 [Representative problems](./chapter-3-representative-problems.md)

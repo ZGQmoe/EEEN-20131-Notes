@@ -292,6 +292,9 @@ Tests: [memory](./chapter-3-systems-and-properties.md#memory) · [causality](./c
 
 Classify all nine; justify each property. Time domain: $\mathbb R$.
 
+Method: [four property tests](./chapter-3-systems-and-properties.md#property-method).
+Recall target: negative-time causality; S6/S7 gate distinction; S9 past-side limit + chain rule.
+
 <details>
 <summary>Answer / traps</summary>
 
@@ -332,6 +335,12 @@ $\displaystyle S_5x(t)=\int_{-\infty}^{2t}x(\tau)d\tau=(Ix)(2t)$
 Memory · noncausal · TV · linear.
 
 $t=3$: accumulates to $6$ → future. Compression advances the accumulated result.
+
+Read time doubles; output event time halves. $q(2t)$ changes the accumulated output's time, not the integration variable.
+
+$\displaystyle \int_{-\infty}^{t}x(2\tau)d\tau=\frac12(Ix)(2t)$
+
+Input compression before integration is a different operation. Signed area $\ne$ energy.
 
 $\displaystyle \begin{aligned} S_5z(t)&=\int_{-\infty}^{2t}x(\tau-d)d\tau =\int_{-\infty}^{2t-d}x(r)dr,\\ (S_5x)(t-d)&=\int_{-\infty}^{2t-2d}x(r)dr. \end{aligned}$
 
@@ -379,6 +388,8 @@ Past-side derivative → causal; [chain-rule TI proof](./chapter-3-systems-and-p
 
 Tests: [linearity](./chapter-3-systems-and-properties.md#linearity) · [TI](./chapter-3-systems-and-properties.md#time-invariance)
 
+Recall target: substitute $z=ax_1+bx_2$ for linearity; separately $z(t)=x(t-d)$ for TI. Do not mix probes.
+
 $$
 S_1x(t)=x(t-1),\quad S_2x(t)=t\,x(t-2),\quad S_3x(t)=x(t-1)x(t-2)
 $$
@@ -413,6 +424,9 @@ $\displaystyle S_3z(t)=x(t-1-d)x(t-2-d)=(S_3x)(t-d)$
 Tests: [interconnection](./chapter-3-systems-and-properties.md#interconnection) · [inverse](./chapter-3-systems-and-properties.md#invertibility) · [causality](./chapter-3-systems-and-properties.md#causality)
 
 Use S1 / S2 from P9. Find parallel, both cascade orders, inverse of S1.
+
+Recall target: parallel adds **outputs**; cascade substitutes a whole intermediate signal, not multiplies formulas.
+Inverse: solve → unique? → verify both orders → causal real-time implementation?
 
 <details>
 <summary>Answer</summary>
@@ -455,6 +469,8 @@ $$
 
 Find outputs for $\cos(2t)$, $\sin(2t)$, $\cos(2t-1)$.
 
+Recall target: known pairs $\ne$ system formula. Split → retain coefficients → replace responses → recombine. No TI supplied.
+
 <details>
 <summary>Answer / key steps</summary>
 
@@ -490,6 +506,8 @@ Given: rectangle $x_1=1$ on $(0,2)$ → triangle $y_1$, support $[0,2]$, peak $y
 
 **Given response, not differentiation.** Find outputs for Figs. 3.12 / 3.13.
 
+Recall target: express the **new input** using known input blocks first; only then transfer shifts / scales / sums to the output.
+
 <details>
 <summary>Answer / decomposition</summary>
 
@@ -522,6 +540,9 @@ Shift / amplitude / sum allowed. **No automatic time scaling or reversal of resp
 Tests: [memory](./chapter-3-systems-and-properties.md#memory) · [causality](./chapter-3-systems-and-properties.md#causality) · [TI](./chapter-3-systems-and-properties.md#time-invariance) · [linearity](./chapter-3-systems-and-properties.md#linearity)
 
 Source: Fig. 3.14. Could S have each property?
+
+Recall target: state what is compared—present values / full histories / shifted signals / linear combinations.
+An onset or shape impression alone is not a proof.
 
 <details>
 <summary>Answer / evidence</summary>
