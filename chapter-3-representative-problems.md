@@ -27,31 +27,19 @@ $$
 
 For $k\ne0$:
 
-```math
-P_k^{-1}=P_{1/k}.
-```
+$\displaystyle P_k^{-1}=P_{1/k}.$
 
 For $k=0$:
 
-```math
-P_0x=0\quad\forall x.
-```
+$\displaystyle P_0x=0\quad\forall x.$
 
 One zero output cannot identify the original input → not invertible.
 
 Rectifier counterexample:
 
-```math
-x_1(t)=-1,
-\qquad
-x_2(t)=-2,
-```
+$\displaystyle x_1(t)=-1, \qquad x_2(t)=-2,$
 
-```math
-x_1\ne x_2,
-\qquad
-Rx_1=Rx_2=0.
-```
+$\displaystyle x_1\ne x_2, \qquad Rx_1=Rx_2=0.$
 
 Many-to-one → not invertible.
 
@@ -80,31 +68,17 @@ Find $DI_0x$ and $I_0Dx$. Explain the lost information.
 
 Fundamental theorem:
 
-```math
-DI_0x
-=\frac{d}{dt}\int_0^t x(\tau)d\tau
-=x(t).
-```
+$\displaystyle DI_0x =\frac{d}{dt}\int_0^t x(\tau)d\tau =x(t).$
 
 But:
 
-```math
-I_0Dx
-=\int_0^t x'(\tau)d\tau
-=x(t)-x(0).
-```
+$\displaystyle I_0Dx =\int_0^t x'(\tau)d\tau =x(t)-x(0).$
 
 Differentiation removes the constant offset.
 
 Example:
 
-```math
-x(t)=t^2+3
-\xrightarrow{D}
-2t
-\xrightarrow{I}
-t^2.
-```
+$\displaystyle x(t)=t^2+3 \xrightarrow{D} 2t \xrightarrow{I} t^2.$
 
 $I_0D=P_1$ only on signals with fixed $x(0)=0$.
 
@@ -129,28 +103,13 @@ show that $E_{Bx}=E_x$.
 <details>
 <summary>Answer</summary>
 
-```math
-E_{Bx}=\int_{-\infty}^{\infty}|x(-t)|^2dt.
-```
+$\displaystyle E_{Bx}=\int_{-\infty}^{\infty}|x(-t)|^2dt.$
 
 Let $\tau=-t$:
 
-```math
-d\tau=-dt,
-\qquad
-t:-\infty\to\infty
-\Rightarrow
-\tau:\infty\to-\infty.
-```
+$\displaystyle d\tau=-dt, \qquad t:-\infty\to\infty \Rightarrow \tau:\infty\to-\infty.$
 
-```math
-\begin{aligned}
-E_{Bx}
-&=\int_{\infty}^{-\infty}|x(\tau)|^2(-d\tau)\\
-&=\int_{-\infty}^{\infty}|x(\tau)|^2d\tau\\
-&=E_x.
-\end{aligned}
-```
+$\displaystyle \begin{aligned} E_{Bx} &=\int_{\infty}^{-\infty}|x(\tau)|^2(-d\tau)\\ &=\int_{-\infty}^{\infty}|x(\tau)|^2d\tau\\ &=E_x. \end{aligned}$
 
 Horizontal reversal preserves area.
 
@@ -177,30 +136,15 @@ where $x(t)=0$ for all $t>t_0$. Classify the long-term response.
 
 For $t>t_0$:
 
-```math
-\begin{aligned}
-y(t)
-&=\int_{-\infty}^{t_0}x(\tau)d\tau
-+\int_{t_0}^{t}0\,d\tau\\
-&=C.
-\end{aligned}
-```
+$\displaystyle \begin{aligned} y(t) &=\int_{-\infty}^{t_0}x(\tau)d\tau +\int_{t_0}^{t}0\,d\tau\\ &=C. \end{aligned}$
 
 Choose
 
-```math
-t_1=t_0,
-\qquad
-M=|C|.
-```
+$\displaystyle t_1=t_0, \qquad M=|C|.$
 
 Then
 
-```math
-|y(t)|\le M,
-\qquad
-\forall t\ge t_1.
-```
+$\displaystyle |y(t)|\le M, \qquad \forall t\ge t_1.$
 
 Bounded; not guaranteed to approach $0$ → marginally stable under the switch-off definition.
 
@@ -235,42 +179,21 @@ Find $y(t)$ and classify stability.
 <details>
 <summary>Answer</summary>
 
-```math
-\int_{-\infty}^{t}x(\tau)d\tau
-=
-\begin{cases}
-0,&t<0\\
-t,&0\le t<1\\
-1,&t\ge1.
-\end{cases}
-```
+$\displaystyle \int_{-\infty}^{t}x(\tau)d\tau = \begin{cases} 0,&t<0\\ t,&0\le t<1\\ 1,&t\ge1. \end{cases}$
 
 Hence:
 
-```math
-y(t)=
-\begin{cases}
-0,&t<0\\
-t^2,&0\le t<1\\
-t,&t\ge1.
-\end{cases}
-```
+$\displaystyle y(t)= \begin{cases} 0,&t<0\\ t^2,&0\le t<1\\ t,&t\ge1. \end{cases}$
 
 After switch-off:
 
-```math
-y(t)=t\to\infty.
-```
+$\displaystyle y(t)=t\to\infty.$
 
 No finite eventual bound $M$ → unstable.
 
 Also:
 
-```math
-E_x=1<\infty,
-\qquad
-E_y\ge\int_1^\infty t^2dt=\infty.
-```
+$\displaystyle E_x=1<\infty, \qquad E_y\ge\int_1^\infty t^2dt=\infty.$
 
 Unstable under both definitions.
 
@@ -308,35 +231,19 @@ with zero initial output, find $v_{\mathrm{out}}$ and test finite-energy stabili
 
 During the pulse:
 
-```math
-v_{\mathrm{out}}(t)=-\frac{t}{RC},
-\qquad
-0\le t<RC.
-```
+$\displaystyle v_{\mathrm{out}}(t)=-\frac{t}{RC}, \qquad 0\le t<RC.$
 
 At switch-off:
 
-```math
-v_{\mathrm{out}}(RC)=-1\,\mathrm{V}.
-```
+$\displaystyle v_{\mathrm{out}}(RC)=-1\,\mathrm{V}.$
 
 After switch-off:
 
-```math
-\frac{dv_{\mathrm{out}}}{dt}=0
-\Rightarrow
-v_{\mathrm{out}}(t)=-1\,\mathrm{V}.
-```
+$\displaystyle \frac{dv_{\mathrm{out}}}{dt}=0 \Rightarrow v_{\mathrm{out}}(t)=-1\,\mathrm{V}.$
 
-```math
-E_{\mathrm{in}}=(1\,\mathrm{V})^2RC<\infty,
-```
+$\displaystyle E_{\mathrm{in}}=(1\,\mathrm{V})^2RC<\infty,$
 
-```math
-E_{\mathrm{out}}
-\ge\int_{RC}^{\infty}(1\,\mathrm{V})^2dt
-=\infty.
-```
+$\displaystyle E_{\mathrm{out}} \ge\int_{RC}^{\infty}(1\,\mathrm{V})^2dt =\infty.$
 
 One finite-energy counterexample → finite-energy unstable.
 
@@ -390,9 +297,7 @@ Classify all nine; justify each property. Time domain: $\mathbb R$.
 
 **S1 / S2**
 
-```math
-S_1x(t)=\sin(x(t)),\qquad S_2x(t)=x(\sin t)
-```
+$\displaystyle S_1x(t)=\sin(x(t)),\qquad S_2x(t)=x(\sin t)$
 
 - S1: memoryless · causal · TI · nonlinear.
 - S2: memory · noncausal · TV · linear.
@@ -401,23 +306,17 @@ S2 reads $x(0)$ at $t=\pi$; future $x(-1)$ at $t=-\pi/2$.
 
 For $z(t)=x(t-d)$:
 
-```math
-S_2z(t)=x(\sin t-d),\qquad (S_2x)(t-d)=x(\sin(t-d))
-```
+$\displaystyle S_2z(t)=x(\sin t-d),\qquad (S_2x)(t-d)=x(\sin(t-d))$
 
 TV counterexample: $x(t)=t$, $d=\pi$, $t=0$: $-\pi\ne0$.
 
-```math
-S_2(ax_1+bx_2)(t)=ax_1(\sin t)+bx_2(\sin t)
-```
+$\displaystyle S_2(ax_1+bx_2)(t)=ax_1(\sin t)+bx_2(\sin t)$
 
 S1 homogeneity fails: $x=\pi/2$, $k=2$: $0\ne2$.
 
 **S3 / S4**
 
-```math
-S_3x(t)=x(t-2)+x(t+2),\qquad S_4x(t)=\cos(3t)x(t)
-```
+$\displaystyle S_3x(t)=x(t-2)+x(t+2),\qquad S_4x(t)=\cos(3t)x(t)$
 
 - S3: memory · noncausal · TI · linear.
 - S4: memoryless · causal · TV · linear.
@@ -428,21 +327,13 @@ S4 TV counterexample: $x=1$, $d=\pi/3$, $t=0$: $1\ne-1$.
 
 **S5**
 
-```math
-S_5x(t)=\int_{-\infty}^{2t}x(\tau)d\tau=(Ix)(2t)
-```
+$\displaystyle S_5x(t)=\int_{-\infty}^{2t}x(\tau)d\tau=(Ix)(2t)$
 
 Memory · noncausal · TV · linear.
 
 $t=3$: accumulates to $6$ → future. Compression advances the accumulated result.
 
-```math
-\begin{aligned}
-S_5z(t)&=\int_{-\infty}^{2t}x(\tau-d)d\tau
-=\int_{-\infty}^{2t-d}x(r)dr,\\
-(S_5x)(t-d)&=\int_{-\infty}^{2t-2d}x(r)dr.
-\end{aligned}
-```
+$\displaystyle \begin{aligned} S_5z(t)&=\int_{-\infty}^{2t}x(\tau-d)d\tau =\int_{-\infty}^{2t-d}x(r)dr,\\ (S_5x)(t-d)&=\int_{-\infty}^{2t-2d}x(r)dr. \end{aligned}$
 
 TV counterexample: $x=1$ on $[0,1)$, zero otherwise; $d=1$, $t=1$: $1\ne0$.
 
@@ -450,21 +341,9 @@ Integral linearity: sums split; constant factors leave the integral.
 
 **S6 / S7**
 
-```math
-S_6x(t)=
-\begin{cases}
-0,&t<0\\
-x(t)+x(t-2),&t\ge0
-\end{cases}
-```
+$\displaystyle S_6x(t)= \begin{cases} 0,&t<0\\ x(t)+x(t-2),&t\ge0 \end{cases}$
 
-```math
-S_7x(t)=
-\begin{cases}
-0,&x(t)<0\\
-x(t)+x(t-2),&x(t)\ge0
-\end{cases}
-```
+$\displaystyle S_7x(t)= \begin{cases} 0,&x(t)<0\\ x(t)+x(t-2),&x(t)\ge0 \end{cases}$
 
 - S6: memory · causal · TV · linear.
 - S7: memory · causal · TI · nonlinear.
@@ -473,22 +352,13 @@ S6 fixed clock gate: $x=1$, $d=1$, $t=1/2$: actual $2$, shifted output $0$.
 
 S7 input test, not domain/codomain. Shift **condition and branches**:
 
-```math
-S_7z(t)=
-\begin{cases}
-0,&x(t-d)<0\\
-x(t-d)+x(t-d-2),&x(t-d)\ge0
-\end{cases}
-=(S_7x)(t-d)
-```
+$\displaystyle S_7z(t)= \begin{cases} 0,&x(t-d)<0\\ x(t-d)+x(t-d-2),&x(t-d)\ge0 \end{cases} =(S_7x)(t-d)$
 
 Nonlinear: $x=1$ gives $S_7x=2$, but $S_7(-x)=0\ne-2$.
 
 **S8 / S9**
 
-```math
-S_8x(t)=x(t/3),\qquad S_9x(t)=x'(t)
-```
+$\displaystyle S_8x(t)=x(t/3),\qquad S_9x(t)=x'(t)$
 
 - S8: memory · noncausal · TV · linear.
 - S9: memory · causal · TI · linear (differentiable inputs).
@@ -520,25 +390,17 @@ $$
 - S2: linear · TV.
 - S3: nonlinear · TI.
 
-```math
-S_2(ax_1+bx_2)(t)=a\,t x_1(t-2)+b\,t x_2(t-2)
-```
+$\displaystyle S_2(ax_1+bx_2)(t)=a\,t x_1(t-2)+b\,t x_2(t-2)$
 
-```math
-S_2z(t)=t x(t-2-d),\qquad (S_2x)(t-d)=(t-d)x(t-d-2)
-```
+$\displaystyle S_2z(t)=t x(t-2-d),\qquad (S_2x)(t-d)=(t-d)x(t-d-2)$
 
 $z(t)=x(t-d)$; $x=1$, $d=1$: $t\ne t-1$.
 
-```math
-S_3(kx)=k^2S_3x\ne kS_3x
-```
+$\displaystyle S_3(kx)=k^2S_3x\ne kS_3x$
 
 $x=1$, $k=2$: $4\ne2$.
 
-```math
-S_3z(t)=x(t-1-d)x(t-2-d)=(S_3x)(t-d)
-```
+$\displaystyle S_3z(t)=x(t-1-d)x(t-2-d)=(S_3x)(t-d)$
 
 </details>
 
@@ -557,29 +419,21 @@ Use S1 / S2 from P9. Find parallel, both cascade orders, inverse of S1.
 
 Parallel:
 
-```math
-y(t)=x(t-1)+t x(t-2)
-```
+$\displaystyle y(t)=x(t-1)+t x(t-2)$
 
 S1 then S2:
 
-```math
-v(t)=x(t-1),\quad y(t)=t v(t-2)=t x(t-3)
-```
+$\displaystyle v(t)=x(t-1),\quad y(t)=t v(t-2)=t x(t-3)$
 
 S2 then S1:
 
-```math
-v(t)=t x(t-2),\quad y(t)=v(t-1)=(t-1)x(t-3)
-```
+$\displaystyle v(t)=t x(t-2),\quad y(t)=v(t-1)=(t-1)x(t-3)$
 
 Order matters; substitute the **whole intermediate signal**.
 
 Inverse:
 
-```math
-y(t)=x(t-1)\quad\Rightarrow\quad x(t)=y(t+1)
-```
+$\displaystyle y(t)=x(t-1)\quad\Rightarrow\quad x(t)=y(t+1)$
 
 Both cascade directions recover the input. Advance → noncausal → no arbitrary-input real-time inverse.
 
@@ -604,28 +458,15 @@ Find outputs for $\cos(2t)$, $\sin(2t)$, $\cos(2t-1)$.
 <details>
 <summary>Answer / key steps</summary>
 
-```math
-a e^{j2t}+b e^{-j2t}\xrightarrow{S}3a e^{j3t}+3b e^{-j3t}
-```
+$\displaystyle a e^{j2t}+b e^{-j2t}\xrightarrow{S}3a e^{j3t}+3b e^{-j3t}$
 
-```math
-\cos(2t)\to3\cos(3t),\qquad \sin(2t)\to3\sin(3t)
-```
+$\displaystyle \cos(2t)\to3\cos(3t),\qquad \sin(2t)\to3\sin(3t)$
 
 Phase:
 
-```math
-\cos(2t-1)=\frac{e^{-j}}2e^{j2t}+\frac{e^j}2e^{-j2t}
-```
+$\displaystyle \cos(2t-1)=\frac{e^{-j}}2e^{j2t}+\frac{e^j}2e^{-j2t}$
 
-```math
-\begin{aligned}
-y(t)
-&=\frac{3e^{-j}}2e^{j3t}+\frac{3e^j}2e^{-j3t}\\
-&=\frac32\left[e^{j(3t-1)}+e^{-j(3t-1)}\right]\\
-&=3\cos(3t-1).
-\end{aligned}
-```
+$\displaystyle \begin{aligned} y(t) &=\frac{3e^{-j}}2e^{j3t}+\frac{3e^j}2e^{-j3t}\\ &=\frac32\left[e^{j(3t-1)}+e^{-j(3t-1)}\right]\\ &=3\cos(3t-1). \end{aligned}$
 
 Exponent multiplication → exponent addition; conjugate sum cancels imaginary parts.
 
@@ -633,9 +474,7 @@ Exponent multiplication → exponent addition; conjugate sum cancels imaginary p
 
 Complex scalar convention: complex-linear S. Real phase decomposition:
 
-```math
-\cos(2t-1)=\cos1\cos2t+\sin1\sin2t
-```
+$\displaystyle \cos(2t-1)=\cos1\cos2t+\sin1\sin2t$
 
 </details>
 
@@ -654,29 +493,19 @@ Given: rectangle $x_1=1$ on $(0,2)$ → triangle $y_1$, support $[0,2]$, peak $y
 <details>
 <summary>Answer / decomposition</summary>
 
-```math
-x_2(t)=x_1(t)-x_1(t-2)
-\quad\Rightarrow\quad
-y_2(t)=y_1(t)-y_1(t-2)
-```
+$\displaystyle x_2(t)=x_1(t)-x_1(t-2) \quad\Rightarrow\quad y_2(t)=y_1(t)-y_1(t-2)$
 
 Positive triangle on $[0,2]$; negative triangle on $[2,4]$, trough $(3,-2)$.
 
-```math
-x_3(t)=x_1(t+1)+x_1(t)-x_1(t-1)
-```
+$\displaystyle x_3(t)=x_1(t+1)+x_1(t)-x_1(t-1)$
 
 Input levels: $1$ on $(-1,0)$; $2$ on $(0,1)$; $0$ on $(1,2)$; $-1$ on $(2,3)$.
 
-```math
-y_3(t)=y_1(t+1)+y_1(t)-y_1(t-1)
-```
+$\displaystyle y_3(t)=y_1(t+1)+y_1(t)-y_1(t-1)$
 
 Plot by pointwise height addition: join
 
-```math
-(-1,0)\to(0,2)\to(1,2)\to(2,-2)\to(3,0)
-```
+$\displaystyle (-1,0)\to(0,2)\to(1,2)\to(2,-2)\to(3,0)$
 
 Zero outside $[-1,3]$.
 
@@ -699,17 +528,13 @@ Source: Fig. 3.14. Could S have each property?
 
 **Not memoryless:** same present, different outputs:
 
-```math
-x_1(1.5)=x_2(1.5)=0,\qquad y_1(1.5)=0.5\ne0=y_2(1.5)
-```
+$\displaystyle x_1(1.5)=x_2(1.5)=0,\qquad y_1(1.5)=0.5\ne0=y_2(1.5)$
 
 **Could be causal:** x1 / x3 histories agree before $2$; outputs agree there too. No anticipation contradiction shown.
 
 **Not linear:**
 
-```math
-x_3=x_1-x_2,\qquad y_3\ne y_1-y_2
-```
+$\displaystyle x_3=x_1-x_2,\qquad y_3\ne y_1-y_2$
 
 At $t=3$: actual $-1$, required $0-(-1)=+1$.
 
