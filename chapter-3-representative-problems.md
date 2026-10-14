@@ -4,7 +4,7 @@
 
 [Concept map](./chapter-3-systems-and-properties.md#map) · selected D0/D+1/D+3 redo set
 
-Scope: through 3.5.6 · discussion ≠ completion / mastery · standard / exam / advanced still in scope
+Scope: through 3.5.6 + 3.5.7 circuit discussion · discussion ≠ completion / mastery · standard / exam / advanced still in scope
 
 ---
 
@@ -253,9 +253,9 @@ Finite-energy counterexample → unstable
 
 <a id="p7-circuit-properties"></a>
 
-## P7 — Four Circuits, Two Independent Properties
+## P7 — Circuit Properties
 
-Tests: [memory](./chapter-3-systems-and-properties.md#memory) · [linearity](./chapter-3-systems-and-properties.md#linearity)
+Tests: [memory](./chapter-3-systems-and-properties.md#memory) · [linearity](./chapter-3-systems-and-properties.md#linearity) · [causality](./chapter-3-systems-and-properties.md#causality) · [envelope detector](./chapter-3-systems-and-properties.md#envelope-detector)
 
 Classify memory and linearity:
 
@@ -263,6 +263,14 @@ Classify memory and linearity:
 2. RC circuit at initial rest;
 3. ideal half-wave rectifier;
 4. rectifier with capacitor.
+
+3.5.7: ideal diode → parallel $C,R$ · output across $C$
+
+![Envelope detector circuit](./images/chapter-3-rectifier-capacitor.svg)
+
+Input–output relation · memory · linearity · causality
+
+Model: input-side anode · output-side cathode · fixed initial state
 
 <details>
 <summary>Answer</summary>
@@ -277,6 +285,24 @@ Reasons:
 - resistor divider: instantaneous proportional gain;
 - capacitor: stored voltage;
 - diode: switching / failed superposition.
+
+**Envelope detector (3.5.7)**
+
+$\displaystyle v_{\mathrm{out}}=v_C$ · diode on → charge · diode off → discharge
+
+$\displaystyle v_{\mathrm{in}}>v_C:\quad v_C\to v_{\mathrm{in}}$ · ideal charging
+
+$\displaystyle v_{\mathrm{in}}<v_C:\quad \frac{dv_C}{dt}=-\frac{v_C}{RC}$
+
+$\displaystyle v_C(t)=v_C(t_0)e^{-\frac{t-t_0}{RC}}$ · off interval $t_0\le t<t_1$
+
+Memory: same present input · different charging histories → different $v_C$
+
+$\displaystyle S(-x)=0\ne-Sx$ · positive pulse · initial rest → nonlinear
+
+Causal: fixed initial state + past charging + present input · no future samples
+
+No formula → state / conduction analysis · no $+a$ ≠ causal proof
 
 </details>
 
@@ -566,5 +592,7 @@ Contradiction → impossible · compatibility → possible ≠ proven
 </details>
 
 ---
+
+<!-- AI-assisted addition: “判断无记忆系统” chat, 14 Oct 2026; circuit / real-time vs offline questions. Model assumptions explicit; discussion ≠ mastery. -->
 
 [Back to concept map](./chapter-3-systems-and-properties.md#map)

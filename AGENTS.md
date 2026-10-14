@@ -28,11 +28,17 @@
 - Visible content: fragments, labels, formulas only. No complete explanatory sentences.
 - Preserve assumptions and proof steps; shorten wording, not reasoning.
 - Preserve anchors, concept/problem split, mind map and links; no repeated checklist or extra table.
+- Keep the ordinary subject structure. User questions/traps belong beneath the relevant concept; no separate supplement, weakness report, or extra knowledge hierarchy.
+- Representative problems stay in the existing problem file: full given data, task, essential solution, assumptions and concept links. Integrate related cases into an existing topic where possible.
 - Powers/subscripts: explicit braces. Conjugate: ^{\ast}. Set braces: \lbrace, \rbrace.
 - Display math outside HTML: fenced math. Folded answers: tested inline display-style math; no raw double-dollar blocks inside details.
 - Diagram equations: typeset vector paths; stacked fractions; proper powers/subscripts. No slash fractions or caret-style exponents.
 - Every upload: inspect all changed GitHub pages, expand every answer; check errors, raw TeX, clipping and image loading.
 - Local link/XML checks alone do not verify rendering.
+- Release gate: pre-push formula parsing + strict local link/fence checks + visual diagram review; post-push verification against the final pushed commit SHA.
+- On GitHub: check every changed note/problem page; expand every answer; inspect math renderer errors, raw TeX, image loading and clipping. A code fence or zero error count alone is not proof of displayed math.
+- If a repair is pushed, repeat the post-push check against that new final SHA. Never report an earlier revision as the final verification.
+- Failed/unavailable final rendering check: report unverified, not passed. Do not promise that syntax parsing proves mathematical correctness.
 - No Chapter 1 note currently; inspect before claiming coverage.
 
 ## Progress boundary

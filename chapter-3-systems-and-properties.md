@@ -2,7 +2,7 @@
 
 # Chapter 3 — Systems and Properties
 
-Scope: through 3.5.6 · discussion ≠ completion / mastery
+Scope: through 3.5.6 + 3.5.7 circuit discussion · discussion ≠ completion / mastery
 
 ---
 
@@ -253,6 +253,8 @@ Time-independent case:
 
 Counterexample: same present input · different output
 
+Same time · different experiments · different-time comparison ≠ memoryless disproof
+
 Present term ≠ present-only dependence
 Past / future → memory · shape ≠ test
 
@@ -339,6 +341,29 @@ x'(t)=\lim_{h\to0^+}\frac{x(t)-x(t-h)}h
 Past-side limit → causal · value ≠ slope → memory
 
 Nearby ≠ future · causal ≠ ideal realisation
+
+Formula: read times · circuit: state evolution · graph: matching histories
+
+Future hidden + fixed initial state → current output?
+
+Real-time: no future samples · offline: full recorded signal
+
+```math
+y(t)=\frac{x(t-1)+x(t)+x(t+1)}{3}
+\quad\text{noncausal}
+```
+
+Output delay:
+
+```math
+y_{\mathrm d}(t)=y(t-1)
+=\frac{x(t-2)+x(t-1)+x(t)}{3}
+\quad\text{causal}
+```
+
+Added delay → changed mapping · $+a$ shortcut ≠ general criterion
+
+Practice: [circuit causality](./chapter-3-representative-problems.md#p7-circuit-properties)
 
 Practice: [S8 / S9](./chapter-3-representative-problems.md#p8-system-properties) · [graph tests](./chapter-3-representative-problems.md#p13-graph-tests)
 
@@ -701,11 +726,37 @@ Positive → conduct · negative → block
 
 Memoryless · nonlinear · noninvertible · finite-energy stable.
 
+<a id="envelope-detector"></a>
+
 **Rectifier + capacitor**
 
 ![Rectifier with capacitor and load resistor](./images/chapter-3-rectifier-capacitor.svg)
 
 Diode switching → nonlinear · capacitor voltage → memory.
+
+Model: input-side anode · output-side cathode · ideal diode · fixed initial state
+
+```math
+v_{\mathrm{in}}>v_C:\quad\text{charge}\to v_C=v_{\mathrm{in}}
+```
+
+```math
+v_{\mathrm{in}}<v_C:\quad\text{off},\qquad
+\frac{dv_C}{dt}=-\frac{v_C}{RC}
+```
+
+Off interval $t_0\le t<t_1$:
+
+```math
+v_{\mathrm{out}}(t)=v_C(t)
+=v_C(t_0)e^{-\frac{t-t_0}{RC}}
+```
+
+Same present input · different charging histories → different output
+
+Past state + present input → causal · sign-dependent conduction → nonlinear
+
+Practice: [charging / discharge / causality](./chapter-3-representative-problems.md#p7-circuit-properties)
 
 **Ideal op-amp integrator**
 
@@ -782,3 +833,5 @@ Practice: [op-amp integrator](./chapter-3-representative-problems.md#p6-op-amp-i
 <!-- AI-assisted revision: unified four-property reasoning and diagram, based on recurring substitution / quantifier / evidence confusions; not a mastery assessment. -->
 
 [Representative problems](./chapter-3-representative-problems.md)
+
+<!-- AI-assisted addition: “判断无记忆系统” chat, 14 Oct 2026; retrieved circuit / causality / graph questions. Standard ideal-diode orientation explicit; no completion inference. -->
