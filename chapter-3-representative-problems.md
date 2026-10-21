@@ -561,49 +561,46 @@ Shift / amplitude / sum ✓ · time scaling / reversal not guaranteed
 
 <a id="p13-graph-tests"></a>
 
-## P13 — Graph Evidence (3.5.6)
+## P13 — Graph Evidence
 
 Tests: [memory](./chapter-3-systems-and-properties.md#memory) · [causality](./chapter-3-systems-and-properties.md#causality) · [TI](./chapter-3-systems-and-properties.md#time-invariance) · [linearity](./chapter-3-systems-and-properties.md#linearity)
 
-Fig. 3.14 · possible properties?
-
-**Pending clarification:** lecture notes v1, p. 60 ↔ Solution Manual v2, pp. 49–50
-
-- Original figure: $x_{2}=-1$ on $(3,4)$
-- Manual: $x_{2}(t)=-p(t-2)$; support $(2,3)$
-- $p(t)=u(t)-u(t-1)$
-
-Different inputs → different linearity test · teacher clarification pending
+Given input–output pairs · properties ruled out?
 
 Compare: present / history / shifts / combinations
-Onset / shape alone ≠ proof
 
 <details>
 <summary>Answer / evidence</summary>
 
-**Not memoryless:** same present, different outputs:
+**Memoryless:** same time · same input · different output
 
-$\displaystyle x_{1}(1.5)=x_{2}(1.5)=0,\qquad y_{1}(1.5)=0.5\ne0=y_{2}(1.5)$
+$\displaystyle x_{a}(t_{0})=x_{b}(t_{0}),\quad y_{a}(t_{0})\ne y_{b}(t_{0})\Rightarrow\text{memory}$
 
-**Manual interpretation only:** $x_{2}=-p(t-2)$
+**Causal:** same entire history · different current output
 
-$\displaystyle x_{3}=x_{1}-x_{2}\quad\Rightarrow_{\text{linear}}\quad y_{3}=y_{1}-y_{2}$
+$\displaystyle x_{a}(\tau)=x_{b}(\tau)\ (\forall\tau\le t_{0}),\quad y_{a}(t_{0})\ne y_{b}(t_{0})\Rightarrow\text{noncausal}$
 
-At $t=3$: actual $-1$ · predicted $+1$ → nonlinear
+Different pasts → different outputs: compatible with causality
 
-Manual: possibly causal / TI · sign reversal ≠ shift-only
+**Linear:** exact input combination → required output combination
 
-**Original figure:** $x_{3}\ne x_{1}-x_{2}$ → above disproof invalid
+$\displaystyle x_{c}=a x_{a}+b x_{b},\quad y_{c}\ne a y_{a}+b y_{b}\Rightarrow\text{nonlinear}$
 
-$\displaystyle x_{3}(t)=x_{1}(t)+x_{1}(t-2)$
+**TI:** exact input shift → required output shift
 
-$\displaystyle \text{LTI}\Rightarrow y_{3}(t)=y_{1}(t)+y_{1}(t-2)$
+$\displaystyle x_{b}(t)=x_{a}(t-d),\quad y_{b}(t)\ne y_{a}(t-d)\Rightarrow\text{TV}$
 
-Actual second triangle negative → not LTI · failed joint condition ≠ failed linearity alone
+Shift + sign change → TI alone insufficient
 
-Pulse count alone ≠ linearity test · current figure: remaining classifications pending clarification
+**LTI:** shifted blocks → shifted responses
 
-Contradiction → impossible · compatibility → possible ≠ proven
+$\displaystyle x_{c}(t)=\sum_{k}a_{k}x_{a}(t-d_{k})\quad\Rightarrow_{\mathrm{LTI}}\quad y_{c}(t)=\sum_{k}a_{k}y_{a}(t-d_{k})$
+
+Failed LTI prediction → not LTI · linear vs TI: unresolved individually
+
+Pulse count / triangular shape / early onset alone ≠ proof
+
+One contradiction → impossible · compatible pairs ≠ universal proof
 
 </details>
 
@@ -611,6 +608,6 @@ Contradiction → impossible · compatibility → possible ≠ proven
 
 <!-- AI-assisted addition: “判断无记忆系统” chat, 14 Oct 2026; circuit / real-time vs offline questions. Model assumptions explicit; discussion ≠ mastery. -->
 
-<!-- AI-assisted correction, 21 Oct 2026: original Fig. 3.14 inspected against Canvas SolutionManual_SaSv2.pdf pp. 49–50; inconsistent x2 support retained as unresolved, not silently corrected. -->
+<!-- AI-assisted abstraction, 21 Oct 2026: graph comparisons and joint-property logic from discussion. Original Fig. 3.14 / SolutionManual_SaSv2.pdf pp. 49–50 use inconsistent x2 supports; no source-specific classification asserted here. -->
 
 [Back to concept map](./chapter-3-systems-and-properties.md#map)

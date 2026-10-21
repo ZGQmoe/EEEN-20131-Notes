@@ -30,6 +30,7 @@
 - Preserve anchors, concept/problem split, mind map and links; no repeated checklist or extra table.
 - Keep the ordinary subject structure. User questions/traps belong beneath the relevant concept; no separate supplement, weakness report, or extra knowledge hierarchy.
 - Representative problems stay in the existing problem file: full given data, task, essential solution, assumptions and concept links. Integrate related cases into an existing topic where possible.
+- Discussion → transferable concept, obstacle, test or method; abstraction before transcription. Keep source errata, question-reading history and pending teacher questions out of visible notes. Use minimal generic examples; retain a full original problem only when explicitly requested or essential to its method. Source provenance may remain in HTML comments.
 - Powers/subscripts: explicit braces. Conjugate: ^{\ast}. Set braces: \lbrace, \rbrace.
 - Display math outside HTML: fenced math. Folded answers: tested inline display-style math; no raw double-dollar blocks inside details.
 - Diagram equations: typeset vector paths; stacked fractions; proper powers/subscripts. No slash fractions or caret-style exponents.
