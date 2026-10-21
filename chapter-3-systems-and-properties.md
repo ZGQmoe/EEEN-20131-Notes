@@ -231,6 +231,14 @@ Memoryless ⊂ causal · LTI = linear ∩ TI
 
 Present only
 
+Known $x(t_{0})$ → unique $y(t_{0})$ · known $t_{0}$ alone ≠ known input
+
+```math
+[x(t)]^{2}:\text{ value squared → memoryless},
+\qquad
+x(t^{2}):\text{ read time squared → memory}
+```
+
 $\forall x_{1},x_{2},t$:
 
 ```math
@@ -316,6 +324,12 @@ Counterexample: same history · different current output
 
 Same present ≠ same history
 Onset alone ≠ causality test · offsets / initial conditions
+
+```math
+y(t)=x(t-1):\quad\text{memory + causal}
+```
+
+Same $x(0)$ · different $x(-1)$ → possibly different $y(0)$
 
 ```math
 \text{memoryless}\Rightarrow\text{causal},
@@ -827,6 +841,8 @@ Practice: [op-amp integrator](./chapter-3-representative-problems.md#p6-op-amp-i
 - $\sin(x(t))$: value operation; $x(\sin t)$: time selection
 - TI: shift input vs shift output; keep system rule fixed
 - graph evidence: contradiction → impossible; compatibility $\ne$ proven
+
+<!-- AI-assisted update, 21 Oct 2026: current-value/read-time distinction; graph-source discrepancy in linked P13. -->
 
 <!-- AI-assisted additions: causality, TI, Euler/LTI methods and practice links; full notes Ch. 3 pp. 50–60; SnS_09Oct.pdf slides 35–51; user discussion through 3.5.6. -->
 
