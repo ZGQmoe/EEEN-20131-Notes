@@ -54,7 +54,7 @@ $\displaystyle S_dx(t)=x(t-d),\quad h_d(t)=\delta(t-d).$
 
 $\displaystyle S_d^{-1}v(t)=v(t+d),\quad h_{\mathrm{inv}}(t)=\delta(t+d).$
 
-$\displaystyle (x*h_d)*h_{\mathrm{inv}}=x*(h_d*h_{\mathrm{inv}})=x*\delta=x.$
+$\displaystyle (x\ast h_d)\ast h_{\mathrm{inv}}=x\ast(h_d\ast h_{\mathrm{inv}})=x\ast\delta=x.$
 
 Cascade → convolution · opposite shifts → zero net delay
 

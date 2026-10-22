@@ -193,14 +193,14 @@ $S_i x=x*h_i$ · admissible compositions
 
 | Convolution | Systems |
 |---|---|
-| $h_1*h_2$ | cascade $S_2S_1$ |
+| $h_1\ast h_2$ | cascade $S_2S_1$ |
 | $h_1+h_2$ | parallel $S_1+S_2$ |
-| $h_1*h_2=h_2*h_1$ | $S_2S_1=S_1S_2$ |
-| $(h_1*h_2)*h_3=h_1*(h_2*h_3)$ | associative cascade |
-| $h_1*(h_2+h_3)=h_1*h_2+h_1*h_3$ | cascade distributes over parallel |
-| $a(h_1*h_2)=(ah_1)*h_2=h_1*(ah_2)$ | movable fixed gain $P_a$ |
+| $h_1\ast h_2=h_2\ast h_1$ | $S_2S_1=S_1S_2$ |
+| $(h_1\ast h_2)\ast h_3=h_1\ast(h_2\ast h_3)$ | associative cascade |
+| $h_1\ast(h_2+h_3)=h_1\ast h_2+h_1\ast h_3$ | cascade distributes over parallel |
+| $a(h_1\ast h_2)=(ah_1)\ast h_2=h_1\ast(ah_2)$ | movable fixed gain $P_a$ |
 | $\delta$; $k\delta$ | identity $P_1$; gain $P_k$ |
-| $h*h_{\mathrm{inv}}=\delta$ | $SS^{-1}=S^{-1}S=P_1$ |
+| $h\ast h_{\mathrm{inv}}=\delta$ | $SS^{-1}=S^{-1}S=P_1$ |
 
 ↔ [convolution algebra](#convolution-algebra) · [Ch3 interconnections](./chapter-3-systems-and-properties.md#interconnection)
 
