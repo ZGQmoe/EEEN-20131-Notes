@@ -21,7 +21,9 @@ Step response · $s(0.5),s(1),s(3)$ · DC gain
 <details>
 <summary>Method</summary>
 
-$\displaystyle s(t)=\int_{-\infty}^{t}h(\tau)\,d\tau=\begin{cases}0,&t<0,\\2t,&0\le t<1,\\2,&t\ge1.\end{cases}$
+$\displaystyle s(t)=\int_{-\infty}^{t}h(\tau)\,d\tau.$
+
+$\displaystyle t<0:\ s(t)=0;\qquad 0\le t<1:\ s(t)=2t;\qquad t\ge1:\ s(t)=2.$
 
 $\displaystyle s(0.5)=1,\quad s(1)=2,\quad s(3)=2,\quad K_{\mathrm{DC}}=2.$
 
