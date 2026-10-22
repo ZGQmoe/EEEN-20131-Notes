@@ -134,10 +134,10 @@ Operating-region linear approximation · approximately unchanged system during e
 **Interpretation**
 
 ```math
-\Delta=\frac1n,\qquad \tau_i=i\Delta,\qquad
+\Delta=\frac{1}{n},\qquad \tau_i=i\Delta,\qquad
 \delta_n(t)=
 \begin{cases}
-n,&-\frac1{2n}\le t<\frac1{2n},\\
+n,&-\frac{1}{2n}\le t<\frac{1}{2n},\\
 0,&\text{otherwise}.
 \end{cases}
 ```
@@ -358,7 +358,7 @@ Stability: $\int|h|$ · DC gain: $\int h$ · signal energy: $\int|x|^{2}$
 ```
 
 ```math
-Dv_C+\frac1{RC}v_C=\frac1{RC}v_{\mathrm{in}},
+Dv_C+\frac{1}{RC}v_C=\frac{1}{RC}v_{\mathrm{in}},
 \qquad D=\frac{d}{dt}
 ```
 
@@ -402,7 +402,7 @@ ODE: particular LTI representation · Laplace → derive $h$ later
 **Integrator feedback**
 
 ```math
-Dv_C=\frac1{RC}v_{\mathrm{in}}-\frac1{RC}v_C
+Dv_C=\frac{1}{RC}v_{\mathrm{in}}-\frac{1}{RC}v_C
 ```
 
 ![RC ODE as negative feedback with an integrator](./images/chapter-6-rc-feedback.svg)

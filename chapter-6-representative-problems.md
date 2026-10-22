@@ -75,7 +75,7 @@ RC · zero input · initial voltage $V_0$
 <details>
 <summary>Method</summary>
 
-$\displaystyle v_C'+\frac1{RC}v_C=0\Rightarrow v_C=Ae^{-t/(RC)}.$
+$\displaystyle v_C'+\frac{1}{RC}v_C=0\Rightarrow v_C=Ae^{-t/(RC)}.$
 
 $\displaystyle v_C(0)=V_0\Rightarrow v_C(t)=V_0e^{-t/(RC)},\quad t\ge0.$
 
