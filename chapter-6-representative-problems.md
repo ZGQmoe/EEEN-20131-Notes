@@ -21,7 +21,7 @@ Step response · $s(0.5),s(1),s(3)$ · DC gain
 <details>
 <summary>Method</summary>
 
-$\displaystyle s(t)=\int_{-\infty}^{t}h(\tau)\,d\tau.$
+$\displaystyle s(t)=\int_{-\infty}^{t}h(\tau)\thinspace d\tau.$
 
 $\displaystyle t<0:\ s(t)=0;\qquad 0\le t<1:\ s(t)=2t;\qquad t\ge1:\ s(t)=2.$
 
@@ -29,7 +29,7 @@ $\displaystyle s(0.5)=1,\quad s(1)=2,\quad s(3)=2,\quad K_{\mathrm{DC}}=2.$
 
 $h(3)=0$: no new area · $s(3)=2$: retained accumulated area
 
-$\displaystyle K_{\mathrm{DC}}=\int h=\lim s,\qquad \int_0^{\infty}s(t)\,dt=\infty.$
+$\displaystyle K_{\mathrm{DC}}=\int h=\lim s,\qquad \int_0^{\infty}s(t)\thinspace dt=\infty.$
 
 Final height ≠ output area · constant step input ≠ constant step response
 

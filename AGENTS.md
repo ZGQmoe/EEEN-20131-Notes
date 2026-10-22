@@ -32,6 +32,7 @@
 - Representative problems stay in the existing problem file: full given data, task, essential solution, assumptions and concept links. Integrate related cases into an existing topic where possible.
 - Discussion → transferable concept, obstacle, test or method; abstraction before transcription. Keep source errata, question-reading history and pending teacher questions out of visible notes. Use minimal generic examples; retain a full original problem only when explicitly requested or essential to its method. Source provenance may remain in HTML comments.
 - Powers/subscripts: explicit braces. Conjugate: ^{\ast}. Set braces: \lbrace, \rbrace.
+- Fractions: explicit numerator/denominator braces. Inline convolution: \ast, not repeated literal asterisks. Inline spacing: \thinspace, not Markdown-escaped punctuation such as \, . Folded piecewise answers: separate tested expressions when inline cases fail.
 - Display math outside HTML: fenced math. Folded answers: tested inline display-style math; no raw double-dollar blocks inside details.
 - Diagram equations: typeset vector paths; stacked fractions; proper powers/subscripts. No slash fractions or caret-style exponents.
 - Every upload: inspect all changed GitHub pages, expand every answer; check errors, raw TeX, clipping and image loading.
