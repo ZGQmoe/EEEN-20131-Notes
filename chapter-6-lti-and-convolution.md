@@ -32,16 +32,9 @@ flowchart TD
 \boxed{(x*h)(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)\,d\tau}
 ```
 
-**$t$**: output time · **$\tau$**: integration variable · **$t-\tau$**: lag
-
-Fix $t$ → integrate all $\tau$ → **one value** · vary $t$ → **whole signal**
-
-```math
-h(\tau)\ \xrightarrow{\text{reverse}}\ h(-\tau)
-\ \xrightarrow{\text{shift}}\ h(t-\tau)
-```
-
-Multiply by $x(\tau)$ → **signed area** · not $x(t)h(t)$
+<p align="center">
+<img src="./images/chapter-6-convolution-process.svg" alt="Reverse h, shift by t0, multiply by x, integrate the product, and mark one output point. First five plots use tau; final plot uses t." width="900">
+</p>
 
 <details>
 <summary>t / τ · reversal · integration limits</summary>
@@ -85,13 +78,13 @@ Unit rectangles only: integral = overlap length
 \boxed{y=Sx=x*h}
 ```
 
-**$S$**: system · **$h$**: fixed impulse response · **$x,y$**: input / output
-
 ```math
-S\longleftrightarrow h
+\underbrace{S}_{\mathrm{system}}
+\longleftrightarrow
+\underbrace{h}_{\mathrm{impulse\ response}}
 ```
 
-**Same $h$ → same LTI system** · not inverse input recovery
+<p align="center"><strong>One h ↔ one LTI system</strong></p>
 
 <a id="decomposition"></a>
 
@@ -136,7 +129,15 @@ h=u
 y(t)=\int_{-\infty}^{t}x(\tau)\,d\tau
 ```
 
-$u(t-\tau)=1\iff\tau\le t$ · **future contributions zero**
+```math
+u(t-\tau)=
+\begin{cases}
+1,&\tau\le t,\\
+0,&\tau>t
+\end{cases}
+\quad\Rightarrow\quad
+\int_{-\infty}^{\infty}\longrightarrow\int_{-\infty}^{t}
+```
 
 <details>
 <summary>Integral cutoff</summary>
@@ -218,6 +219,10 @@ Delay $a$ + advance $a$ → identity · mathematical inverse ≠ real-time feasi
 
 <a id="h-tests"></a>
 
+<p align="center">
+<img src="./images/chapter-6-lag-and-input.svg" alt="Lag -2 reads future input at t+2; lag zero reads the current input; lag +2 reads past input at t-2. Memoryless uses only zero lag; causal uses only nonnegative lags." width="850">
+</p>
+
 **Memoryless**
 
 ```math
@@ -225,7 +230,7 @@ Delay $a$ + advance $a$ → identity · mathematical inverse ≠ real-time feasi
 \boxed{h=k\delta}\quad\Longleftrightarrow\quad y=kx
 ```
 
-**Zero lag only** · impulse weight $k$ · constant gain ≠ constant $h$
+<p align="center">Zero lag only · <strong>gain ≠ constant h</strong></p>
 
 **Causal**
 
@@ -233,8 +238,6 @@ Delay $a$ + advance $a$ → identity · mathematical inverse ≠ real-time feasi
 \large
 \boxed{h(t)=0\quad(t<0)}
 ```
-
-Negative lag $\tau<0$ → $x(t-\tau)$: **future input**
 
 **Stable — BIBO**
 
@@ -281,13 +284,9 @@ Integrator $h=u$: bounded input $u$ → unbounded ramp $tu(t)$ → unstable
 
 ## Step Response & DC Gain
 
-```math
-\delta\xrightarrow{S}h
-\qquad
-u\xrightarrow{S}s
-```
-
-**$S$**: system · **$s$**: step response · name from **input**, not output shape
+<p align="center">
+<img src="./images/chapter-6-response-links.svg" alt="Same system: delta input gives h, step input gives s. Integrating delta gives u; integrating h gives s; differentiating s gives h. For stable LTI, final s is DC gain." width="900">
+</p>
 
 ```math
 \large
@@ -296,11 +295,14 @@ u\xrightarrow{S}s
 \boxed{h=s'}
 ```
 
-**$h$**: contribution rate · **$s$**: accumulated area
+```math
+h(t)=0\quad\Rightarrow\quad s'(t)=0
+\quad\Rightarrow\quad s(t)=\mathrm{constant}\ \ (\ne0\text{ possible})
+```
 
-$h=0$ → **constant $s$**, not necessarily zero
-
-![Impulse response and accumulated step response](./images/chapter-6-impulse-step.svg)
+<p align="center">
+<img src="./images/chapter-6-impulse-step.svg" alt="Area under the impulse response accumulates into the step response: after h returns to zero, s retains its final height." width="850">
+</p>
 
 <details>
 <summary>Why s = ∫h? · derivative relation</summary>
@@ -335,13 +337,15 @@ Jumps in $s$ → impulses in $h$ · not $s'\to u$
 =\int_{-\infty}^{\infty}h(\tau)\,d\tau}
 ```
 
-**Final height**, not $\int s$ · signed area · **one scalar**
+<p align="center"><strong>Final height</strong> · not output area</p>
 
 ```math
 x=Au\quad\Rightarrow\quad\lim_{t\to\infty}y(t)=AK_{\mathrm{DC}}
 ```
 
-Same gain ≠ same system · no finite limit → no finite step-defined gain
+```math
+K_1=K_2\ \not\Rightarrow\ h_1=h_2
+```
 
 ```math
 \underbrace{\int |h|}_{\mathrm{stability}}
