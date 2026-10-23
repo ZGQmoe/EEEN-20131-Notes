@@ -6,6 +6,53 @@
 
 ---
 
+<a id="window"></a>
+
+## Moving Window / Derivative
+
+Links: [integration limits](./chapter-6-lti-and-convolution.md#convolution) · [calculus](./chapter-6-lti-and-convolution.md#convolution-algebra)
+
+$h(t)=u(t-3)-u(t-5)$ · arbitrary continuous $x$ · find $y=x\ast h$, then $y'$
+
+<details>
+<summary>Limits → integral → derivative</summary>
+
+$\displaystyle h(t-\tau)=1\iff3\le t-\tau<5\iff t-5<\tau\le t-3.$
+
+$\displaystyle \boxed{y(t)=\int_{t-5}^{t-3}x(\tau)\thinspace d\tau}$
+
+$t$: output time · $\tau$: dummy variable · $[3,5)$: support of $h$, not integration window
+
+$\displaystyle t=8:\ y(8)=\int_3^5x(\tau)\thinspace d\tau.$
+
+General $t$: moving window · no $t>0$ / $y>0$ requirement
+
+**Leibniz: moving endpoints**
+
+$\displaystyle \frac{d}{dt}\int_{a(t)}^{b(t)}x(\tau)\thinspace d\tau=x(b(t))b'(t)-x(a(t))a'(t).$
+
+$\displaystyle \boxed{y'(t)=x(t-3)-x(t-5)}$
+
+**Same result: differentiate $h$**
+
+$\displaystyle h'(t)=\delta(t-3)-\delta(t-5).$
+
+$\displaystyle (x\ast h')(t)=\int x(\tau)[\delta(t-\tau-3)-\delta(t-\tau-5)]\thinspace d\tau=x(t-3)-x(t-5)=y'(t).$
+
+**Differentiate $x$: proof, not substitution**
+
+Differentiable $x$:
+
+$\displaystyle (x'\ast h)(t)=\int_{t-5}^{t-3}x'(\tau)\thinspace d\tau=x(t-3)-x(t-5)=y'(t).$
+
+$\displaystyle \boxed{D(x\ast h)=(Dx)\ast h=x\ast(Dh)}$
+
+One differentiated factor · same output derivative · not $x'\ast h'$
+
+</details>
+
+---
+
 <a id="accumulation"></a>
 
 ## Accumulation / Final Value

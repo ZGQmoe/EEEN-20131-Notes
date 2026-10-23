@@ -1,36 +1,109 @@
-<!-- AI-assisted abstraction: Signals_and_System_02Oct.pdf, Ch. 6 §§6.1–6.5, pp. 99–108; SnS___Chapter_6.pdf, slides 1–26; reading discussion. Regularity/convergence assumptions retained; no exercise-completion claim. -->
+<!-- AI-assisted restructuring: Ch6 §§6.1–6.5; lecture slides; “解释第一题 integrals”, 23 Oct. No exercise-completion claim. -->
 
 # Chapter 6 — LTI and Convolution
 
----
-
 <a id="map"></a>
-
-## Map
 
 ```mermaid
 flowchart TD
-    R((Continuous-Time LTI))
-    R --> C[Convolution]
-    R --> H[Impulse Response]
-    R --> P[Properties]
-    R --> O[ODE]
-    C --> T["Fix t / integrate over τ"]
-    C --> A[Algebra]
-    H --> S[Step Response]
-    S --> G[DC Gain]
-    H --> P
-    A -. inheritance .-> P
-    P --> N[Interconnections]
-    P --> M[Memory / Causality / Stability]
-    H -. integral .-> S
-    S -. derivative .-> H
-    O --> F[Integrator Feedback]
-    O -. Laplace later .-> H
-    H --> E["Hall acoustics / matched filters"]
+    S((LTI system)) --> H[Impulse response h]
+    H --> Y[Convolution: arbitrary input]
+    H --> R[Step response s]
+    R --> K[DC gain: final value]
+    H --> P[Memory / causality / stability]
+    Y --> A[Algebra / interconnections]
+    S --> O[ODE + initial rest]
+    O -. same mapping .-> H
+    R -. derivative .-> H
 ```
 
-Jump: [Convolution](#convolution) · [LTI representation](#lti) · [Properties](#properties) · [Responses](#responses) · [ODE](#ode)
+[Responses](#lti) · [Convolution](#convolution) · [Properties](#properties) · [ODE](#ode) · [Methods](./chapter-6-representative-problems.md)
+
+---
+
+<a id="lti"></a>
+
+## System → Responses
+
+```math
+\boxed{h=S\delta}
+\qquad
+\boxed{y=Sx=x*h}
+```
+
+$S$: rule · $h$: fixed system signature · $x$: chosen input · $y$: output
+
+```math
+\delta\xrightarrow{S}h
+\qquad u\xrightarrow{S}s
+\qquad x\xrightarrow{S}y
+```
+
+Response name: **test input**, not output shape · $h\ne\delta$ generally · $s\ne u$ generally
+
+```math
+S\longleftrightarrow h
+```
+
+One LTI mapping ↔ one impulse response · not inverse input recovery
+
+↔ [Ch3 notation](./chapter-3-systems-and-properties.md#system)
+
+<a id="responses"></a>
+<a id="step"></a>
+
+**Step response: accumulated $h$**
+
+```math
+\boxed{s(t)=(u*h)(t)=\int_{-\infty}^{t}h(\tau)\,d\tau}
+\qquad \boxed{h(t)=s'(t)}
+```
+
+$h(t)$: instantaneous accumulation rate · $s(t)$: accumulated signed area
+
+```math
+s(t_2)-s(t_1)=\int_{t_1}^{t_2}h(\tau)\,d\tau
+```
+
+$h=0$ → **no further change**, not $s=0$
+
+![Impulse response and accumulated step response](./images/chapter-6-impulse-step.svg)
+
+$h(3)=0$ · $s(3)=2$ · no new area ≠ no retained area
+
+**Two routes**
+
+```math
+u*h=h*u=\int_{-\infty}^{t}h(\tau)\,d\tau
+```
+
+```math
+I(\delta*h)=(I\delta)*h=u*h=s\Rightarrow Ih=s
+```
+
+```math
+D(u*h)=(Du)*h=\delta*h=h
+```
+
+$s'\to h$, **not** $s\to u$ · jumps in $s$ → impulses in $h$
+
+↔ [Convolution calculus](#convolution-algebra) · [Ch2 step / delta](./chapter-2-signals-and-properties.md#elementary-signals) · [example](./chapter-6-representative-problems.md#accumulation)
+
+<a id="dc-gain"></a>
+
+**DC gain: final accumulated value**
+
+Stable LTI · sustained input $Au$
+
+```math
+\boxed{K_{\mathrm{DC}}=\lim_{t\to\infty}s(t)=\int_{-\infty}^{\infty}h(\tau)\,d\tau}
+\qquad \lim_{t\to\infty}y(t)=AK_{\mathrm{DC}}
+```
+
+$h$: whole signal → $\int h$: **one scalar**
+
+Final output **height**, not output area $\int s$ · signed area, no absolute value
+Same gain ≠ same system / transient · no finite final value → no finite step-defined gain
 
 ---
 
@@ -39,50 +112,137 @@ Jump: [Convolution](#convolution) · [LTI representation](#lti) · [Properties](
 ## Convolution
 
 ```math
-\boxed{(x*h)(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)\,d\tau}
+\boxed{y(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)\,d\tau}
 ```
 
-- $*$: signal × signal → signal; not pointwise multiplication
-- $t$: fixed observation time / shift
-- $\tau$: integration variable; entire time axis
+**$t$: output coordinate · $\tau$: integration coordinate**
 
 ```math
-h(\tau)\ \longrightarrow\ h(-\tau)\ \longrightarrow\ h(t-\tau)
+t=2:\quad y(2)=\int_{-\infty}^{\infty}x(\tau)h(2-\tau)\,d\tau
 ```
 
-Reverse → shift → pointwise product → signed area → one output value
+Fixed $t$ → sweep **all $\tau$** → one number $y(t)$
+Vary $t$ → repeat → whole output signal
+
+$\tau$: dummy name, integrated away · $t$: retained in answer
+Any $t\in\mathbb R$ · no requirement $t>0$ or $y(t)>0$
+
+**Graphical calculation**
 
 ```math
-\boxed{t=t_{0}:\quad y(t_{0})=\int_{-\infty}^{\infty}x(\tau)h(t_{0}-\tau)\,d\tau}
+h(\tau)\longrightarrow h(-\tau)\longrightarrow h(t-\tau)
 ```
 
-Changing $t$ → changing product → changing integral → full output curve
+Reverse → shift by $t$ → multiply by $x(\tau)$ → integrate product
 
-Unit rectangles only: integral = overlap length · general signals: weighted, signed area
+Product’s **signed area** · not either original signal’s area
+Unit-height rectangles only → overlap length
 
 ↔ [Ch2 time transforms](./chapter-2-signals-and-properties.md#time-transform)
 
+**Integration limits: overlap**
+
+```math
+x(\tau)\ne0:\ a\le\tau\le b,\qquad
+h(v)\ne0:\ c\le v\le d
+```
+
+```math
+c\le t-\tau\le d\iff t-d\le\tau\le t-c
+```
+
+```math
+\boxed{L=\max(a,t-d),\qquad U=\min(b,t-c)}
+```
+
+$L<U$: integrate $L\to U$ · $L>U$: zero overlap
+$t$-breakpoints: changing active bounds · not arbitrary positivity conditions
+
+[Moving-window example / derivative proof](./chapter-6-representative-problems.md#window)
+
+<a id="integrator"></a>
+
+**Integrator: $h=u$**
+
+```math
+u(t-\tau)=1\iff\tau\le t
+```
+
+```math
+(x*u)(t)=\int_{-\infty}^{t}x(\tau)\cdot1\,d\tau
++\int_t^\infty x(\tau)\cdot0\,d\tau
+=\boxed{\int_{-\infty}^{t}x(\tau)\,d\tau}
+```
+
+Arbitrary input accumulated · [step response](#step): same calculation, $x$ replaced by $h$
+
+<a id="decomposition"></a>
+
+**Why LTI → convolution**
+
+```math
+\Delta=\frac{1}{n},\qquad
+\delta_n(t)=
+\begin{cases}
+n,&|t|<\frac{1}{2n},\\
+0,&\text{otherwise}
+\end{cases}
+```
+
+Unit area · narrow pulses → signal approximation
+
+```math
+x(t)\approx\sum_i x(i\Delta)\Delta\,\delta_n(t-i\Delta)
+```
+
+```math
+h_n=S\delta_n,\qquad
+y(t)\approx\sum_i x(i\Delta)\Delta\,h_n(t-i\Delta)
+\longrightarrow\int x(\tau)h(t-\tau)\,d\tau
+```
+
+Linearity → weighted sum · TI → matching shifts · suitable limit → integral
+Rigorous limit: later · context: room echoes / matched filtering / frequency analysis
+
+---
+
+<a id="properties"></a>
 <a id="convolution-algebra"></a>
+<a id="inheritance"></a>
 
-**Algebra → [system inheritance](#inheritance)**
+## Algebra → Systems
+
+$S_i x=x*h_i$ · well-defined integrals / compositions
+
+**Cascade / parallel**
 
 ```math
-x*h=h*x,\qquad x*(h*g)=(x*h)*g
+S_2S_1x=x*(h_1*h_2),\qquad
+(S_1+S_2)x=x*(h_1+h_2)
+```
+
+Cascade → convolve responses · parallel → add responses
+
+```math
+h_1*h_2=h_2*h_1,\qquad
+(h_1*h_2)*h_3=h_1*(h_2*h_3)
+```
+
+Commutativity → reorder · associativity → regroup · **LTI pairs**, not general systems
+
+```math
+h_1*(h_2+h_3)=h_1*h_2+h_1*h_3
 ```
 
 ```math
-x*(h+g)=x*h+x*g
+a(h_1*h_2)=(ah_1)*h_2=h_1*(ah_2)
 ```
 
-```math
-a(x*h)=(ax)*h=x*(ah)
-```
+Distribute over parallel · movable gain · scalar **once**
 
-```math
-x*\delta=x,\qquad x*h=\delta\Rightarrow h=x_{*}^{-1}
-```
+↔ [Ch3 interconnections](./chapter-3-systems-and-properties.md#interconnection)
 
-Convolution inverse: possible nonexistence · not $1/x(t)$
+**Calculus**
 
 ```math
 D(x*h)=(Dx)*h=x*(Dh)
@@ -92,138 +252,26 @@ D(x*h)=(Dx)*h=x*(Dh)
 I(x*h)=(Ix)*h=x*(Ih)
 ```
 
-One differentiated / integrated factor · no product-rule sum · scalar applied once
-
-Well-defined integrals / derivatives / compositions; impulses in distribution sense
-
----
-
-<a id="lti"></a>
-
-## LTI Representation
-
-```math
-\boxed{h=S\delta},\qquad \boxed{y=Sx=x*h}
-```
-
-- $S$: fixed rule; $x$: chosen input; $y$: output
-- $h$: whole impulse-response signal; not eigenvalue
-- response name → input type; not output shape
-- fixed $S$ → fixed $h$; changing $x$ → changing $y$
-
-```math
-S\longleftrightarrow h
-```
-
-Same $h$ → same LTI mapping · not a claim of invertibility $x\leftrightarrow y$
-
-↔ [Ch3 system notation](./chapter-3-systems-and-properties.md#system) · [LTI building blocks](./chapter-3-systems-and-properties.md#lti-building-blocks)
-
-**Context**
-
-Operating-region linear approximation · approximately unchanged system during experiment
-
-- hall: short shot ≈ impulse; direct sound + reflections → $h$
-- dry recording $*h$ → simulated reverberation
-- matched filtering: radar / sonar / gravitational-wave detection
-- CNN: sliding local computations
-- time-domain convolution → frequency-domain analysis
-
-<a id="decomposition"></a>
-
-**Interpretation**
-
-```math
-\Delta=\frac{1}{n},\qquad \tau_i=i\Delta,\qquad
-\delta_n(t)=
-\begin{cases}
-n,&-\frac{1}{2n}\le t<\frac{1}{2n},\\
-0,&\text{otherwise}.
-\end{cases}
-```
-
-Unit area · height $n$ · width $\Delta$
-
-```math
-x(t)\approx\sum_i x(\tau_i)\Delta\,\delta_n(t-\tau_i)
-```
-
-```math
-h_n=S\delta_n,\qquad
-y(t)\approx\sum_i x(\tau_i)\Delta\,h_n(t-\tau_i)
-```
-
-Linear → scaling / addition · TI → shifted response · suitable limit → convolution
-
-PPT slice: $dy(t,\tau)=x(\tau)h(t-\tau)\,d\tau$
-
-Rigorous limiting proof: deferred · response-weighted slice sum
-
-<a id="integrator"></a>
-
-**Integrator: $h=u$**
-
-```math
-u(t-\tau)=
-\begin{cases}
-1,&\tau\le t,\\
-0,&\tau>t.
-\end{cases}
-```
-
-```math
-y(t)=\int_{-\infty}^{t}x(\tau)\cdot1\,d\tau
-+\int_t^{\infty}x(\tau)\cdot0\,d\tau
-=\boxed{\int_{-\infty}^{t}x(\tau)\,d\tau}
-```
-
-↔ [Ch2 step / impulse](./chapter-2-signals-and-properties.md#elementary-signals) · [response integration](#step)
-
----
-
-<a id="properties"></a>
-
-## Properties
-
-<a id="inheritance"></a>
-
-**Convolution algebra ↔ LTI interconnection**
-
-$S_i x=x*h_i$ · admissible compositions
-
-| Convolution | Systems |
-|---|---|
-| $h_1\ast h_2$ | cascade $S_2S_1$ |
-| $h_1+h_2$ | parallel $S_1+S_2$ |
-| $h_1\ast h_2=h_2\ast h_1$ | $S_2S_1=S_1S_2$ |
-| $(h_1\ast h_2)\ast h_3=h_1\ast(h_2\ast h_3)$ | associative cascade |
-| $h_1\ast(h_2+h_3)=h_1\ast h_2+h_1\ast h_3$ | cascade distributes over parallel |
-| $a(h_1\ast h_2)=(ah_1)\ast h_2=h_1\ast(ah_2)$ | movable fixed gain $P_a$ |
-| $\delta$; $k\delta$ | identity $P_1$; gain $P_k$ |
-| $h\ast h_{\mathrm{inv}}=\delta$ | $SS^{-1}=S^{-1}S=P_1$ |
-
-↔ [convolution algebra](#convolution-algebra) · [Ch3 interconnections](./chapter-3-systems-and-properties.md#interconnection)
-
-Inherited algebra ≠ automatic memorylessness / causality / stability / invertibility
-
-LTI pairs only · general systems: no guaranteed commutativity
-
-Associativity → regrouping · commutativity → reordering
-
-```math
-D\circ S:\ (Dx)*h=x*(Dh),\qquad
-I\circ S:\ (Ix)*h=x*(Ih)
-```
+Differentiate / integrate **one factor**, not both · no product-rule sum
+Admissible LTI compositions: $D\circ S=S\circ D$, $I\circ S=S\circ I$
+Ordinary regularity / convergence · impulses: distributions
 
 <a id="inverse"></a>
 
 **Identity / inverse**
 
 ```math
-h=\delta\Rightarrow y=x,\qquad h=k\delta\Rightarrow y=kx
+x*\delta=x,\qquad h=k\delta\Rightarrow y=kx
 ```
 
-Constant gain $\ne$ constant impulse response
+Constant **gain** ≠ constant **$h$**
+
+```math
+h*h_{\mathrm{inv}}=\delta
+\iff SS^{-1}=S^{-1}S=P_1
+```
+
+Convolution inverse ≠ $\frac{1}{h(t)}$ · not always existent / causal / stable
 
 ```math
 \delta(t-t_0)*\delta(t-t_1)=\delta\bigl(t-(t_0+t_1)\bigr)
@@ -233,146 +281,86 @@ Constant gain $\ne$ constant impulse response
 t_1=-t_0\Rightarrow\delta(t-t_0)*\delta(t+t_0)=\delta(t)
 ```
 
-Delay + advance → identity · time shifts add; not momentum
+Delay + advance → identity · mathematical inverse ≠ real-time implementation
 
-Mathematical inverse ≠ causal real-time implementation
-
-↔ [Ch3 inverse](./chapter-3-systems-and-properties.md#invertibility) · [delay method](./chapter-6-representative-problems.md#delay)
+[Delay example](./chapter-6-representative-problems.md#delay) · [Ch3 inverse](./chapter-3-systems-and-properties.md#invertibility)
 
 <a id="h-tests"></a>
 
-**Tests from $h$**
+**Read properties from $h$**
+
+Memoryless:
 
 ```math
-\text{Memoryless LTI}:\quad h=k\delta\quad\Longleftrightarrow\quad y=kx
+\boxed{h=k\delta}\iff y=kx
 ```
 
-Zero away from $0$ ≠ zero impulse weight · fixed gain: no memory
+Only zero lag · nonzero impulse weight allowed · no delta derivatives
+
+Causal:
 
 ```math
-\text{Causal}:\quad h(t)=0\quad(t<0)
+\boxed{h(\tau)=0\quad(\tau<0)}
 ```
 
 ```math
-y(t)=\int_{-\infty}^{\infty}h(\tau)x(t-\tau)\,d\tau,
+y(t)=\int h(\tau)x(t-\tau)\,d\tau,
 \qquad \tau<0\Rightarrow t-\tau>t
 ```
 
-Negative lag → future input · not deletion of all absolute negative-time input
+Negative **lag** → future sample · not all negative absolute-time input
+
+Stable — ordinary $h$, BIBO:
 
 ```math
-\|h\|_1=\int_{-\infty}^{\infty}|h(\tau)|\,d\tau<\infty
+\boxed{\|h\|_1=\int_{-\infty}^{\infty}|h(\tau)|\,d\tau<\infty}
 ```
 
-Ordinary impulse responses: BIBO stability criterion · finite weighted impulses: finite absolute weights
+Finite weighted impulses: finite absolute weights
 
 ```math
-E_x<\infty\quad\Rightarrow\quad
-E_y\le\|h\|_1^{2}E_x<\infty
+E_x<\infty\Rightarrow E_y\le\|h\|_1^{2}E_x<\infty
 ```
 
-Also sufficient for Ch3 finite-energy stability · definitions not interchangeable
+Also sufficient for Ch3 energy stability · definitions ≠ interchangeable
+Stable ≠ finite-energy output for **every** input
 
-$\int|h|$ ≠ $\int|h|^{2}$ · stable ≠ finite-energy output for every input
-
-↔ [Ch3 property tests](./chapter-3-systems-and-properties.md#properties) · [stability definitions](./chapter-3-systems-and-properties.md#stability)
-
----
-
-<a id="responses"></a>
-
-## Responses
-
-<a id="step"></a>
-
-**Impulse → step**
+**Three different integrals**
 
 ```math
-\delta\xrightarrow{S}h,\qquad u\xrightarrow{S}s
+\underbrace{\int|h|}_{\text{stability}}
+\qquad \underbrace{\int h}_{\text{DC gain}}
+\qquad \underbrace{\int|x|^{2}}_{\text{signal energy}}
 ```
 
-$S$: system · $s$: step-response signal · $u$ input ≠ $s$ output
-
-```math
-s=u*h=h*u
-=\boxed{\int_{-\infty}^{t}h(\tau)\,d\tau}
-```
-
-Alternate P8 route:
-
-```math
-I(\delta*h)=(I\delta)*h=u*h=s
-\quad\Rightarrow\quad Ih=s
-```
-
-```math
-\boxed{h=Ds},\qquad
-s(t_2)-s(t_1)=\int_{t_1}^{t_2}h(\tau)\,d\tau
-```
-
-$h(t)$: current accumulation rate · $s(t)$: accumulated result
-
-$h=0$ over an interval → constant $s$; not necessarily zero
-
-Output differentiation ≠ original system differentiation · jumps → impulses
-
-![Impulse response and its accumulated step response](./images/chapter-6-impulse-step.svg)
-
-↔ [Ch2 step derivative](./chapter-2-signals-and-properties.md#elementary-signals) · [accumulation method](./chapter-6-representative-problems.md#accumulation)
-
-<a id="dc-gain"></a>
-
-**Step → DC gain**
-
-Stable LTI · sustained unit input · final output
-
-```math
-\boxed{K_{\mathrm{DC}}=\lim_{t\to\infty}s(t)
-=\int_{-\infty}^{\infty}h(\tau)\,d\tau}
-```
-
-```math
-x=Au\quad\Rightarrow\quad \lim_{t\to\infty}y(t)=A K_{\mathrm{DC}}
-```
-
-- full $h$: complete system information
-- $\int h$: one scalar; signed area / steady gain
-- same DC gain ≠ same system / transient
-- not $\int s$; not energy; no absolute value
-- no finite final value → no finite step-defined DC gain
-
-Stability: $\int|h|$ · DC gain: $\int h$ · signal energy: $\int|x|^{2}$
+↔ [Ch3 stability](./chapter-3-systems-and-properties.md#stability)
 
 ---
 
 <a id="ode"></a>
 
-## ODE Representation
+## ODE ↔ LTI
 
-**RC**
+**RC: circuit → equation**
 
-![RC circuit, output across the capacitor](./images/chapter-3-rc-circuit.svg)
+![RC circuit](./images/chapter-3-rc-circuit.svg)
 
 ```math
-\frac{v_{\mathrm{in}}-v_C}{R}=i=C\frac{dv_C}{dt}
+\frac{v_{\mathrm{in}}-v_C}{R}=C\frac{dv_C}{dt}
+\Rightarrow
+Dv_C+\frac{1}{RC}v_C=\frac{1}{RC}v_{\mathrm{in}}
 ```
 
 ```math
-Dv_C+\frac{1}{RC}v_C=\frac{1}{RC}v_{\mathrm{in}},
-\qquad D=\frac{d}{dt}
+v_{\mathrm{in}}=0\Rightarrow v_C(t)=Ae^{-t/(RC)}
 ```
 
-```math
-v_{\mathrm{in}}=0\Rightarrow v_C(t)=A e^{-t/(RC)}
-```
-
-ODE → evolution law · initial state → unique trajectory
-
-$v_C(0)$: stored history · switch at $0$: post-switch ODE need not model past
+ODE: evolution law · initial voltage: unique trajectory
+Switch at $0$: post-switch law ≠ model of entire past
 
 <a id="ode-lti"></a>
 
-**Linear constant coefficients + initial rest**
+**Constant coefficients + compatible initial rest**
 
 ```math
 y'+ay=bx
@@ -387,32 +375,28 @@ y'+ay=bx
 \frac{d}{dt}y(t-d)+ay(t-d)=bx(t-d)
 ```
 
-Superposition + unchanged coefficients under shift → LTI
-
-Causal solution / compatible boundary conditions · causality alone ≠ specified initial voltage
-
-Nonzero initial state → extra natural response · fixed-start experiment ≠ automatic whole-axis TI
+Superposition + unchanged shifted equation → LTI
+Nonzero initial state → extra natural response · causality alone ≠ specified initial voltage
 
 ```math
-\text{ODE}\longleftrightarrow h\longleftrightarrow y=x*h
+\boxed{\text{ODE}\longleftrightarrow h\longleftrightarrow y=x*h}
 ```
 
-ODE: particular LTI representation · Laplace → derive $h$ later
+Same mapping, different representations · Laplace: derive $h$ later
 
-**Integrator feedback**
+**Feedback: derivative → integrator → state**
 
 ```math
 Dv_C=\frac{1}{RC}v_{\mathrm{in}}-\frac{1}{RC}v_C
 ```
 
-![RC ODE as negative feedback with an integrator](./images/chapter-6-rc-feedback.svg)
+![RC integrator feedback](./images/chapter-6-rc-feedback.svg)
 
-Gain → subtraction → derivative → integration → voltage
+Gain → subtraction → integration · initial charge → integrator state
+Ideal differentiator: mathematical model ≠ perfect physical implementation
 
-Integrator initial state: $v_C(0)$ · ideal differentiation: practical limitations
-
-↔ [Ch3 feedback](./chapter-3-systems-and-properties.md#interconnection) · [ODE method](./chapter-6-representative-problems.md#rc)
+[RC example](./chapter-6-representative-problems.md#rc) · [Ch3 feedback](./chapter-3-systems-and-properties.md#interconnection)
 
 ---
 
-[Representative methods](./chapter-6-representative-problems.md) · [Ch2 signals](./chapter-2-signals-and-properties.md) · [Ch3 systems](./chapter-3-systems-and-properties.md)
+[Methods](./chapter-6-representative-problems.md) · [Ch2](./chapter-2-signals-and-properties.md) · [Ch3](./chapter-3-systems-and-properties.md)
