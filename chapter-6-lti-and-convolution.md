@@ -44,7 +44,7 @@ S(ax_1+bx_2)=aSx_1+bSx_2
 ```
 
 ```math
-S[x(\,\cdot-a)](t)=y(t-a)
+x_a(t)=x(t-a)\quad\Rightarrow\quad(Sx_a)(t)=y(t-a)
 ```
 
 Linear → scale / add responses · TI → shift response by input’s shift
@@ -62,6 +62,9 @@ $h$: impulse **response**, not the impulse itself · whole output waveform, not 
 
 Room example: short shot → direct sound + later echoes<br>
 Same room / fixed LTI approximation → same $h$ · different recordings → different $y$
+
+Applications: reverb · matched filters (radar / sonar / gravitational waves) · CNN sliding kernels<br>
+Time-domain convolution → frequency-domain analysis
 
 **Running example: direct sound + one echo**
 
@@ -228,7 +231,9 @@ Overlap ≠ positive result: negative values / cancellation possible
 **Impulse shortcut: weighted copies, not overlap geometry**
 
 ```math
-\boxed{x*\delta(\,\cdot-a)=x(\,\cdot-a)}
+\delta_a(t)=\delta(t-a)
+\quad\Rightarrow\quad
+\boxed{(x*\delta_a)(t)=x(t-a)}
 ```
 
 ```math
@@ -382,7 +387,7 @@ Lag $0$ only · nonzero impulse weight allowed · constant gain ≠ constant $h$
 
 Echo: $h$ also at lag $2$ → past input → **memory**
 
-Ordinary zero values away from $0$: insufficient distribution description · no delta derivatives
+Not $h=0$ everywhere · impulse area $k$, not ordinary point value $h(0)$
 
 **Causal: no future input**
 
