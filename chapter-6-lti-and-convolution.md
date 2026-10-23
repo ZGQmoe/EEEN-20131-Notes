@@ -376,7 +376,9 @@ Lag $2$: memory · no negative lag: causal · $|y|\le\frac{3}{2}M$: stable
 
 ## ODE Representation
 
-![RC circuit](./images/chapter-3-rc-circuit.svg)
+<p align="center">
+<img src="./images/chapter-3-rc-circuit.svg" alt="RC circuit: input voltage drives a series resistor and capacitor; output is capacitor voltage." width="850">
+</p>
 
 ```math
 \frac{v_{\mathrm{in}}-v_C}{R}=C\frac{dv_C}{dt}
@@ -434,7 +436,9 @@ Causality alone ≠ specified voltage · fixed-start conditions ≠ automatic wh
 Dv_C=\frac{1}{RC}v_{\mathrm{in}}-\frac{1}{RC}v_C
 ```
 
-![RC integrator feedback](./images/chapter-6-rc-feedback.svg)
+<p align="center">
+<img src="./images/chapter-6-rc-feedback.svg" alt="RC dynamics as a negative-feedback block diagram: input gain minus output feedback gives the derivative, then integration gives capacitor voltage." width="850">
+</p>
 
 Gain → subtraction → integration · initial charge → integrator state
 
