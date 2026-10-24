@@ -10,3 +10,5 @@ Personal revision notes.
 - [Chapter 6 — Representative Methods](./chapter-6-representative-problems.md)
 
 Source lecture files remain local and are not included in this repository.
+
+[Interactive Signals Lab](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/signals-lab.html) · convolution / accumulation / transformations / TI

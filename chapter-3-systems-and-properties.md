@@ -385,6 +385,8 @@ Practice: [S8 / S9](./chapter-3-representative-problems.md#p8-system-properties)
 
 **Time Invariance**
 
+[两条路径同时比较 · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/signals-lab.html#ti)
+
 Same delay · same shape
 
 $z(t)=x(t-d)$ · $y=Sx$

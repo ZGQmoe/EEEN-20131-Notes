@@ -1,0 +1,172 @@
+<!doctype html>
+<!-- AI-assisted schematics: Chapters 2, 3, 6. Illustrative examples; no exercise-completion claim. -->
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signals Lab · EEEN20131</title>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#17212d;--muted:#586574;--line:#d6dee6;--blue:#2563eb;--green:#008564;--probe:#a44900;--shade:#00856430}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--muted:#adb9c7;--line:#303b49;--blue:#83afff;--green:#63dcb2;--probe:#ffba75;--shade:#63dcb240}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
+main{max-width:1000px;margin:auto;padding:24px 20px}header{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}h1{font-size:24px;margin:0}a{color:var(--blue)}small{color:var(--muted)}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0;border-bottom:1px solid var(--line);padding-bottom:12px}
+button,select,input{font:inherit}button{background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:8px 14px;cursor:pointer}button[aria-selected=true]{background:var(--fg);color:var(--bg)}
+select{padding:6px;background:var(--bg);color:var(--fg);border:1px solid var(--line);max-width:100%}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;margin:14px 0}.controls label{display:block}.controls output{font-variant-numeric:tabular-nums;font-weight:600}input[type=range]{display:block;width:100%;accent-color:var(--blue);min-height:30px}
+.formula{text-align:center;font-size:21px;margin:12px 0}.status{text-align:center;min-height:28px;font-variant-numeric:tabular-nums}.hint{color:var(--muted);text-align:center;font-size:14px;margin:8px 0}.paths{display:grid;grid-template-columns:1fr 1fr;text-align:center;gap:10px;margin:12px 0}.blue{color:var(--blue)}.green{color:var(--green)}
+svg{display:block;width:100%;height:180px;overflow:hidden}svg text{fill:var(--fg);font:13px system-ui,sans-serif}svg text.secondary{fill:var(--muted);font-size:12px}svg.draggable{touch-action:none;cursor:ew-resize}
+[hidden]{display:none!important}footer{margin-top:24px;font-size:13px;color:var(--muted)}
+@media(max-width:560px){main{padding:16px 10px}.controls,.paths{grid-template-columns:1fr}.formula{font-size:18px}button{padding:8px 10px}nav{gap:6px}svg{height:195px}}
+</style>
+<main>
+<header><h1>Signals Lab</h1><small>EEEN20131 · Chapters 2 / 3 / 6</small></header>
+<nav role="tablist" aria-label="知识点">
+<button role="tab" id="tab-convolution" aria-controls="convolution" aria-selected="true">卷积：t / τ</button>
+<button role="tab" id="tab-step" aria-controls="step" aria-selected="false">Step → DC</button>
+<button role="tab" id="tab-transform" aria-controls="transform" aria-selected="false">信号变换</button>
+<button role="tab" id="tab-ti" aria-controls="ti" aria-selected="false">TI：两条路径</button>
+</nav>
+<section id="convolution" role="tabpanel" aria-labelledby="tab-convolution">
+<div class="formula"><math><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mo>−</mo><mi>∞</mi></mrow><mi>∞</mi></msubsup><mi>x</mi><mo>(</mo><mi>τ</mi><mo>)</mo><mi>h</mi><mo>(</mo><mi>t</mi><mo>−</mo><mi>τ</mi><mo>)</mo><mi>d</mi><mi>τ</mi></math></div>
+<div class="controls">
+<label>输出时间 t = <output id="t-value"></output><input id="t" type="range" min="-1" max="4" step=".01" value="1.5" aria-label="输出时间 t"></label>
+<label>积分探针 τ = <output id="tau-value"></output><input id="tau" type="range" min="-1.5" max="4.5" step=".01" value=".75" aria-label="积分位置 tau"></label>
+</div>
+<div class="hint">拖 t：平移与面积改变　·　拖 τ：只查看一个乘积值，面积不变</div>
+<div class="status" id="bounds" aria-live="polite"></div>
+<svg id="conv-overlap" class="draggable" role="img" aria-label="tau 轴：固定输入与反转平移后的 h；可拖动积分探针"></svg>
+<svg id="conv-product" class="draggable" role="img" aria-label="tau 轴：乘积和积分面积；可拖动积分探针"></svg>
+<svg id="conv-output" class="draggable" role="img" aria-label="t 轴：卷积输出；拖动选择输出时间"></svg>
+<div class="status" id="probe"></div>
+<p class="hint">示例：x = 1（0 ≤ τ &lt; 2）；h(v) = v（0 ≤ v &lt; 1），其余为零。</p>
+<a href="https://github.com/ZGQmoe/EEEN-20131-Notes/blob/main/chapter-6-lti-and-convolution.md#convolution">↔ Convolution</a>
+</section>
+<section id="step" role="tabpanel" aria-labelledby="tab-step" hidden>
+<div class="formula"><math><mi>s</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mo>−</mo><mi>∞</mi></mrow><mi>t</mi></msubsup><mi>h</mi><mo>(</mo><mi>τ</mi><mo>)</mo><mi>d</mi><mi>τ</mi><mspace width="1em"/><mi>K</mi><mo>=</mo><munder><mi>lim</mi><mrow><mi>t</mi><mo>→</mo><mi>∞</mi></mrow></munder><mi>s</mi><mo>(</mo><mi>t</mi><mo>)</mo></math></div>
+<div class="controls"><label>Impulse response h <select id="step-kind"><option value="rectangle">2 · [u(t) − u(t−1)]</option><option value="bipolar">正面积 + 负面积</option><option value="integrator">u(t)：积分器</option></select></label><label>累积到 t = <output id="step-time-value"></output><input id="step-time" type="range" min="-1" max="4" step=".01" value=".5" aria-label="累积上限 t"></label></div>
+<div class="status" id="step-status" aria-live="polite"></div>
+<svg id="step-h" class="draggable" role="img" aria-label="h 的正负面积，只累积到当前 t"></svg>
+<svg id="step-s" class="draggable" role="img" aria-label="累计面积成为 s 上的点；拖动累计上限"></svg>
+<p class="hint">h = 0 → 不再增加；s 保留已累积的值。DC gain：最后的高度，不是 s 的面积。</p>
+<a href="https://github.com/ZGQmoe/EEEN-20131-Notes/blob/main/chapter-6-lti-and-convolution.md#responses">↔ Step response / DC gain</a>
+</section>
+<section id="transform" role="tabpanel" aria-labelledby="tab-transform" hidden>
+<div class="formula"><math><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>x</mi><mo>(</mo><mi>a</mi><mo>(</mo><mi>t</mi><mo>−</mo><mi>b</mi><mo>)</mo><mo>)</mo></math></div>
+<div class="controls"><label>横向比例 a <select id="scale"><option value="-2">−2</option><option value="-1">−1</option><option value="-.5">−½</option><option value=".5">½</option><option value="1">1</option><option value="2" selected>2</option></select></label><label>平移 b = <output id="shift-value"></output><input id="shift" type="range" min="-3" max="3" step=".01" value="1" aria-label="变换后平移 b"></label></div>
+<div class="status" id="transform-points" aria-live="polite"></div>
+<svg id="transform-plot" role="img" aria-label="原信号与变换后信号：对应峰值和时间断点"></svg>
+<div class="hint"><math><mi>q</mi><mo>→</mo><mi>b</mi><mo>+</mo><mfrac><mi>q</mi><mi>a</mi></mfrac></math>　·　高度不变　·　a &lt; 0：左右翻转</div>
+<a href="https://github.com/ZGQmoe/EEEN-20131-Notes/blob/main/chapter-2-signals-and-properties.md#time-transform">↔ Time transformation</a>
+</section>
+<section id="ti" role="tabpanel" aria-labelledby="tab-ti" hidden>
+<div class="controls"><label>固定系统 S <select id="system"><option value="delay">y(t) = x(t−2)</option><option value="compress">y(t) = x(2t)</option><option value="clock">y(t) = t x(t)</option><option value="square">y(t) = x(t)²</option></select></label><label>测试输入平移 d = <output id="test-delay-value"></output><input id="test-delay" type="range" min="0" max="3" step=".01" value="1" aria-label="TI 测试平移 d"></label></div>
+<div class="paths"><div class="blue">x → 平移 d → S → A(t)</div><div class="green">x → S → 平移 d → B(t)</div></div>
+<div class="status" id="ti-formulas"></div>
+<svg id="ti-plot" role="img" aria-label="两条顺序不同的路径；比较 A 与 B 是否一致"></svg>
+<div class="status" id="ti-status" aria-live="polite"></div>
+<p class="hint">一个反例 → TV；单次曲线重合 ≠ 一般证明。TI：任意输入、任意平移都相同。</p>
+<a href="https://github.com/ZGQmoe/EEEN-20131-Notes/blob/main/chapter-3-systems-and-properties.md#time-invariance">↔ Time invariance</a>
+</section>
+<footer>离线可用 · 无外部依赖 · 示意模型，非题目完成记录</footer>
+</main>
+<script id="math-model">
+"use strict";
+const model = {
+ x:q=>q>=0&&q<2?1:0,
+ h:q=>q>=0&&q<1?q:0,
+ bounds:t=>({L:Math.max(0,t-1),U:Math.min(2,t)}),
+ area(t){const {L,U}=this.bounds(t);return U>L?t*(U-L)-(U*U-L*L)/2:0;},
+ triangle:q=>q>=0&&q<1?2*q:q>=1&&q<3?3-q:0,
+ impulse(q,k){return k==="rectangle"?(q>=0&&q<1?2:0):k==="bipolar"?(q>=0&&q<1?1:q>=1&&q<2?-1:0):(q>=0?1:0);},
+ step(t,k){return k==="rectangle"?2*Math.max(0,Math.min(1,t)):k==="bipolar"?(t<0?0:t<1?t:t<2?2-t:0):Math.max(0,t);},
+ paths(t,d,k){const f=this.triangle;return k==="delay"?[f(t-2-d),f(t-d-2)]:k==="compress"?[f(2*t-d),f(2*(t-d))]:k==="clock"?[t*f(t-d),(t-d)*f(t-d)]:[f(t-d)**2,f(t-d)**2];}
+};
+</script>
+<script>
+(()=>{
+const $=id=>document.getElementById(id),NS="http://www.w3.org/2000/svg",fmt=n=>Math.abs(n)<.0001?"0":n.toFixed(2),clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+let active="convolution",drag=false;const geom=new Map();
+function el(p,tag,attrs={},text){const n=document.createElementNS(NS,tag);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);if(text!==undefined)n.textContent=text;p.append(n);return n;}
+function plot(id,title,xmin,xmax,ymin,ymax,xlabel){
+ const svg=$(id),w=Math.max(300,svg.getBoundingClientRect().width),h=innerWidth<560?195:180,l=58,r=24,top=32,b=34;
+ svg.replaceChildren();svg.setAttribute("viewBox","0 0 "+w+" "+h);svg.style.height=h+"px";
+ el(svg,"title",{},title);el(svg,"text",{x:l,y:19},title);
+ const X=v=>l+(v-xmin)/(xmax-xmin)*(w-l-r),Y=v=>h-b-(v-ymin)/(ymax-ymin)*(h-top-b);
+ const p={svg,X,Y,w,h,l,r,top,b,xmin,xmax,ymin,ymax};geom.set(id,p);
+ const defs=el(svg,"defs"),clip=el(defs,"clipPath",{id:id+"-clip"});el(clip,"rect",{x:l,y:top,width:w-l-r,height:h-top-b});
+ el(svg,"line",{x1:l,x2:w-r,y1:Y(0),y2:Y(0),stroke:"var(--line)"});
+ let ticks=xmax-xmin>15?[-10,-5,0,5,10]:xmax-xmin>8?[-2,0,2,4,6,8]:[-1,0,1,2,3,4];
+ if(w<450)ticks=ticks.filter((_,i)=>i%2===0);
+ for(const v of ticks){el(svg,"line",{x1:X(v),x2:X(v),y1:top,y2:h-b,stroke:"var(--line)","stroke-width":.5});el(svg,"text",{x:X(v),y:h-b+17,"text-anchor":"middle",class:"secondary"},v);}
+ for(const v of [-1,0,1,2,4,8].filter(v=>v>=ymin&&v<=ymax))el(svg,"text",{x:l-7,y:Y(v)+4,"text-anchor":"end",class:"secondary"},v);
+ el(svg,"text",{x:w-r,y:h-1,"text-anchor":"end"},xlabel);return p;
+}
+function curve(p,fn,color,dash=false,area=false){
+ const pts=Array.from({length:701},(_,i)=>{const q=p.xmin+i*(p.xmax-p.xmin)/700;return[p.X(q),p.Y(fn(q))];});
+ let d=pts.map(([x,y],i)=>(i?"L":"M")+x+","+y).join("");
+ if(area){d+="L"+p.X(p.xmax)+","+p.Y(0)+"L"+p.X(p.xmin)+","+p.Y(0)+"Z";el(p.svg,"path",{d,fill:"var(--shade)","clip-path":"url(#"+p.svg.id+"-clip)"});}
+ else el(p.svg,"path",{d,fill:"none",stroke:color,"stroke-width":2.5,...(dash?{"stroke-dasharray":"6 4"}:{}),"clip-path":"url(#"+p.svg.id+"-clip)"});
+}
+function guide(p,q,color="var(--probe)"){el(p.svg,"line",{x1:p.X(q),x2:p.X(q),y1:p.top,y2:p.h-p.b,stroke:color,"stroke-dasharray":"3 3"});}
+function point(p,q,v,color="var(--probe)"){el(p.svg,"circle",{cx:p.X(q),cy:p.Y(v),r:5,fill:color,"clip-path":"url(#"+p.svg.id+"-clip)"});}
+function label(p,txt,color,offset=0){el(p.svg,"text",{x:p.w-p.r,y:18+offset,"text-anchor":"end"},txt).style.fill=color;}
+function interval(p,L,U){
+ if(U<=L)return;
+ const shade=el(p.svg,"rect",{x:p.X(L),y:p.top,width:p.X(U)-p.X(L),height:p.h-p.b-p.top,fill:"var(--shade)"});p.svg.insertBefore(shade,p.svg.querySelector("line"));
+ for(const [q,name,anchor]of[[L,"L","end"],[U,"U","start"]]){guide(p,q,"var(--green)");el(p.svg,"text",{x:p.X(q)+(anchor==="end"?-4:4),y:p.top+13,"text-anchor":anchor},name+"="+fmt(q));}
+}
+function convolution(){
+ const t=+$("t").value,tau=+$("tau").value,{L,U}=model.bounds(t),area=model.area(t),v=model.x(tau)*model.h(t-tau);
+ $("t-value").value=fmt(t);$("tau-value").value=fmt(tau);
+ $("bounds").textContent=U>L?"τ ∈ ["+fmt(L)+", "+fmt(U)+"] → y("+fmt(t)+") = "+fmt(area):"无重叠 → y("+fmt(t)+") = 0";
+ const a=plot("conv-overlap","① 固定 x 与反转平移后的 h",-1.5,4.5,-.1,1.25,"τ");
+ interval(a,L,U);curve(a,model.x,"var(--blue)");curve(a,q=>model.h(t-q),"var(--green)");guide(a,tau);label(a,"x(τ)","var(--blue)");label(a,"h(t−τ)","var(--green)",16);
+ const b=plot("conv-product","② 乘积 → 阴影总面积",-1.5,4.5,-.1,1.25,"τ");
+ curve(b,q=>model.x(q)*model.h(t-q),"",false,true);curve(b,q=>model.x(q)*model.h(t-q),"var(--green)");guide(b,tau);point(b,tau,v);
+ label(b,"area = "+fmt(area),"var(--green)");
+ const c=plot("conv-output","③ 面积 → 输出上的一个点",-1,4,-.05,.65,"t");
+ curve(c,q=>model.area(q),"var(--blue)");guide(c,t);point(c,t,area);
+ $("probe").textContent="τ = "+fmt(tau)+"：x(τ) = "+fmt(model.x(tau))+"，h(t−τ) = "+fmt(model.h(t-tau))+"，乘积 = "+fmt(v);
+}
+function step(){
+ const t=+$("step-time").value,k=$("step-kind").value,s=model.step(t,k);
+ $("step-time-value").value=fmt(t);$("step-status").textContent="s("+fmt(t)+") = "+fmt(s)+" · DC gain "+(k==="integrator"?"无有限值":k==="rectangle"?"= 2":"= 0");
+ const a=plot("step-h","① 只累积到当前 t",-1,4,-1.25,2.5,"τ");
+ curve(a,q=>q<=t?model.impulse(q,k):0,"",false,true);curve(a,q=>model.impulse(q,k),"var(--green)");guide(a,t);
+ const b=plot("step-s","② 累积结果 s(t)",-1,4,-.15,k==="integrator"?4.5:2.5,"t");
+ curve(b,q=>model.step(q,k),"var(--blue)");guide(b,t);point(b,t,s);
+}
+function transform(){
+ const a=+$("scale").value,b=+$("shift").value,peak=b+1/a;
+ $("shift-value").value=fmt(b);$("transform-points").textContent="0 → "+fmt(b)+"　1 → "+fmt(peak)+"　3 → "+fmt(b+3/a)+"　高度 = 2";
+ const p=plot("transform-plot","原信号（虚线）→ x(a(t−b))（实线）",-10,10,-.15,2.6,"t");
+ curve(p,model.triangle,"var(--blue)",true);curve(p,q=>model.triangle(a*(q-b)),"var(--green)");point(p,1,2,"var(--blue)");point(p,peak,2,"var(--green)");
+ el(p.svg,"path",{d:"M"+p.X(1)+","+p.Y(2.25)+"L"+p.X(peak)+","+p.Y(2.25),stroke:"var(--probe)","stroke-width":2});
+}
+function ti(){
+ const k=$("system").value,d=+$("test-delay").value;$("test-delay-value").value=fmt(d);
+ const formulas={delay:"A(t) = x(t−2−d)　B(t) = x(t−d−2)",compress:"A(t) = x(2t−d)　B(t) = x(2t−2d)",clock:"A(t) = t·x(t−d)　B(t) = (t−d)·x(t−d)",square:"A(t) = x(t−d)²　B(t) = x(t−d)²"};
+ $("ti-formulas").textContent=formulas[k];
+ const p=plot("ti-plot","A：先移输入 ／ B：后移输出",-2,9,-.2,k==="clock"?9:k==="square"?4.6:2.6,"t");
+ curve(p,q=>model.paths(q,d,k)[0],"var(--blue)");curve(p,q=>model.paths(q,d,k)[1],"var(--green)",true);
+ $("ti-status").textContent=(k==="delay"||k==="square")?"TI：两条表达式恒等":d===0?"本次重合（d = 0）；不能据此判断 TI":"TV：这个输入已使两条路径不同";
+}
+const renderers={convolution,step,transform,ti};function draw(){renderers[active]();}
+function activate(id){
+ if(!renderers[id])id="convolution";active=id;
+ for(const b of document.querySelectorAll("[role=tab]")){const selected=b.getAttribute("aria-controls")===id;b.setAttribute("aria-selected",selected);b.tabIndex=selected?0:-1;$(b.getAttribute("aria-controls")).hidden=!selected;}draw();
+}
+document.querySelectorAll("[role=tab]").forEach(b=>{b.addEventListener("click",()=>{location.hash=b.getAttribute("aria-controls");});b.addEventListener("keydown",e=>{if(!["ArrowLeft","ArrowRight"].includes(e.key))return;e.preventDefault();const bs=[...document.querySelectorAll("[role=tab]")],n=(bs.indexOf(b)+(e.key==="ArrowRight"?1:-1)+bs.length)%bs.length;bs[n].focus();bs[n].click();});});
+for(const n of document.querySelectorAll("input,select"))n.addEventListener("input",draw);
+for(const [id,control]of[["conv-overlap","tau"],["conv-product","tau"],["conv-output","t"],["step-h","step-time"],["step-s","step-time"]]){
+ const svg=$(id);function update(e){const p=geom.get(id),r=svg.getBoundingClientRect(),v=p.xmin+((e.clientX-r.left)*p.w/r.width-p.l)/(p.w-p.l-p.r)*(p.xmax-p.xmin),input=$(control);input.value=clamp(v,+input.min,+input.max).toFixed(2);draw();}
+ svg.addEventListener("pointerdown",e=>{if(e.button!==0)return;drag=true;svg.setPointerCapture(e.pointerId);update(e);e.preventDefault();});
+ svg.addEventListener("pointermove",e=>{if(drag&&svg.hasPointerCapture(e.pointerId))update(e);});
+ svg.addEventListener("pointerup",()=>drag=false);svg.addEventListener("pointercancel",()=>drag=false);
+}
+addEventListener("hashchange",()=>activate(location.hash.slice(1)));
+new ResizeObserver(()=>{if(!drag)draw();}).observe(document.querySelector("main"));
+activate(location.hash.slice(1));
+})();
+</script>
+</html>

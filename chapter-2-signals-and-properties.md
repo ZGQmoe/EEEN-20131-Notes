@@ -120,6 +120,8 @@ Practice: [positive $f$ vs increasing $g$](./chapter-2-representative-problems.m
 
 **Time transform**
 
+[缩放 / 翻转 / 平移 · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/signals-lab.html#transform)
+
 ```math
 \boxed{x_{a,t_{0}}(t)=x\negthinspace \left(a(t-t_{0})\right)}
 ```

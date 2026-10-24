@@ -27,6 +27,8 @@ flowchart TD
 
 ## Convolution
 
+[拖动 t / τ · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/signals-lab.html#convolution)
+
 ```math
 \large
 \boxed{(x*h)(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)\,d\tau}
@@ -283,6 +285,8 @@ Integrator $h=u$: bounded input $u$ → unbounded ramp $tu(t)$ → unstable
 <a id="step"></a>
 
 ## Step Response & DC Gain
+
+[拖动累积上限 · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/signals-lab.html#step)
 
 <p align="center">
 <img src="./images/chapter-6-response-links.svg" alt="Same system: delta input gives h, step input gives s. Integrating delta gives u; integrating h gives s; differentiating s gives h. For stable LTI, final s is DC gain." width="900">
