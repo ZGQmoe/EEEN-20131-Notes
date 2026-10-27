@@ -8,6 +8,7 @@ Personal revision notes.
 - [Chapter 3 — Representative Problems](./chapter-3-representative-problems.md)
 - [Chapter 6 — LTI and Convolution](./chapter-6-lti-and-convolution.md)
 - [Chapter 6 — Representative Methods](./chapter-6-representative-problems.md)
+- [Chapter 7 — Fourier Analysis](./chapter-7-fourier.md)
 
 Source lecture files remain local and are not included in this repository.
 
