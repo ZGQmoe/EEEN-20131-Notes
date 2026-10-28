@@ -259,6 +259,42 @@ e^{j(2\pi ft+\phi)}
 \widetilde{x}(t)\stackrel{?}{=}x(t)
 ```
 
+**Coefficient existence**
+
+```math
+e^{-j\theta}=\cos\theta-j\sin\theta
+\quad\Longrightarrow\quad
+\boxed{|e^{-j\theta}|=\sqrt{\cos^{2}\theta+\sin^{2}\theta}=1},
+\qquad\theta=2\pi kf_{0}t
+```
+
+Changing angle · unit magnitude
+
+```math
+\left|\int g(t)\,dt\right|\le\int|g(t)|\,dt
+\qquad
+\underbrace{|3-2|}_{1}\le\underbrace{|3|+|-2|}_{5}
+```
+
+```math
+\begin{aligned}
+|x_{k}|
+&=\frac{1}{T_{0}}\left|\int_{0}^{T_{0}}x(t)e^{-j2\pi kf_{0}t}\,dt\right|\\
+&\le\frac{1}{T_{0}}\int_{0}^{T_{0}}
+\underbrace{|x(t)e^{-j2\pi kf_{0}t}|}_{|x(t)|}\,dt
+\lt\infty.
+\end{aligned}
+```
+
+Absolute integrability → finite coefficient for each fixed $k$; no pointwise-convergence guarantee
+
+```math
+t^{-1/2}\to\infty\ (t\to0^{+}),
+\qquad \int_{0}^{1}t^{-1/2}\,dt=2
+```
+
+Unbounded amplitude ≠ divergent integral
+
 **Sufficient condition: piecewise continuously differentiable over one period**
 
 ```math
@@ -281,6 +317,55 @@ x(t),&x\text{ continuous at }t,\\
 ```
 
 ![Smooth pieces, a continuous corner, a jump, and Fourier partial sums approaching the jump midpoint](./images/chapter-7-convergence.svg)
+
+**Finite sums: Gibbs phenomenon**
+
+```math
+J=|x(t_{0}^{+})-x(t_{0}^{-})|,
+\qquad
+\boxed{\text{peak overshoot}\longrightarrow0.08949\ldots J}
+```
+
+```math
+2\to5:\qquad J=3,\qquad
+\text{upper peak}\approx5+0.09(3)=5.27
+```
+
+$N\uparrow$: narrower oscillation region; persistent peak height; better approximation away from jumps
+
+**Whole-waveform error: mean-square convergence**
+
+```math
+\underbrace{e_{N}(t)=x(t)-x_{N}(t)}_{\text{error signal}}
+\quad\longrightarrow\quad
+\underbrace{\int_{0}^{T_{0}}|e_{N}(t)|^{2}dt}_{\text{error energy over one period}}
+```
+
+```math
+\boxed{
+d(x,x_{N})=
+\left(\int_{0}^{T_{0}}|x(t)-x_{N}(t)|^{2}dt\right)^{1/2}
+}
+```
+
+$d$: distance between whole signals
+
+```math
+P=\frac{1}{T_{0}}\int_{0}^{T_{0}}|x(t)|^{2}dt\lt\infty
+\quad\Longrightarrow\quad
+\boxed{d(x,x_{N})\xrightarrow{N\to\infty}0}
+```
+
+```math
+\underbrace{\frac{d(x,x_{N})^{2}}{T_{0}}}_{\text{mean-square error}}
+\longrightarrow0
+```
+
+Pointwise: error at fixed $t$ · mean-square: integrated squared error
+
+Isolated-point differences: zero error energy · Gibbs: shrinking region despite persistent peak
+
+Function space: whole signals as elements; $d$ as distance · functional analysis: further reading
 
 Practice: [real waveform → coefficient plot](./chapter-7-representative-problems.md#coefficients)
 
