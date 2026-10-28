@@ -1,4 +1,4 @@
-<!-- AI-assisted partial note: Signals_and_System_02Oct.pdf, pp. 115-117, through the analysis equation in §7.2.2; user's source-reading reasoning sequence. Orthogonality derivation: finite sums; extension to infinite series requires justification of termwise integration. -->
+<!-- AI-assisted partial note: Signals_and_System_02Oct.pdf, pp. 115-120, through convergence; user's source-reading reasoning sequence. Orthogonality derivation: finite sums; extension to infinite series requires justification of termwise integration. -->
 
 # Chapter 7 — Fourier Analysis
 
@@ -18,8 +18,6 @@ x(t)=\underbrace{\sum_{k=-\infty}^{\infty}
 x_{k}\in\mathbb C,\qquad k=0,\pm1,\pm2,\ldots,\qquad
 f_{0}=\frac{1}{T_{0}},\qquad t\in\mathbb R
 ```
-
-$x_{k}\ne x(k)$ · representation of $x$, not an operation $Sx$
 
 <a id="harmonics"></a>
 
@@ -44,8 +42,6 @@ k=\pm2&:\quad e^{\pm j2\pi(2f_{0})t} &&\text{second harmonic pair}
 =\phi_{k}(t),\qquad T_{k}=\frac{T_{0}}{|k|}\quad(k\ne0)
 ```
 
-Common period $T_{0}$ ≠ common **smallest** period
-
 ```math
 \underbrace{\cos(2\pi t)}_{T=1\,\mathrm{s}}
 +\underbrace{\tfrac12\cos(4\pi t)}_{T=\frac12\,\mathrm{s}}
@@ -57,8 +53,6 @@ T_{0}\longrightarrow\{kf_{0}:k\in\mathbb Z\},
 \qquad x_{k}=0\longrightarrow\text{absent component}
 ```
 
-Known period ≠ known composition · finite / infinite nonzero coefficients
-
 ```math
 \underbrace{\{x_{k}\}\longrightarrow x(t)}_{\text{synthesis}}
 \qquad
@@ -68,25 +62,6 @@ Known period ≠ known composition · finite / infinite nonzero coefficients
 Constant: $\forall T>0,\ x(t+T)=x(t)$ → no smallest period; arbitrary $T_{0}>0$
 
 ↔ [Periodic signals / complex exponential](./chapter-2-signals-and-properties.md)
-
-**Infinite sum → symmetric partial sums**
-
-```math
-S_{N}(t)=\sum_{k=-N}^{N}x_{k}e^{j2\pi kf_{0}t},
-\qquad
-\begin{aligned}
-N=0&:\quad k=0\\
-N=1&:\quad k=-1,0,1\\
-N=2&:\quad k=-2,-1,0,1,2
-\end{aligned}
-```
-
-```math
-\boxed{S_{N}(t)\xrightarrow{N\to\infty}x(t)}
-\qquad t\text{ fixed};\quad N\to\infty\ne t\to\infty
-```
-
-Synthesis equality: wherever the limit equals $x(t)$; not automatically at jumps
 
 <a id="coefficients"></a>
 
@@ -127,7 +102,7 @@ x_{0}&\in\mathbb R
 \qquad x_{-k}=x_{k}\iff x_{k}\in\mathbb R
 ```
 
-Magnitude: even · opposite phases modulo $2\pi$, nonzero coefficients only
+Phases: nonzero coefficients only
 
 ```math
 x_{15}=\frac{\sqrt3}{40}-\frac{j}{40},\qquad
@@ -178,21 +153,12 @@ x(t)=\cdots+
 +\cdots
 $$
 
-$k$: component index, not time
-
 $$
 \underbrace{x_{k}e^{j2\pi kf_{0}t}}_{\text{target component}}
 \;\times\;
 \underbrace{e^{-j2\pi kf_{0}t}}_{\text{cancel its exponential}}
 =\boxed{x_{k}}
 $$
-
-$$
-e^{j\theta}e^{-j\theta}=1,\qquad
-e^{j\theta}e^{j\theta}=e^{j2\theta}
-$$
-
-Negative exponent → cancel target oscillation · period average → remove other components
 
 ```math
 \int_{0}^{T_{0}}|x(t)|\,dt<\infty,
@@ -217,11 +183,6 @@ x_{k},&n=k\\
 0,&n\ne k
 \end{cases}
 ```
-
-- $n=k$: exponent cancellation → constant $x_{k}$ → same average
-- $n\ne k$: nonzero integer cycles over $T_{0}$ → zero average
-
-**Zero after integration; not before · complete cycles, not arbitrary intervals**
 
 ```math
 x(t)=3+2e^{j2\pi t}+5e^{j4\pi t},\qquad T_{0}=1,\quad k=1
@@ -277,26 +238,51 @@ k\notin\{-1,1\}&:\quad k-1\ne0,\ k+1\ne0
 \end{aligned}
 ```
 
-All $k\ge2$: same zero-average argument; not extrapolation from $k=0,1$
+Practice: [mixed harmonics → coefficients / plot](./chapter-7-representative-problems.md#coefficients)
 
-```math
-\begin{aligned}
-&\cos(2\pi f_{0}t)+0.1\sin\left(2\pi15f_{0}t+\frac{\pi}{3}\right)\\
-&=\underbrace{\frac12}_{x_{1}}e^{j2\pi f_{0}t}
-+\underbrace{\frac12}_{x_{-1}}e^{-j2\pi f_{0}t}\\
-&\quad+\underbrace{\frac{0.1e^{j\pi/3}}{2j}}_{x_{15}}e^{j2\pi15f_{0}t}
-+\underbrace{-\frac{0.1e^{-j\pi/3}}{2j}}_{x_{-15}}e^{-j2\pi15f_{0}t}
-\end{aligned}
-```
-
-Match exponent → read coefficient · negative frequency ≠ negative coefficient
+Match exponent → read coefficient
 
 ```math
 e^{j(2\pi ft+\phi)}
 =\underbrace{e^{j\phi}}_{\text{constant coefficient factor}}e^{j2\pi ft}
 ```
 
-Phase retained inside coefficient; same waveform
+---
+
+<a id="convergence"></a>
+
+## Convergence
+
+```math
+\underbrace{x_N(t)=\sum_{k=-N}^{N}x_ke^{j2\pi kf_0t}}_{\text{symmetric index range}}
+\quad\xrightarrow{N\to\infty}\quad
+\widetilde{x}(t)\stackrel{?}{=}x(t)
+```
+
+**Sufficient condition: piecewise continuously differentiable over one period**
+
+```math
+a_0<a_1<\cdots<a_M=a_0+T_0,\qquad M<\infty
+```
+
+```math
+x|_{(a_{r-1},a_r)}\text{ extends to }C^1([a_{r-1},a_r])
+```
+
+Smooth within pieces · finite break points · corners / jumps allowed
+
+```math
+\boxed{
+\widetilde{x}(t)=
+\begin{cases}
+x(t),&x\text{ continuous at }t,\\
+\frac{x(t^-)+x(t^+)}{2},&t\text{ a jump}.
+\end{cases}}
+```
+
+![Smooth pieces, a continuous corner, a jump, and Fourier partial sums approaching the jump midpoint](./images/chapter-7-convergence.svg)
+
+Practice: [real waveform → coefficient plot](./chapter-7-representative-problems.md#coefficients)
 
 ---
 

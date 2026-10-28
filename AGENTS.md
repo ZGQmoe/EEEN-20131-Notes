@@ -29,6 +29,7 @@
 - Preserve assumptions and proof steps; shorten wording, not reasoning.
 - Equation-first, not phrase-first: governing formula → its components → interpretation → special cases, following the user's source-reading reasoning path. Prefer mathematical annotations and derivations; embed questions at the relevant step, not as disconnected fragments.
 - Standalone revision notes: no visible source section/equation/page numbers or “covered next” references. Keep source locations in hidden provenance comments; use concept names for internal links.
+- Deduplicate meaning, not just wording: one formula/derivation per idea; remove redundant bullets, repeated negative contrasts and elementary confusions the user confirms resolved. Preserve explicitly requested highlights and essential assumptions.
 - Preserve anchors, concept/problem split, mind map and links; no repeated checklist or extra table.
 - Keep the ordinary subject structure. User questions/traps belong beneath the relevant concept; no separate supplement, weakness report, or extra knowledge hierarchy.
 - Representative problems stay in the existing problem file: full given data, task, essential solution, assumptions and concept links. Integrate related cases into an existing topic where possible.
