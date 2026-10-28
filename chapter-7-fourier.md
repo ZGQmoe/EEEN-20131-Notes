@@ -161,7 +161,7 @@ $$
 $$
 
 ```math
-\int_{0}^{T_{0}}|x(t)|\,dt<\infty,
+\int_{0}^{T_{0}}|x(t)|\,dt\lt\infty,
 \qquad
 \boxed{x_{k}=\frac{1}{T_{0}}\int_{0}^{T_{0}}
 x(t)e^{-j2\pi kf_{0}t}\,dt}
@@ -262,7 +262,7 @@ e^{j(2\pi ft+\phi)}
 **Sufficient condition: piecewise continuously differentiable over one period**
 
 ```math
-a_0<a_1<\cdots<a_M=a_0+T_0,\qquad M<\infty
+a_0\lt a_1\lt\cdots\lt a_M=a_0+T_0,\qquad M\lt\infty
 ```
 
 ```math
