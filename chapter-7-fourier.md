@@ -1,4 +1,4 @@
-<!-- AI-assisted partial note: Signals_and_System_02Oct.pdf, pp. 115-117, through §7.2.1; user's source-reading reasoning sequence. -->
+<!-- AI-assisted partial note: Signals_and_System_02Oct.pdf, pp. 115-117, through the analysis equation in §7.2.2; user's source-reading reasoning sequence. Orthogonality derivation: finite sums; extension to infinite series requires justification of termwise integration. -->
 
 # Chapter 7 — Fourier Analysis
 
@@ -120,7 +120,19 @@ x_{0}&\in\mathbb R
 \end{aligned}
 ```
 
-Conjugate symmetry ≠ equal coefficients · phases: nonzero coefficients only
+**Real-valued ≠ even waveform · conjugate symmetry ≠ equal coefficients**
+
+```math
+\boxed{x_{k}=a+jb\quad\Longrightarrow\quad x_{-k}=a-jb}
+\qquad x_{-k}=x_{k}\iff x_{k}\in\mathbb R
+```
+
+Magnitude: even · opposite phases modulo $2\pi$, nonzero coefficients only
+
+```math
+x_{15}=\frac{\sqrt3}{40}-\frac{j}{40},\qquad
+x_{-15}=\frac{\sqrt3}{40}+\frac{j}{40}=x_{15}^{\ast}\ne x_{15}
+```
 
 ```math
 \begin{aligned}
@@ -152,6 +164,139 @@ Complex-valued counterexample:
 ```math
 x(t)=e^{j2\pi t}:\qquad x_{1}=1,\quad x_{-1}=0
 ```
+
+---
+
+## Fourier Series Analysis
+
+**Target: extract the coefficient**
+
+$$
+x(t)=\cdots+
+\underbrace{x_{k}}_{\text{unknown coefficient}}
+\underbrace{e^{j2\pi kf_{0}t}}_{\text{known component}}
++\cdots
+$$
+
+$k$: component index, not time
+
+$$
+\underbrace{x_{k}e^{j2\pi kf_{0}t}}_{\text{target component}}
+\;\times\;
+\underbrace{e^{-j2\pi kf_{0}t}}_{\text{cancel its exponential}}
+=\boxed{x_{k}}
+$$
+
+$$
+e^{j\theta}e^{-j\theta}=1,\qquad
+e^{j\theta}e^{j\theta}=e^{j2\theta}
+$$
+
+Negative exponent → cancel target oscillation · period average → remove other components
+
+```math
+\int_{0}^{T_{0}}|x(t)|\,dt<\infty,
+\qquad
+\boxed{x_{k}=\frac{1}{T_{0}}\int_{0}^{T_{0}}
+x(t)e^{-j2\pi kf_{0}t}\,dt}
+```
+
+Fixed $k$: target coefficient · $n$: component index
+
+```math
+\underbrace{x_{n}e^{j2\pi nf_{0}t}}_{\text{component }n}
+\underbrace{e^{-j2\pi kf_{0}t}}_{\text{target }k}
+=x_{n}e^{j2\pi(n-k)f_{0}t}
+```
+
+```math
+\frac{1}{T_{0}}\int_{0}^{T_{0}}
+x_{n}e^{j2\pi(n-k)f_{0}t}\,dt
+=\begin{cases}
+x_{k},&n=k\\
+0,&n\ne k
+\end{cases}
+```
+
+- $n=k$: exponent cancellation → constant $x_{k}$ → same average
+- $n\ne k$: nonzero integer cycles over $T_{0}$ → zero average
+
+**Zero after integration; not before · complete cycles, not arbitrary intervals**
+
+```math
+x(t)=3+2e^{j2\pi t}+5e^{j4\pi t},\qquad T_{0}=1,\quad k=1
+```
+
+```math
+\begin{aligned}
+x_{1}
+&=\int_{0}^{1}x(t)e^{-j2\pi t}\,dt\\
+&=\int_{0}^{1}\left(3e^{-j2\pi t}+2+5e^{j2\pi t}\right)dt\\
+&=\underbrace{0}_{\text{one cycle}}+
+\underbrace{2}_{\text{constant}}+
+\underbrace{0}_{\text{one cycle}}=\boxed{2}.
+\end{aligned}
+```
+
+```math
+e^{j2\pi t}=\cos(2\pi t)+j\sin(2\pi t),\qquad
+\int_{0}^{1}\cos(2\pi t)dt=\int_{0}^{1}\sin(2\pi t)dt=0
+```
+
+---
+
+**Sinusoid → visible harmonics → coefficient check**
+
+```math
+A\sin(2\pi mf_{0}t+\phi)
+=\underbrace{\frac{Ae^{j\phi}}{2j}}_{x_{m}}e^{j2\pi mf_{0}t}
++\underbrace{-\frac{Ae^{-j\phi}}{2j}}_{x_{-m}}e^{-j2\pi mf_{0}t},
+\qquad m=1,2,\ldots
+```
+
+$f_{0}$: whole signal's fundamental frequency · $m$: harmonic index · $A$: amplitude, not index
+
+```math
+x(t)=\sin(2\pi f_{0}t)
+\quad\Longrightarrow\quad
+x_{k}=\frac{f_{0}}{2j}\int_{0}^{1/f_{0}}
+\left[e^{-j2\pi(k-1)f_{0}t}-e^{-j2\pi(k+1)f_{0}t}\right]dt
+```
+
+$k\pm1$: this signal's $\pm f_{0}$ components; not a general analysis formula
+
+```math
+\begin{aligned}
+k=1&:\quad k-1=0
+&&\Rightarrow x_{1}=\frac{f_{0}}{2j}
+\underbrace{\int_{0}^{1/f_{0}}1\,dt}_{1/f_{0}}=-\frac{j}{2}\\
+k=-1&:\quad k+1=0
+&&\Rightarrow x_{-1}=\frac{j}{2}\\
+k\notin\{-1,1\}&:\quad k-1\ne0,\ k+1\ne0
+&&\Rightarrow x_{k}=0
+\end{aligned}
+```
+
+All $k\ge2$: same zero-average argument; not extrapolation from $k=0,1$
+
+```math
+\begin{aligned}
+&\cos(2\pi f_{0}t)+0.1\sin\left(2\pi15f_{0}t+\frac{\pi}{3}\right)\\
+&=\underbrace{\frac12}_{x_{1}}e^{j2\pi f_{0}t}
++\underbrace{\frac12}_{x_{-1}}e^{-j2\pi f_{0}t}\\
+&\quad+\underbrace{\frac{0.1e^{j\pi/3}}{2j}}_{x_{15}}e^{j2\pi15f_{0}t}
++\underbrace{-\frac{0.1e^{-j\pi/3}}{2j}}_{x_{-15}}e^{-j2\pi15f_{0}t}
+\end{aligned}
+```
+
+Match exponent → read coefficient · negative frequency ≠ negative coefficient
+
+```math
+e^{j(2\pi ft+\phi)}
+=\underbrace{e^{j\phi}}_{\text{constant coefficient factor}}e^{j2\pi ft}
+```
+
+Phase retained inside coefficient; same waveform
 
 ---
 
