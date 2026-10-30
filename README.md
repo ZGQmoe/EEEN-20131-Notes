@@ -14,3 +14,11 @@ Personal revision notes.
 Source lecture files remain local and are not included in this repository.
 
 [Interactive Signals Lab](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/signals-lab.html) · convolution / accumulation / transformations / TI
+
+## Progress
+
+<!-- Only update with items the student has confirmed. -->
+
+- Confirmed:
+- In progress:
+- Next:
