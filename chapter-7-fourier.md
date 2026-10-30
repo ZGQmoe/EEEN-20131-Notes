@@ -308,6 +308,30 @@ x|_{(a_{r-1},a_r)}\text{ extends to }C^1([a_{r-1},a_r])
 Smooth within pieces · finite break points · corners / jumps allowed
 
 ```math
+x(a_r^-)=\lim_{t\to a_r^-}x(t),\qquad
+x(a_r^+)=\lim_{t\to a_r^+}x(t),\qquad
+|x(a_r^\pm)|\lt\infty
+```
+
+Finite left / right limits; equality not required
+
+```math
+x(a^-)=2,\quad x(a^+)=5
+\quad\Longrightarrow\quad
+\widetilde{x}(a)=\frac{2+5}{2},
+\qquad x(a)\text{ independently assigned}
+
+```
+
+```math
+E_{\mathrm{period}}=\int_{0}^{T_{0}}|x(t)|^{2}dt\lt\infty,\qquad
+P=\frac{E_{\mathrm{period}}}{T_{0}}\lt\infty
+
+```
+
+Nonzero periodic signal ($P>0$): $E_{\infty}=\infty$
+
+```math
 \boxed{
 \widetilde{x}(t)=
 \begin{cases}

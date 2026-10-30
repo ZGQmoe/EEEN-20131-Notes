@@ -1,2 +1,5 @@
+# Canvas lecture materials stay local (not redistributed)
+materials/
 *.pdf
+*.pptx
 .DS_Store
