@@ -10,6 +10,8 @@ Personal revision notes.
 - [Chapter 6 — Representative Methods](./chapter-6-representative-problems.md)
 - [Chapter 7 — Fourier Analysis](./chapter-7-fourier.md)
 - [Chapter 7 — Representative Problems](./chapter-7-representative-problems.md)
+- [Simulink — Measuring Magnitude Response](./simulink-magnitude-response.md)
+- [Simulink — Representative Problems](./simulink-representative-problems.md)
 
 Source lecture files remain local and are not included in this repository.
 
