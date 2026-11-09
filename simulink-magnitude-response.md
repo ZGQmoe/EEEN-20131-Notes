@@ -337,7 +337,7 @@ semilogx(f_Hz,Gop,'o-',f_Hz,Gref,'s-'); grid on
 
 **Read from plot**
 
-Low-frequency gain · −3 dB frequency (gain ×$\frac{1}{\sqrt{2}}$ from low-f level) · high-frequency slope (dB/decade) · two-model agreement after numerical check
+Low-frequency gain · −3 dB frequency (gain $\times\frac{1}{\sqrt{2}}$ from low-f level) · high-frequency slope (dB/decade) · two-model agreement after numerical check
 
 ---
 
