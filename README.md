@@ -10,6 +10,7 @@ Personal revision notes.
 - [Chapter 6 — Representative Methods](./chapter-6-representative-problems.md)
 - [Chapter 7 — Fourier Analysis](./chapter-7-fourier.md)
 - [Chapter 7 — Representative Problems](./chapter-7-representative-problems.md)
+- [Laplace Transform — Working Note](./laplace-transform-working-note.md)
 - [Simulink — Measuring Magnitude Response](./simulink-magnitude-response.md)
 - [Simulink — Representative Problems](./simulink-representative-problems.md)
 
