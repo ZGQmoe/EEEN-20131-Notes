@@ -1,0 +1,640 @@
+<!doctype html>
+<!-- AI-assisted study pack for EEEN20131 Chapter 2. Sources: Signals_and_System_02Oct.pdf (2.1-2.8), SolutionManual_SaSv2.pdf (2.6.x). Not a completion record. -->
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 2 学习包 · EEEN20131</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#17212d;--muted:#586574;--line:#d6dee6;--blue:#2563eb;--green:#008564;--probe:#a44900;--shade:#00856430;--card:color-mix(in srgb,var(--fg) 6%,transparent)}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--muted:#adb9c7;--line:#303b49;--blue:#83afff;--green:#63dcb2;--probe:#ffba75;--shade:#63dcb240;--card:color-mix(in srgb,var(--fg) 8%,transparent)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"PingFang SC",sans-serif}
+main{max-width:860px;margin:auto;padding:20px 18px 80px}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:22px;margin:44px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
+h3{font-size:18px;margin:26px 0 6px}h4{font-size:16px;margin:16px 0 4px}
+a{color:var(--blue)}small,.muted{color:var(--muted)}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:4px 14px;flex-wrap:wrap;padding:8px 18px;font-size:14px;z-index:5}
+nav a{text-decoration:none}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15px}th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}th{background:var(--card)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:12px 0}
+.card h4{margin-top:0}.card ol,.card ul{margin:6px 0;padding-left:22px}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:0 8px;margin-right:6px;color:var(--muted);white-space:nowrap}
+.tag.exam{border-color:var(--probe);color:var(--probe)}.tag.ai{border-color:var(--blue);color:var(--blue)}.tag.off{border-color:var(--green);color:var(--green)}
+.q{border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:14px 0}
+.q .stem{margin:8px 0}.en{font-family:Georgia,"Times New Roman",serif}
+details{margin:6px 0}summary{cursor:pointer;color:var(--blue)}details>div{padding:6px 0 6px 14px;border-left:2px solid var(--line);margin-top:4px}
+.lab{border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:14px 0}
+.lab canvas{width:100%;height:auto;display:block;margin:6px 0}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 24px;margin:6px 0}
+.ctl label{display:block;font-size:14px}.ctl input[type=range]{width:100%}select,button{font:inherit;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:5px 10px}
+button{cursor:pointer}output{font-variant-numeric:tabular-nums;font-weight:600}
+.read{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.fq{margin:14px 0}.fq label{display:block;padding:2px 0}.fq .fb{font-size:14px;margin-top:4px}.ok{color:var(--green)}.bad{color:var(--probe)}
+.wrong{border-left:3px solid var(--probe);padding-left:10px}.right{border-left:3px solid var(--green);padding-left:10px}
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.tag.rep{border-color:var(--green);color:var(--green)}
+.q{position:relative}.q .done{float:right;font-size:13px;color:var(--muted);cursor:pointer;user-select:none}.q.isdone{border-color:var(--green)}.q.isdone .done{color:var(--green)}
+.q .stem p{margin:6px 0}#prog{font-size:14px;margin:10px 0 0}
+</style>
+<nav>
+<a href="#route">1 半天路线</a><a href="#learn">2 讲解</a><a href="#labs">3 动画</a><a href="#fund">4 概念题</a><a href="#methods">5 方法卡</a><a href="#practice">6 练习</a><a href="#variants">7 变式</a><a href="#mocks">8 模拟卷</a><a href="#extend">9 延伸</a>
+</nav>
+<main>
+<h1>Chapter 2 学习包：连续时间信号</h1>
+<p class="muted">EEEN20131 Signals and Systems · 依据讲义 <i>Signals_and_System_02Oct.pdf</i> 第 2 章（§2.1–2.8）和官方解答手册 <i>SolutionManual_SaSv2.pdf</i>。</p>
+<div class="card">
+<h4>来源清单（这一页里的题只来自这里）</h4>
+<ul>
+<li>讲义 §2.6 Problems：2.6.1–2.6.9，共 9 题，全部有官方解答。</li>
+<li>讲义 §2.7 Exam Questions：2.7.1–2.7.6，共 6 题，来自 Jan 2023、Jan 2024、Jan 2025、Jan 2026 四年真题。Jan 2024、2025、2026 三年的 4 道题已逐问对照学校的 Official Solutions（2023-24、2024-25、2025-26 卷 Q1）。Jan 2023 的 2.7.1 和 2.7.3 手头没有官方解答，由 AI 推导。</li>
+<li>讲义 §2.8 Advanced problems：2.8.1、2.8.2。没有官方解答。</li>
+<li>你的 Representative Problems P1–P10，原样并入。</li>
+<li>变式、模拟卷、部分延伸题为自编，逐题标注。</li>
+</ul>
+<span class="tag off">官方解答</span><span class="tag off">已对照官方解答</span><span class="tag ai">AI 解答，未经老师核对</span><span class="tag exam">真题</span>
+<p style="margin:10px 0 0">配套：<a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/">Chapter 2 概念笔记</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/problems/">Representative Problems</a> · <a href="../visuals/signals-lab.html">Signals Lab</a></p>
+<p id="prog"></p>
+</div>
+
+<h2 id="route">1 · 半天路线（约 4 小时）</h2>
+<table>
+<tr><th>时间</th><th>做什么</th><th>做到什么算过</th></tr>
+<tr><td>0:00–0:25</td><td><a href="#s1">§A 信号</a>、<a href="#s2">§B 能量</a>，拖 <a href="#labE">能量动画</a></td><td>能说出 \(E_\infty\) 是哪块面积</td></tr>
+<tr><td>0:25–1:05</td><td><a href="#s3">§C 时间变换</a>，拖 <a href="#labT">变换动画</a>：先猜再拖</td><td>给 \(a,t_0\) 能说出每个断点搬到哪</td></tr>
+<tr><td>1:05–1:20</td><td><a href="#s4">§D 周期与奇偶</a></td><td>能背出 fundamental period 的定义</td></tr>
+<tr><td>1:20–2:00</td><td><a href="#s5">§E step、impulse、求导</a>，拖 <a href="#labD">impulse 动画</a>和<a href="#labJ">求导动画</a></td><td>看到跳变能直接写出 impulse 的系数</td></tr>
+<tr><td>2:00–2:20</td><td><a href="#s6">§F 复指数</a>，拖 <a href="#labC">复指数动画</a></td><td>能从 \(s=\sigma+j\omega\) 说出衰减和周期</td></tr>
+<tr><td>2:20–2:40</td><td><a href="#fund">Fundamental 概念题</a></td><td>全对；错的回对应小节</td></tr>
+<tr><td>2:40–3:40</td><td>读<a href="#methods">方法卡</a>，做真题 2.7.1、2.7.3、2.7.5</td><td>不看提示写完整步骤</td></tr>
+<tr><td>3:40–4:00</td><td><a href="#mocks">模拟卷 A</a></td><td>按评分标准自评</td></tr>
+</table>
+<p>剩下的练习、变式、模拟卷 B/C 和延伸题放到之后几天。</p>
+
+<h2 id="learn">2 · 直观讲解</h2>
+
+<h3 id="s1">§A 信号是什么（讲义 §2.2）</h3>
+<p><b>画面</b>：麦克风录下的声音是一条随时间变化的电压曲线。这条曲线整体叫信号。</p>
+<p><b>记号</b>：\(x\) 是整条曲线，\(x(t)\) 是这条曲线在时刻 \(t\) 的高度，是一个数。讲义很在意这个区别，所以它说“信号 \(x\)”，说到取值时写“\(x(t)\) for all \(t\in\mathbb{R}\)”。</p>
+<p>实信号每个时刻的值是实数，复信号每个时刻的值是复数（§F 会用到）。</p>
+<p><b>三种最简单的运算</b>都是逐时刻做的：数乘 \(c\,x(t)\)、相加 \(x(t)+y(t)\)、相乘 \(x(t)y(t)\)。</p>
+
+<h3 id="s2">§B 能量、功率、RMS（讲义 §2.3.2）</h3>
+<p><b>画面</b>：电压 \(v\) 加在电阻上，瞬时功率是 \(v^2/R\)。把功率对时间累加就是消耗的能量。去掉 \(R\)，对任何信号都这样定义：</p>
+\[E_\infty=\int_{-\infty}^{\infty}|x(t)|^2\,dt\]
+<ul>
+<li>\(|x(t)|^2\)：先取模再平方。实信号就是 \(x(t)^2\)；复信号必须取模，\(|e^{j3t}|^2=1\)。</li>
+<li>积分：\(|x|^2\) 曲线下面的面积。信号为负的地方平方后也是正的，一样贡献能量。</li>
+</ul>
+<p>如果能量是无穷大（比如一直不停的正弦），改看平均功率：</p>
+\[P_\infty=\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|x(t)|^2\,dt,\qquad x_{\mathrm{RMS}}=\sqrt{P_\infty}\]
+<p><b>一条必记的结论</b>：能量有限 \(\Rightarrow P_\infty=0\)。有限的面积除以越来越长的时间，结果趋于 0。</p>
+<p><b>小算例</b>（Jan 2023 真题 2.7.1）：\(x(t)=e^{-3t}u(t)\)。\(t\lt 0\) 时为 0，所以 \(E_\infty=\int_0^\infty e^{-6t}dt=\tfrac16\)。</p>
+<p><b>常见错法</b>：平方时忘了指数也要乘 2，写成 \(\int e^{-3t}dt\)。</p>
+
+<h3 id="s3">§C 时间变换 \(x_{a,t_0}\)（讲义 §2.3.3）</h3>
+<p><b>画面</b>：同一段录音，放快、放慢、倒放、晚一点开始放。声音的“高度”没变，只是时间轴被动了。</p>
+<p>讲义把这些合成一个记号：</p>
+\[x_{a,t_0}(t)=x\big(a(t-t_0)\big)\]
+<table>
+<tr><th>参数</th><th>效果</th></tr>
+<tr><td>\(a\gt 1\)</td><td>压缩（变窄，放快）</td></tr>
+<tr><td>\(0\lt a\lt 1\)</td><td>拉伸（变宽，放慢）</td></tr>
+<tr><td>\(a\lt 0\)</td><td>左右翻转，再按 \(|a|\) 压缩或拉伸</td></tr>
+<tr><td>\(t_0\gt 0\)</td><td>整体右移 \(t_0\)</td></tr>
+<tr><td>\(t_0\lt 0\)</td><td>整体左移 \(|t_0|\)</td></tr>
+</table>
+<p><b>只需要一条公式</b>：原信号上位于 \(\tau\) 的特征点（断点、峰值），在新信号里出现在</p>
+\[t=t_0+\frac{\tau}{a}\]
+<p>因为新信号在 \(t\) 时刻去读原信号的 \(\tau=a(t-t_0)\) 处，反解 \(t\) 就得到上式。这条公式和官方解答手册的写法一致。</p>
+<p><b>小算例</b>（Jan 2023 真题 2.7.3）：原信号断点在 \(\tau=0,2,4\)，峰值 2 在 \(\tau=2\)。求 \(x_{2,2}\)：\(t=2+\tau/2\)，断点搬到 \(2,3,4\)，峰值 2 在 \(t=3\)。高度不变。</p>
+<p><b>常见错法</b>：把 \(x(2(t-2))\) 看成“右移 2 再压缩”然后搞错顺序。不要想顺序，直接用 \(t=t_0+\tau/a\) 逐点搬。</p>
+
+<h3 id="s4">§D 周期、奇偶（讲义 §2.4）</h3>
+<p><b>周期信号</b>：存在 \(T\gt 0\) 使得 \(x(t)=x(t+T)\) 对所有 \(t\) 成立。画面是把整条曲线平移 \(T\)，和原来完全重合。</p>
+<p><b>Fundamental period \(T_0\)</b>：满足上式的最小正数 \(T\)。Jan 2024 真题 2.7.2 直接考这个定义，2 分。</p>
+<p>周期信号的总能量是无穷大，所以改算一个周期内的量：\(P_{\text{period}}=\frac{1}{T_0}\int_0^{T_0}|x(t)|^2dt\)，并且 \(P_\infty=P_{\text{period}}\)。</p>
+<p><b>偶信号</b>：\(x(t)=x(-t)\)，关于纵轴对称，例如 \(\cos\)。<b>奇信号</b>：\(x(t)=-x(-t)\)，关于原点对称，例如 \(\sin\)。</p>
+
+<h3 id="s5">§E Unit step、impulse、分段信号求导（讲义 §2.5.1–2.5.2）</h3>
+<p><b>Unit step</b> 是一个开关：</p>
+\[u(t)=\begin{cases}0,&t\lt 0\\1,&t\ge 0\end{cases}\]
+<p>乘上 \(u(t)\) 表示“从 0 时刻才开始”。\(u(t-a)-u(t-b)\) 是一个只在 \(a\le t\lt b\) 打开的窗口，用它可以把分段信号写成一行式子。</p>
+<p><b>Impulse \(\delta\)</b>：讲义从一个矩形脉冲 \(\delta_n\) 出发，高 \(n\)、宽 \(1/n\)，面积恒为 1。\(n\) 越大越高越窄，极限就是 \(\delta\)。它不是普通函数，只通过积分起作用：</p>
+\[\int_{-\infty}^{\infty}\delta(t)\,dt=1,\qquad \int_{-\infty}^{\infty}f(t)\,\delta(t)\,dt=f(0)\]
+<p>第二条叫 sifting property：\(\delta\) 把 \(f\) 在 0 处的值“筛”出来。画图时用一根箭头表示，箭头旁边标的数是面积（系数），不是高度。</p>
+<p><b>两者的关系</b>：\(u(t)=\int_{-\infty}^{t}\delta(\tau)d\tau\)，反过来 \(\delta(t)=\dfrac{du}{dt}(t)\)。</p>
+<p><b>这直接给出分段信号的求导规则</b>：信号在 \(t_i\) 处跳了多少，导数里就有一个系数为这个跳变量的 impulse。</p>
+\[\dot x(t)=\underbrace{\text{每一段内部的普通导数}}_{\text{斜率}}+\sum_i \underbrace{\big[x(t_i^+)-x(t_i^-)\big]}_{\text{跳变量}}\,\delta(t-t_i)\]
+<p><b>小算例</b>（讲义 Problem 2.6.8，官方解答）：电平依次为 0、1、−2、0，在 \(t=0,1,2\) 处跳变 \(+1,-3,+2\)。所以 \(\dot x(t)=\delta(t)-3\delta(t-1)+2\delta(t-2)\)，并且 \(x(t)=u(t)-3u(t-1)+2u(t-2)\)。</p>
+<p><b>常见错法</b>：在信号连续的断点也写了 impulse。只有跳变才有 impulse；斜率变了但值没跳，不产生 impulse。</p>
+
+<h3 id="s6">§F 复指数信号（讲义 §2.5.3）</h3>
+<p><b>画面</b>：复平面上一个绕原点转的点。转一圈的同时，到原点的距离可以缩小、不变或增大。</p>
+\[e(t)=e^{st},\quad s=\sigma+j\omega\quad\Rightarrow\quad e^{st}=e^{\sigma t}\big[\cos(\omega t)+j\sin(\omega t)\big]\]
+<table>
+<tr><th>量</th><th>由谁决定</th><th>公式</th></tr>
+<tr><td>到原点的距离（模）</td><td>\(\sigma\)</td><td>\(|e^{st}|=e^{\sigma t}\)</td></tr>
+<tr><td>time constant</td><td>\(\sigma\)</td><td>\(\tau=1/|\sigma|\)，模变为原来的 \(e^{-1}\) 或 \(e^{1}\) 倍所需时间</td></tr>
+<tr><td>转动快慢</td><td>\(\omega\)</td><td>\(f=\omega/2\pi\)，\(T_0=1/f=2\pi/|\omega|\)</td></tr>
+</table>
+<p>\(\sigma=0\) 时点在单位圆上匀速转，信号是周期的。\(\sigma\ne0\) 时模一直在变，永远回不到原样，不是周期信号。</p>
+<p>正弦、余弦可以用它拼出来：\(\cos(\omega t)=\dfrac{e^{j\omega t}+e^{-j\omega t}}{2}\)，\(\sin(\omega t)=\dfrac{e^{j\omega t}-e^{-j\omega t}}{2j}\)。</p>
+<p><b>常见错法</b>（讲义 Problem 2.6.5）：\(e^{1+j10t}\) 和 \(e^{(1+j10)t}\) 不一样。前者是常数 \(e\) 乘 \(e^{j10t}\)，周期；后者带 \(e^{t}\)，不周期。</p>
+
+<h2 id="labs">3 · 交互动画</h2>
+<p class="muted">例子用的都是讲义里的真题信号。拖之前先在纸上猜结果。</p>
+
+<div class="lab" id="labE"><h4>能量 = \(|x|^2\) 下面的面积</h4>
+<p>\(x(t)=e^{-\sigma t}u(t)\)。蓝线是 \(x\)，绿色阴影是 \(|x|^2\) 下的面积。\(\sigma=3\) 就是 Jan 2023 真题 2.7.1。</p>
+<div class="ctl"><label>σ = <output id="eS"></output><input id="eSr" type="range" min="0.5" max="5" step="0.5" value="3"></label></div>
+<canvas id="cE" width="1640" height="520"></canvas><div class="read" id="eRead"></div></div>
+
+<div class="lab" id="labT"><h4>时间变换 \(x_{a,t_0}(t)=x(a(t-t_0))\)</h4>
+<div class="ctl">
+<label>信号 <select id="tSig"></select></label>
+<label>a = <output id="tA"></output><input id="tAr" type="range" min="-3" max="3" step="0.25" value="2"></label>
+<label>t₀ = <output id="tT"></output><input id="tTr" type="range" min="-5" max="5" step="0.5" value="2"></label>
+</div>
+<canvas id="cT" width="1640" height="620"></canvas>
+<div class="read" id="tRead"></div>
+<p class="muted">灰色虚线是原信号 \(x\)，蓝色是 \(x_{a,t_0}\)。下面一行列出每个断点按 \(t=t_0+\tau/a\) 搬到了哪里。</p></div>
+
+<div class="lab" id="labD"><h4>\(\delta_n\)：越高越窄，面积不变</h4>
+<div class="ctl"><label>n = <output id="dN"></output><input id="dNr" type="range" min="1" max="40" step="1" value="2"></label></div>
+<canvas id="cD1" width="1640" height="440"></canvas><canvas id="cD2" width="1640" height="360"></canvas>
+<p class="muted">上图是 \(\delta_n\)（高 \(n\)，宽 \(1/n\)）。下图是它从 \(-\infty\) 积到 \(t\) 的结果，\(n\) 增大时趋近 unit step。这就是 \(u=\int\delta\)。</p></div>
+
+<div class="lab" id="labJ"><h4>跳变 → impulse：分段信号求导</h4>
+<div class="ctl"><label>信号 <select id="jSig"></select></label></div>
+<canvas id="cJ1" width="1640" height="460"></canvas><canvas id="cJ2" width="1640" height="460"></canvas>
+<div class="read" id="jRead"></div>
+<p class="muted">上图是 \(x\)，下图是 \(\dot x\)。橙色箭头是 impulse，旁边的数是它的系数，等于上图在该处的跳变量。</p></div>
+
+<div class="lab" id="labC"><h4>复指数 \(e^{st}\)，\(s=\sigma+j\omega\)</h4>
+<div class="ctl">
+<label>σ = <output id="cS"></output><input id="cSr" type="range" min="-1" max="0.4" step="0.1" value="-0.3"></label>
+<label>ω = <output id="cW"></output><input id="cWr" type="range" min="0" max="10" step="0.5" value="4"></label>
+</div>
+<canvas id="cC" width="1640" height="620"></canvas><div class="read" id="cRead"></div>
+<p class="muted">左边是复平面上的轨迹，右边是实部 \(e^{\sigma t}\cos(\omega t)\)，虚线是包络 \(\pm e^{\sigma t}\)。</p></div>
+
+<h2 id="fund">4 · Fundamental 概念题</h2>
+<p>不用计算。全部选完点“检查”。答错的题会告诉你回哪一节，重看之后再回来重做，全对再去做题。</p>
+<div id="fq"></div>
+<p><button id="fqBtn">检查</button> <button id="fqReset">重做</button> <span id="fqScore" class="read"></span></p>
+
+<h2 id="methods">5 · 题型方法卡</h2>
+<p>四年真题在这一章反复考的是下面 M1–M4 四种操作，通常围绕同一个分段信号连着问。M5–M7 来自讲义 Problems。</p>
+<table>
+<tr><th>题型</th><th>真题出现</th><th>分值</th></tr>
+<tr><td>M1 求能量</td><td>2.7.1 (2023)、2.7.4 (2024)、2.7.5 (2025)、2.7.6 (2026)</td><td>每次 3</td></tr>
+<tr><td>M2 画变换后的信号</td><td>2.7.3 (2023)、2.7.4、2.7.5、2.7.6</td><td>2–3</td></tr>
+<tr><td>M3 求导（含 impulse）</td><td>2.7.4、2.7.5、2.7.6</td><td>3–4</td></tr>
+<tr><td>M4 用 step 写出信号</td><td>2.7.6</td><td>3</td></tr>
+<tr><td>定义题</td><td>2.7.2 (2024)</td><td>2</td></tr>
+</table>
+<div class="card" id="m1"><h4>M1 · 求能量 \(E_\infty\)</h4><ol>
+<li>写出信号非零的每一段区间。</li>
+<li>每一段写出 \(|x(t)|^2\)。指数要记得乘 2：\((e^{-\sigma t})^2=e^{-2\sigma t}\)。</li>
+<li>每一段分别积分。常用两条：\(\int (at+b)^2dt=\dfrac{(at+b)^3}{3a}\)，\(\int e^{-kt}dt=-\dfrac{e^{-kt}}{k}\)。</li>
+<li>各段相加。</li>
+<li>检查：结果必须 \(\ge 0\)；每一段的贡献也必须 \(\ge0\)。</li></ol>
+<p class="muted">失分点：负值段算成负能量；积分上下限代反。</p></div>
+<div class="card" id="m2"><h4>M2 · 画 \(x_{a,t_0}(t)=x(a(t-t_0))\)</h4><ol>
+<li>从题目读出 \(a\) 和 \(t_0\)。注意 \(x(-(t+2))\) 是 \(a=-1,\ t_0=-2\)。</li>
+<li>列出原信号的所有特征点 \(\tau_i\)（断点、峰值）和那里的高度。</li>
+<li>每个点搬到 \(t_i=t_0+\tau_i/a\)。高度不变。</li>
+<li>\(a\lt 0\) 时左右顺序会反过来，属于正常。</li>
+<li>按新位置连线：原来是直线的还是直线，原来是指数的还是指数。</li>
+<li>随便挑一个 \(t\) 代回 \(x(a(t-t_0))\) 验证一个点。标坐标轴和关键数值。</li></ol>
+<p class="muted">失分点：没标轴；跳变处的两个高度只画了一个。</p></div>
+<div class="card" id="m3"><h4>M3 · 求导，含 impulse</h4><ol>
+<li>每一段内部按普通函数求导，得到斜率。</li>
+<li>对每个断点 \(t_i\)，算跳变量 = 右边的值 − 左边的值。信号外面是 0。</li>
+<li>跳变量不为 0：写 \(\text{跳变量}\cdot\delta(t-t_i)\)。跳变量为 0：这里没有 impulse。</li>
+<li>把斜率部分用窗口 \(u(t-a)-u(t-b)\) 写出来，加上所有 impulse。</li></ol>
+<p class="muted">失分点：漏掉信号开头或结尾处的跳变；系数符号反了（往下跳是负的）。</p></div>
+<div class="card" id="m4"><h4>M4 · 用 unit step 写分段信号</h4><ol>
+<li>每一段 \(a\le t\lt b\) 上的表达式 \(f(t)\) 乘窗口：\(f(t)\,[u(t-a)-u(t-b)]\)。</li>
+<li>各段相加。</li>
+<li>代一个段内的点和一个段外的点验证。</li></ol>
+<p class="muted">每段是常数时可以进一步合并成“每个跳变一个 step”：\(x(t)=\sum_i \text{跳变量}_i\,u(t-t_i)\)（讲义 Problem 2.6.8 的写法）。</p></div>
+<div class="card" id="m5"><h4>M5 · 判断周期，求 \(T_0\)</h4><ol>
+<li>单个 \(Ae^{j\omega t}\)（\(\omega\ne0\)）：周期，\(T_0=2\pi/|\omega|\)。常数系数和相位不影响周期。</li>
+<li>带 \(e^{\sigma t}\) 且 \(\sigma\ne0\)：不周期。</li>
+<li>两个正弦相加：分别求周期 \(T_1,T_2\)，找最小的正整数 \(m,n\) 使 \(mT_1=nT_2\)，\(T_0=mT_1\)。</li></ol></div>
+<div class="card" id="m6"><h4>M6 · \(E_\infty\) 和 \(P_\infty\)</h4><ol>
+<li>先看信号会不会衰减到 0。会衰减并且能量积分收敛：\(E_\infty\) 有限，\(P_\infty=0\)。</li>
+<li>模恒定或周期不衰减：\(E_\infty=\infty\)，\(P_\infty\) 取一个周期的平均。\(|Ae^{j\omega t}|^2=|A|^2\) 所以 \(P_\infty=|A|^2\)；\(\cos t\) 的 \(P_\infty=\tfrac12\)。</li></ol></div>
+<div class="card" id="m7"><h4>M7 · 复数互化</h4><ol>
+<li>极坐标 → 直角：\(re^{j\theta}=r\cos\theta+jr\sin\theta\)。角度先减掉 \(2\pi\) 的整数倍。</li>
+<li>直角 → 极坐标：\(r=\sqrt{x^2+y^2}\)，\(\theta\) 按象限取，范围 \(-\pi\lt\theta\le\pi\)。负实数的 \(\theta=\pi\)。</li></ol></div>
+
+<h2 id="practice">6 · 分级练习</h2>
+<p>每题先自己做。卡住了按顺序开提示，一次只开一层。</p>
+<h3>你的代表题：Representative Problems P1–P10</h3>
+<p class="muted">从你笔记仓库的 <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/problems/">chapter-2-representative-problems.md</a> 原样并入，题面和答案没有改动。那边更新后这里要重新生成。</p>
+<div id="exRep">
+<div class="q" id="p1-positive-vs-increasing"><div><b>P1 — Positive ≠ Increasing</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#operations">operations / calculus</a></p>
+<p>Let \(f(t)\ge0\) and</p>
+\[g(T)=\int_{-T}^{T}f(t)\thinspace dt,\qquad T\ge0.\]
+<p>\(g\): monotonicity? · \(f\): monotonicity?</p></div><details><summary>答案</summary><div><p>For \(T_{1}\ge T_{2}\ge0\),</p>
+<p>\(\displaystyle g(T_{1})-g(T_{2}) =\int_{-T_{1}}^{-T_{2}}f(t)\thinspace dt +\int_{T_{2}}^{T_{1}}f(t)\thinspace dt \ge0.\)</p>
+<p>\(g(T_{1})\ge g(T_{2})\)</p>
+<p>If differentiable:</p>
+<p>\(\displaystyle g'(T)=f(T)+f(-T)\ge0.\)</p>
+<p>\(f\ge0\) ≠ increasing · \(f=t^{2}+3\): decreasing for \(t&lt;0\)</p></div></details></div>
+<div class="q" id="p2-energy-power-rms"><div><b>P2 — Energy / Power / RMS</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#energy">energy / power / RMS</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#complex-number">complex modulus</a></p>
+<p>Class · \(E_\infty\) · \(P_\infty\) · \(x_{\mathrm{RMS}}\)</p>
+\[x_{1}(t)=e^{-2t}u(t),\qquad
+x_{2}(t)=3e^{j(4t+\pi/3)}.\]</div><details><summary>答案</summary><div><p>\(\displaystyle |x_{1}(t)|^{2}=e^{-4t}u(t)\)</p>
+<p>\(\displaystyle E_\infty=\int_{0}^\infty e^{-4t}dt=\frac{1}{4},\qquad P_\infty=0,\qquad x_{\mathrm{RMS}}=0.\)</p>
+<p>Finite-energy signal.</p>
+<p>For \(x_{2}\):</p>
+<p>\(\displaystyle |x_{2}|^{2}=x_{2}x_{2}^{\ast} =9e^{j(4t+\pi/3)}e^{-j(4t+\pi/3)}=9.\)</p>
+<p>\(\displaystyle E_\infty=\infty,\qquad P_\infty=9,\qquad x_{\mathrm{RMS}}=3.\)</p>
+<p>Power signal.</p></div></details></div>
+<div class="q" id="p3-time-transform"><div><b>P3 — Time Transform by Breakpoints</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#time-transform">time transform</a></p>
+<p>\(x(t)\) has breakpoints</p>
+\[\tau\in\lbrace -2,-1,0,1,2\rbrace .\]
+<p>For</p>
+\[y(t)=x\negthinspace \left[-\frac{1}{2}(t+4)\right],\]
+<p>New breakpoints · transform</p></div><details><summary>答案</summary><div><p>Match \(x(a(t-t_{0}))\):</p>
+<p>\(\displaystyle a=-\frac{1}{2},\qquad t_{0}=-4.\)</p>
+<p>Point map:</p>
+<p>\(\displaystyle t=t_{0}+\frac{\tau}{a}=-4-2\tau.\)</p>
+<p>\(\displaystyle \lbrace -2,-1,0,1,2\rbrace  \mapsto \lbrace 0,-2,-4,-6,-8\rbrace .\)</p>
+<p>Sorted:</p>
+<p>\(\displaystyle \boxed{\lbrace -8,-6,-4,-2,0\rbrace }.\)</p>
+<p>\(a&lt;0\): reversal · \(|a|=\frac{1}{2}\): width ×2 · \(t_{0}=-4\): left 4</p></div></details></div>
+<div class="q" id="p4-complex-periodicity"><div><b>P4 — \(\sigma\) or Constant Magnitude?</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#complex-signal">complex exponential</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#complex-periodicity">periodicity</a></p>
+<p>Determine periodicity and, when it exists, \(T_{0}\):</p>
+\[x_{1}(t)=\frac{1}{2}e^{1+j10t},\qquad
+x_{2}(t)=\frac{1}{2}e^{(1+j10)t}.\]</div><details><summary>答案</summary><div><p>\(\displaystyle x_{1}(t)=\frac e2e^{j10t}\)</p>
+<p>Constant magnitude; periodic:</p>
+<p>\(\displaystyle \boxed{T_{0}=\frac{2\pi}{10}=\frac{\pi}{5}}.\)</p>
+<p>\(\displaystyle x_{2}(t)=\frac{1}{2}e^{t} e^{j10t}\)</p>
+<p>\(\sigma=1\): magnitude changes with \(t\); not periodic.</p>
+<p>Key distinction: \(e^{1+j10t}\) versus \(e^{(1+j10)t}\).</p></div></details></div>
+<div class="q" id="p5-impulse-step-energy"><div><b>P5 — Impulse \(\to\) Step \(\to\) Energy</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#impulse">impulse</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#energy">energy</a></p>
+<p>Let</p>
+\[x(t)=\delta(t+2)-\delta(t-2),
+\qquad
+y(t)=\int_{-\infty}^{t}x(\tau)\thinspace d\tau.\]
+<p>\(y(t)\) · \(E_{y}\)</p></div><details><summary>答案</summary><div><p>\(\displaystyle y(t)=u(t+2)-u(t-2) = \begin{cases} 1,&amp;-2\le t&lt;2\quad\text{(endpoint convention)}\\ 0,&amp;\text{elsewhere} \end{cases}\)</p>
+<p>\(\displaystyle E_{y}=\int_{-\infty}^{\infty}|y(t)|^{2}dt =\int_{-2}^{2}1\thinspace dt =\boxed4.\)</p></div></details></div>
+<div class="q" id="p6-pulse-forms"><div><b>P6 — Two Steps, One Pulse</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#step">unit step</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#impulse">step–impulse relation</a></p>
+<p>For \(a&lt;b\), express a unit-height pulse between \(a\) and \(b\) using:</p>
+<ol><li>a difference of steps;</li><li>a product of steps;</li><li>impulses after differentiation.</li></ol></div><details><summary>答案</summary><div><p>\(\displaystyle p(t)=u(t-a)-u(t-b)\)</p>
+<p>\(\displaystyle p(t)=u(t-a)u(b-t) \qquad\text{a.e.}\)</p>
+<p>Endpoint: \(u(0)\) · same ordinary integrals</p>
+<p>\(\displaystyle Dp(t)=\delta(t-a)-\delta(t-b).\)</p>
+<p>Open \(a\): \(+1\) · close \(b\): \(-1\)</p></div></details></div>
+<div class="q" id="p7-step-construction"><div><b>P7 — Level Changes</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#step-construction">step construction</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#piecewise-derivative">piecewise derivative</a></p>
+<p>Write in step form, then differentiate:</p>
+\[x(t)=
+\begin{cases}
+0,&amp;t&lt;0\\
+1,&amp;0\le t&lt;1\\
+-2,&amp;1\le t&lt;2\\
+0,&amp;t\ge2.
+\end{cases}\]</div><details><summary>答案</summary><div><p>Level changes:</p>
+<p>\(\displaystyle t=0:+1,\qquad t=1:-3,\qquad t=2:+2.\)</p>
+<p>\(\displaystyle \boxed{x(t)=u(t)-3u(t-1)+2u(t-2)}\)</p>
+<p>\(\displaystyle \boxed{Dx(t)=\delta(t)-3\delta(t-1)+2\delta(t-2)}\)</p>
+<p>Coefficient = new level \(-\) old level.</p></div></details></div>
+<div class="q" id="p8-piecewise-derivative"><div><b>P8 — Slopes + Jumps</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#piecewise-derivative">piecewise derivative</a></p>
+<p>Find the generalized derivative:</p>
+\[x(t)=
+\begin{cases}
+0,&amp;t&lt;-2\\
+t,&amp;-2\le t&lt;0\\
+2-t,&amp;0\le t&lt;2\\
+0,&amp;t\ge2.
+\end{cases}\]</div><details><summary>答案</summary><div><p>Ordinary slopes:</p>
+<p>\(\displaystyle u(t+2)-2u(t)+u(t-2).\)</p>
+<p>Jumps:</p>
+<p>\(\displaystyle J_{-2}=-2-0=-2,\qquad J_{0}=2-0=2,\qquad J_{2}=0-0=0.\)</p>
+<p>Therefore</p>
+<p>\(\displaystyle \boxed{ Dx(t)=u(t+2)-2u(t)+u(t-2) -2\delta(t+2)+2\delta(t) }.\)</p>
+<p>\(t=2\): corner · no jump → no impulse</p></div></details></div>
+<div class="q" id="p9-delta-properties"><div><b>P9 — Delta Sampling and Scaling</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#impulse">Dirac delta</a></p>
+<p>Simplify:</p>
+\[y(t)=(t^{2}+1)[\delta(t-3)+\delta(t+1)]\]
+\[z(t)=\delta(2t-4).\]</div><details><summary>答案</summary><div><p>Sampling:</p>
+<p>\(\displaystyle f(t)\delta(t-a)=f(a)\delta(t-a).\)</p>
+<p>\(\displaystyle \boxed{y(t)=10\delta(t-3)+2\delta(t+1)}.\)</p>
+<p>Scaling:</p>
+<p>\(\displaystyle \delta(a(t-t_{0}))=\frac{1}{|a|}\delta(t-t_{0}).\)</p>
+<p>\(\displaystyle \boxed{z(t)=\frac{1}{2}\delta(t-2)}.\)</p>
+<p>\(\frac{1}{|a|}\): unit area</p></div></details></div>
+<div class="q" id="p10-window-derivative"><div><b>P10 — Window Derivative</b> <span class="tag rep">你的代表题</span></div><div class="stem"><p>Tests: <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#operations">operations / calculus</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#impulse">Dirac delta</a> · <a href="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#piecewise-derivative">piecewise derivative</a></p>
+<p>Let</p>
+\[x(t)=(3-t)[u(t+2)-u(t)].\]
+<p>Find \(Dx(t)\). In particular, simplify</p>
+\[(3-t)[\delta(t+2)-\delta(t)].\]</div><details><summary>答案</summary><div><p>Product + chain rules:</p>
+<p>\(\displaystyle Dx(t)=-[u(t+2)-u(t)] +(3-t)[\delta(t+2)-\delta(t)].\)</p>
+<p>Impulse locations:</p>
+<p>\(\displaystyle t+2=0\Rightarrow t=-2, \qquad t=0.\)</p>
+<p>Sampling:</p>
+<p>\(\displaystyle (3-t)\delta(t+2)=5\delta(t+2),\)</p>
+<p>\(\displaystyle -(3-t)\delta(t)=-3\delta(t).\)</p>
+<p>Therefore</p>
+<p>\(\displaystyle \boxed{ Dx(t)=-[u(t+2)-u(t)] +5\delta(t+2)-3\delta(t) }.\)</p>
+<p>Jump check:</p>
+<p>\(\displaystyle t=-2:\ 5-0=+5, \qquad t=0:\ 0-3=-3.\)</p>
+<p>Quiz correction: \(\delta(t+2)\) coefficient \(+5\)</p></div></details></div>
+</div>
+<h3>基础：讲义 §2.6 Problems</h3><div id="exBasic"></div>
+<h3>真题：讲义 §2.7 Exam Questions</h3><div id="exExam"></div>
+<h3>进阶：讲义 §2.8 Advanced problems</h3><div id="exAdv"></div>
+
+<h2 id="variants">7 · 变式题</h2>
+<p>全部自编，每题注明变式自哪道题、改了什么。</p><div id="exVar"></div>
+
+<h2 id="mocks">8 · 三套模拟卷</h2>
+<p>自编，题型和分值分配仿照 2.7.3–2.7.6。闭卷做，做完对照评分标准按步骤给自己打分。</p>
+<div class="card"><h4>想让我批改</h4>
+<p>把手写步骤拍照发到课程 Chat，说「批改 Chapter 2 模拟卷 A」。我会按下面的评分标准逐步给分，指出每个失分点属于哪一类（概念缺口 / 审题建模 / 方法流程 / 代数符号 / 粗心），并指定要重看的小节或要重做的变式题。</p></div>
+<div id="exMock"></div>
+
+<h2 id="extend">9 · 延伸题</h2>
+<p>前面全部做完再看。超出考试常规难度。X1、X2 是讲义 Advanced problems 的延伸方向，自编；只用本章知识。</p><div id="exExt"></div>
+
+<p class="muted" style="margin-top:50px">本页由 AI 生成。真题题面照讲义原文。真题和进阶题的解答未经老师核对，发现和课堂不一致的地方以讲义和老师为准。</p>
+</main>
+<script>
+"use strict";
+const R=String.raw, $=id=>document.getElementById(id);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ---------- signals taken from the lecture notes ---------- */
+const SIG={
+ s2023:{name:"Jan 2023 · 2.7.3",p:[[0,2,t=>t],[2,4,t=>4-t]]},
+ s2024:{name:"Jan 2024 · 2.7.4",p:[[-2,0,t=>t],[0,2,t=>2-t]]},
+ s2025:{name:"Jan 2025 · 2.7.5",p:[[-2,0,t=>3-t],[0,3,t=>t]]},
+ s2026:{name:"Jan 2026 · 2.7.6",p:[[0,2,t=>t],[2,7,t=>2*Math.exp(-(t-2))]]},
+ p268:{name:"Problem 2.6.8",p:[[0,1,t=>1],[1,2,t=>-2]]},
+ p269:{name:"Problem 2.6.9",p:[[-2,-1,t=>1+t],[-1,0,t=>1],[0,1,t=>3],[1,2,t=>3-2*t]]},
+ vD:{name:"变式 V5",p:[[-1,1,t=>2*t+1],[1,3,t=>4-t]]},
+ vS:{name:"变式 V6",p:[[0,1,t=>2],[1,4,t=>2*Math.exp(-3*(t-1))]]},
+ mA:{name:"模拟卷 A",p:[[0,2,t=>1],[2,3,t=>3]]},
+ mB:{name:"模拟卷 B",p:[[-1,1,t=>t+2],[1,3,t=>3-t]]},
+ mC:{name:"模拟卷 C",p:[[-1,0,t=>Math.exp(2*t)],[0,2,t=>2-t]]}
+};
+const ev=(s,t)=>{for(const [a,b,f] of s.p) if(t>=a&&t<b) return f(t); return 0;};
+const bps=s=>[...new Set(s.p.flatMap(q=>[q[0],q[1]]))].sort((x,y)=>x-y);
+const fmt=v=>{const r=Math.round(v*1000)/1000; return Object.is(r,-0)?"0":String(r);};
+
+/* ---------- tiny plotting helper ---------- */
+function axes(c,v){
+ const g=c.getContext("2d"),W=c.width,H=c.height,L=70,Rm=30,T=24,B=50;
+ g.clearRect(0,0,W,H);
+ const X=x=>L+(x-v.x0)/(v.x1-v.x0)*(W-L-Rm), Y=y=>H-B-(y-v.y0)/(v.y1-v.y0)*(H-T-B);
+ g.font="24px system-ui,sans-serif"; g.lineWidth=1;
+ const step=(lo,hi)=>{const r=hi-lo,raw=r/8,p=Math.pow(10,Math.floor(Math.log10(raw)));return [1,2,5,10].map(m=>m*p).find(s=>s>=raw);};
+ const sx=v.sx||step(v.x0,v.x1), sy=v.sy||step(v.y0,v.y1);
+ g.strokeStyle=css("--line"); g.fillStyle=css("--muted"); g.textAlign="center";
+ for(let x=Math.ceil(v.x0/sx)*sx;x<=v.x1+1e-9;x+=sx){g.beginPath();g.moveTo(X(x),T);g.lineTo(X(x),H-B);g.stroke();g.fillText(fmt(x),X(x),H-B+30);}
+ g.textAlign="right";
+ for(let y=Math.ceil(v.y0/sy)*sy;y<=v.y1+1e-9;y+=sy){g.beginPath();g.moveTo(L,Y(y));g.lineTo(W-Rm,Y(y));g.stroke();g.fillText(fmt(y),L-10,Y(y)+8);}
+ g.strokeStyle=css("--muted"); g.lineWidth=2;
+ if(v.y0<=0&&v.y1>=0){g.beginPath();g.moveTo(L,Y(0));g.lineTo(W-Rm,Y(0));g.stroke();}
+ if(v.x0<=0&&v.x1>=0){g.beginPath();g.moveTo(X(0),T);g.lineTo(X(0),H-B);g.stroke();}
+ g.textAlign="left"; g.fillText(v.xl||"t",W-Rm-18,H-B-10); if(v.yl) g.fillText(v.yl,L+10,T+22);
+ return {g,X,Y,W,H,L,Rm,T,B};
+}
+function curve(P,v,f,color,opt={}){
+ const {g,X,Y}=P,N=1500,br=(opt.breaks||[]); g.strokeStyle=color; g.lineWidth=opt.w||4; g.setLineDash(opt.dash||[]); g.beginPath();
+ let pen=false,px=null;
+ for(let i=0;i<=N;i++){const x=v.x0+(v.x1-v.x0)*i/N,y=f(x);
+  const cut=px!==null&&br.some(b=>b>px-1e-9&&b<x+1e-9);
+  if(!isFinite(y)){pen=false;px=x;continue;}
+  const yc=Math.max(v.y0-(v.y1-v.y0),Math.min(v.y1+(v.y1-v.y0),y));
+  if(!pen||cut){g.moveTo(X(x),Y(yc));pen=true;} else g.lineTo(X(x),Y(yc)); px=x;}
+ g.stroke(); g.setLineDash([]);
+}
+function arrow(P,x,w,len,label){
+ const {g,X,Y}=P,c=css("--probe"),y1=Y(w>0?len:-len),y0=Y(0),d=w>0?1:-1;
+ g.strokeStyle=c; g.fillStyle=c; g.lineWidth=4; g.beginPath(); g.moveTo(X(x),y0); g.lineTo(X(x),y1); g.stroke();
+ g.beginPath(); g.moveTo(X(x),y1-d*2); g.lineTo(X(x)-10,y1+d*16); g.lineTo(X(x)+10,y1+d*16); g.closePath(); g.fill();
+ g.font="bold 24px system-ui,sans-serif"; g.textAlign="left"; g.fillText(label,X(x)+12,y1+(w>0?4:14));
+}
+function yrange(f,x0,x1){let lo=0,hi=0;for(let i=0;i<=600;i++){const y=f(x0+(x1-x0)*i/600);if(isFinite(y)){lo=Math.min(lo,y);hi=Math.max(hi,y);}}const pad=(hi-lo)*0.15||1;return [lo<0?lo-pad:-pad*0.4,hi+pad];}
+function sketch(c,key,a,t0,x0,x1){
+ const s=SIG[key],f=t=>ev(s,a*(t-t0)),[y0,y1]=yrange(f,x0,x1),v={x0,x1,y0,y1,sx:1},P=axes(c,v);
+ curve(P,v,f,css("--blue"),{breaks:bps(s).map(b=>t0+b/a)});
+}
+function jumps(s){const e=1e-7;return bps(s).map(b=>({t:b,w:ev(s,b+e)-ev(s,b-e)})).filter(j=>Math.abs(j.w)>1e-6);}
+function dsketch(c,key,x0,x1){
+ const s=SIG[key],h=1e-5,d=t=>{for(const [a,b] of s.p) if(t>a+h&&t<b-h) return (ev(s,t+h)-ev(s,t-h))/(2*h); return 0;};
+ let [y0,y1]=yrange(d,x0,x1); const J=jumps(s); if(J.some(j=>j.w<0)) y0=Math.min(y0,-2.6); if(J.some(j=>j.w>0)) y1=Math.max(y1,2.6);
+ const v={x0,x1,y0,y1,sx:1},P=axes(c,v); curve(P,v,d,css("--blue"),{breaks:bps(s)});
+ const len=Math.min(Math.abs(y0),y1,2.2)||2; J.forEach(j=>arrow(P,j.t,j.w,Math.max(1.2,len),fmt(j.w)));
+}
+
+/* ---------- labs ---------- */
+function labE(){const s=+$("eSr").value; $("eS").textContent=s.toFixed(1);
+ const v={x0:-1,x1:4,y0:-0.1,y1:1.15,sx:1,sy:0.25},P=axes($("cE"),v),{g,X,Y}=P;
+ g.fillStyle=css("--shade"); g.beginPath(); g.moveTo(X(0),Y(0)); for(let i=0;i<=400;i++){const t=4*i/400; g.lineTo(X(t),Y(Math.exp(-2*s*t)));} g.lineTo(X(4),Y(0)); g.closePath(); g.fill();
+ curve(P,v,t=>t<0?0:Math.exp(-2*s*t),css("--green"),{breaks:[0],w:3});
+ curve(P,v,t=>t<0?0:Math.exp(-s*t),css("--blue"),{breaks:[0]});
+ $("eRead").textContent=`|x(t)|² = e^(−${fmt(2*s)}t) · 面积 E∞ = 1/(2σ) = 1/${fmt(2*s)} = ${(1/(2*s)).toFixed(4)} · time constant τ = 1/σ = ${(1/s).toFixed(3)}`;}
+function labT(){let a=+$("tAr").value; if(a===0){a=0.25;$("tAr").value=a;} const t0=+$("tTr").value,s=SIG[$("tSig").value];
+ $("tA").textContent=a.toFixed(2); $("tT").textContent=t0.toFixed(1);
+ const f=t=>ev(s,a*(t-t0)),x0=-12,x1=12; const [l1,h1]=yrange(t=>ev(s,t),x0,x1); const v={x0,x1,y0:l1,y1:h1,sx:1},P=axes($("cT"),v);
+ curve(P,v,t=>ev(s,t),css("--muted"),{breaks:bps(s),dash:[10,8],w:3}); curve(P,v,f,css("--blue"),{breaks:bps(s).map(b=>t0+b/a)});
+ $("tRead").textContent="断点 τ → t = t₀ + τ/a： "+bps(s).map(b=>`${fmt(b)} → ${fmt(t0+b/a)}`).join("   ·   ");}
+function labD(){const n=+$("dNr").value; $("dN").textContent=n;
+ const v1={x0:-1.2,x1:1.2,y0:-0.5,y1:Math.max(4,n*1.15),sx:0.2},P1=axes($("cD1"),v1),w=1/(2*n);
+ P1.g.fillStyle=css("--shade"); P1.g.fillRect(P1.X(-w),P1.Y(n),P1.X(w)-P1.X(-w),P1.Y(0)-P1.Y(n));
+ curve(P1,v1,t=>Math.abs(t)<=w?n:0,css("--blue"),{breaks:[-w,w]});
+ P1.g.fillStyle=css("--fg"); P1.g.font="24px system-ui"; P1.g.textAlign="left"; P1.g.fillText(`高 ${n} × 宽 ${fmt(1/n)} = 面积 1`,P1.X(0.25),P1.Y(v1.y1*0.8));
+ const v2={x0:-1.2,x1:1.2,y0:-0.15,y1:1.25,sx:0.2,sy:0.25},P2=axes($("cD2"),v2);
+ curve(P2,v2,t=>t<0?0:1,css("--muted"),{breaks:[0],dash:[10,8],w:3});
+ curve(P2,v2,t=>t<-w?0:t>w?1:(t+w)*n,css("--green"));}
+function labJ(){const k=$("jSig").value,s=SIG[k]; const b=bps(s),x0=Math.floor(b[0])-2,x1=Math.ceil(b[b.length-1])+2;
+ sketch($("cJ1"),k,1,0,x0,x1); dsketch($("cJ2"),k,x0,x1);
+ const e=1e-7; $("jRead").textContent="跳变量 = 右值 − 左值： "+b.map(t=>`t=${fmt(t)}: ${fmt(ev(s,t+e))} − ${fmt(ev(s,t-e))} = ${fmt(ev(s,t+e)-ev(s,t-e))}`).join("   ·   ");}
+let cT0=performance.now();
+function labC(now){const sg=+$("cSr").value,w=+$("cWr").value; $("cS").textContent=sg.toFixed(1); $("cW").textContent=w.toFixed(1);
+ const c=$("cC"),g=c.getContext("2d"),W=c.width,H=c.height,tm=6,tt=((now-cT0)/1000)%tm; g.clearRect(0,0,W,H);
+ const R0=Math.max(1,Math.exp(sg*tm))*1.1,cx=320,cy=H/2,sc=250/R0;
+ g.strokeStyle=css("--line"); g.lineWidth=2; g.beginPath(); g.moveTo(cx-280,cy); g.lineTo(cx+280,cy); g.moveTo(cx,cy-280); g.lineTo(cx,cy+280); g.stroke();
+ g.beginPath(); g.arc(cx,cy,sc,0,7); g.stroke();
+ g.fillStyle=css("--muted"); g.font="24px system-ui"; g.fillText("Re",cx+250,cy-10); g.fillText("Im",cx+10,cy-255); g.fillText("|z|=1",cx+sc*0.72+6,cy-sc*0.72-6);
+ g.strokeStyle=css("--blue"); g.lineWidth=3; g.beginPath(); for(let i=0;i<=600;i++){const t=tt*i/600,r=Math.exp(sg*t)*sc; const x=cx+r*Math.cos(w*t),y=cy-r*Math.sin(w*t); i?g.lineTo(x,y):g.moveTo(x,y);} g.stroke();
+ const r=Math.exp(sg*tt)*sc,px=cx+r*Math.cos(w*tt),py=cy-r*Math.sin(w*tt); g.strokeStyle=css("--probe"); g.beginPath(); g.moveTo(cx,cy); g.lineTo(px,py); g.stroke(); g.fillStyle=css("--probe"); g.beginPath(); g.arc(px,py,9,0,7); g.fill();
+ const L=720,Rr=W-30,X=t=>L+t/tm*(Rr-L),Y=y=>cy-y*sc; g.strokeStyle=css("--line"); g.lineWidth=2; g.beginPath(); g.moveTo(L,cy); g.lineTo(Rr,cy); g.moveTo(L,cy-280); g.lineTo(L,cy+280); g.stroke();
+ g.fillStyle=css("--muted"); for(let t=0;t<=tm;t++) g.fillText(t,X(t)-6,cy+30); g.fillText("t",Rr-14,cy-12); g.fillText("Re{e^{st}}",L+12,cy-250);
+ const line=(f,col,dash,wd)=>{g.strokeStyle=col;g.lineWidth=wd;g.setLineDash(dash);g.beginPath();for(let i=0;i<=600;i++){const t=tm*i/600;i?g.lineTo(X(t),Y(f(t))):g.moveTo(X(t),Y(f(t)));}g.stroke();g.setLineDash([]);};
+ line(t=>Math.exp(sg*t),css("--muted"),[8,8],2); line(t=>-Math.exp(sg*t),css("--muted"),[8,8],2); line(t=>Math.exp(sg*t)*Math.cos(w*t),css("--blue"),[],4);
+ g.fillStyle=css("--probe"); g.beginPath(); g.arc(X(tt),Y(Math.exp(sg*tt)*Math.cos(w*tt)),9,0,7); g.fill();
+ $("cRead").textContent=`|e^{st}| = e^{${fmt(sg)}t} · time constant τ = ${sg===0?"∞（不衰减）":(1/Math.abs(sg)).toFixed(2)} · T₀ = ${w===0?"—（不转）":"2π/ω = "+(2*Math.PI/w).toFixed(3)} · ${sg===0&&w!==0?"周期信号":sg===0?"常数":"不是周期信号（模在变）"}`;
+ requestAnimationFrame(labC);}
+
+/* ---------- fundamentals ---------- */
+const FQ=[
+{q:R`讲义里“信号 \(x\)”和“\(x(t)\)”的区别是？`,o:[R`没有区别`,R`\(x\) 是整条函数，\(x(t)\) 是它在时刻 \(t\) 的值`,R`\(x\) 是实信号，\(x(t)\) 是复信号`],a:1,why:R`\(x:\mathbb{R}\to\mathbb{R}\) 是映射本身，\(x(t)\) 是一个数。`,s:"s1"},
+{q:R`复信号 \(x(t)=e^{j3t}\) 的 \(|x(t)|^2\) 是？`,o:[R`\(e^{j6t}\)`,R`\(1\)`,R`\(9\)`],a:1,why:R`能量定义用的是模的平方。\(|e^{j\theta}|=1\)。\(x(t)^2\ne|x(t)|^2\)。`,s:"s2"},
+{q:R`一个信号的 \(E_\infty\) 是有限值，那么它的 \(P_\infty\)：`,o:[R`等于 \(E_\infty\)`,R`等于 0`,R`无法确定`],a:1,why:R`有限的能量除以趋于无穷的时间长度 \(2T\)，极限为 0。`,s:"s2"},
+{q:R`信号在某一段取负值，这一段对能量的贡献是：`,o:[R`负的`,R`正的`,R`零`],a:1,why:R`被积函数是 \(|x(t)|^2\ge0\)。`,s:"s2"},
+{q:R`\(x(2t)\) 相对于 \(x(t)\) 是：`,o:[R`时间压缩（变窄）`,R`时间拉伸（变宽）`,R`幅度变成 2 倍`],a:0,why:R`\(a\gt1\) 是压缩：同样的内容在一半的时间里走完。高度不变。`,s:"s3"},
+{q:R`\(x(t-3)\) 相对于 \(x(t)\) 是：`,o:[R`左移 3`,R`右移 3`,R`翻转`],a:1,why:R`\(t_0=3\gt0\) 是右移。用 \(t=t_0+\tau/a\)：\(\tau=0\) 的点到了 \(t=3\)。`,s:"s3"},
+{q:R`对 \(x_{2,2}(t)=x(2(t-2))\)，原信号 \(\tau=4\) 处的断点出现在新信号的：`,o:[R`\(t=4\)`,R`\(t=10\)`,R`\(t=1\)`],a:0,why:R`\(t=t_0+\tau/a=2+4/2=4\)。`,s:"s3"},
+{q:R`\(x(-(t+2))\) 对应的 \(a\) 和 \(t_0\) 是：`,o:[R`\(a=-1,\ t_0=2\)`,R`\(a=-1,\ t_0=-2\)`,R`\(a=1,\ t_0=-2\)`],a:1,why:R`写成 \(x(a(t-t_0))\)：\(-(t+2)=-1\cdot(t-(-2))\)。`,s:"s3"},
+{q:R`Fundamental period \(T_0\) 的定义是：`,o:[R`任何满足 \(x(t)=x(t+T)\) 的 \(T\)`,R`满足 \(x(t)=x(t+T)\) 对所有 \(t\) 成立的最小正数 \(T\)`,R`信号非零的时间长度`],a:1,why:R`“最小”“正数”“对所有 \(t\)”三个词都要有。Jan 2024 真题考过。`,s:"s4"},
+{q:R`一个不恒为零的周期信号，它的总能量 \(E_\infty\)：`,o:[R`等于一个周期的能量`,R`无穷大`,R`等于 0`],a:1,why:R`同样的能量重复无穷多次。所以周期信号看一个周期内的能量和功率。`,s:"s4"},
+{q:R`按讲义的定义，\(u(0)\) 等于：`,o:[R`0`,R`1`,R`1/2`],a:1,why:R`讲义 (2.8)：\(t\ge0\) 时 \(u(t)=1\)。取 1/2 的是另一种定义，讲义 §2.9.1 提到但不用。`,s:"s5"},
+{q:R`\(\displaystyle\int_{-\infty}^{\infty}f(t)\,\delta(t)\,dt\) 等于（\(f\) 在 0 处连续）：`,o:[R`\(f(0)\)`,R`\(\infty\)`,R`\(\int f(t)dt\)`],a:0,why:R`Sifting property，讲义 (2.12)。`,s:"s5"},
+{q:R`信号在 \(t=1\) 处从 3 跳到 0，它的导数在 \(t=1\) 处有：`,o:[R`\(3\delta(t-1)\)`,R`\(-3\delta(t-1)\)`,R`没有 impulse`],a:1,why:R`跳变量 = 右值 − 左值 = \(0-3=-3\)。`,s:"s5"},
+{q:R`信号在 \(t=2\) 处连续，但斜率从 1 变成 −1。导数在 \(t=2\) 处：`,o:[R`有 impulse \(-2\delta(t-2)\)`,R`没有 impulse，只是导数值从 1 变成 −1`,R`导数不存在所以写 0`],a:1,why:R`只有值跳变才产生 impulse。值没跳，跳变量为 0。`,s:"s5"},
+{q:R`\(e^{st}\)，\(s=\sigma+j\omega\)。它的模是：`,o:[R`\(e^{\sigma t}\)`,R`\(e^{\omega t}\)`,R`1`],a:0,why:R`\(|e^{\sigma t}e^{j\omega t}|=e^{\sigma t}\cdot1\)。`,s:"s6"},
+{q:R`\(x(t)=e^{(-2+j4)t}\) 是周期信号吗？`,o:[R`是，\(T_0=\pi/2\)`,R`不是，因为模 \(e^{-2t}\) 在变`,R`是，\(T_0=\pi\)`],a:1,why:R`\(\sigma\ne0\) 时信号永远不会回到原来的值。`,s:"s6"},
+{q:R`\(x(t)=4e^{-j5t}\) 的 fundamental period 是：`,o:[R`\(2\pi/5\)`,R`\(5/2\pi\)`,R`\(8\pi/5\)`],a:0,why:R`\(T_0=2\pi/|\omega|\)，系数 4 不影响周期。讲义 Problem 2.6.5。`,s:"s6"}
+];
+const SEC={s1:"§A 信号",s2:"§B 能量",s3:"§C 时间变换",s4:"§D 周期与奇偶",s5:"§E step 与 impulse",s6:"§F 复指数"};
+function buildFQ(){ $("fq").innerHTML=FQ.map((f,i)=>`<div class="fq" id="fq${i}"><div><b>${i+1}.</b> ${f.q}</div>${f.o.map((o,k)=>`<label><input type="radio" name="fq${i}" value="${k}"> ${o}</label>`).join("")}<div class="fb"></div></div>`).join(""); $("fqScore").textContent=""; }
+function checkFQ(){let ok=0,un=0;const back=new Set();FQ.forEach((f,i)=>{const el=$("fq"+i),c=el.querySelector("input:checked"),fb=el.querySelector(".fb");el.classList.remove("wrong","right");
+ if(!c){un++;fb.innerHTML="";return;} if(+c.value===f.a){ok++;el.classList.add("right");fb.innerHTML=`<span class="ok">对。</span> ${f.why}`;}
+ else{el.classList.add("wrong");back.add(f.s);fb.innerHTML=`<span class="bad">不对。</span> ${f.why} 回去看 <a href="#${f.s}">${SEC[f.s]}</a>。`;}});
+ $("fqScore").innerHTML=`${ok} / ${FQ.length}`+(un?` · 还有 ${un} 题没选`:"")+(back.size?` · 先回去重看：${[...back].map(s=>`<a href="#${s}">${SEC[s]}</a>`).join("、")}`:(!un&&ok===FQ.length?" · 全对，可以去做题":""));
+ renderMath($("fq")); renderMath($("fqScore"));}
+
+/* ---------- question bank ---------- */
+const cases=(rows)=>R`\begin{cases}`+rows.map(r=>r[0]+",&"+r[1]).join(R`\\`)+R`\end{cases}`;
+const X23=cases([["t",R`0\le t\lt 2`],["4-t",R`2\le t\lt 4`],["0",R`\text{otherwise}`]]);
+const X24=cases([["t",R`-2\le t\lt 0`],["2-t",R`0\le t\lt 2`],["0",R`\text{otherwise}`]]);
+const X25=cases([["3-t",R`-2\le t\lt 0`],["t",R`0\le t\lt 3`],["0",R`\text{otherwise}`]]);
+const X26=cases([["t",R`0\le t\lt 2`],[R`2e^{-(t-2)}`,R`2\le t\lt 7`],["0",R`\text{otherwise}`]]);
+const pl=(sig,a,t0,x0,x1)=>`<canvas class="sk" data-sig="${sig}" data-a="${a}" data-t0="${t0}" data-x0="${x0}" data-x1="${x1}" width="1200" height="400" style="width:100%;max-width:600px;display:block"></canvas>`;
+const dpl=(sig,x0,x1)=>`<canvas class="dsk" data-sig="${sig}" data-x0="${x0}" data-x1="${x1}" width="1200" height="400" style="width:100%;max-width:600px;display:block"></canvas>`;
+
+const BASIC=[
+{id:"Problem 2.6.1",tags:["off"],m:"m7",stem:R`<span class="en">Express each of the following complex numbers in Cartesian form \((x+jy)\): \(\tfrac13e^{j\pi}\), \(e^{j\pi/3}\), \(e^{j5\pi/e}\), \(e^{-j5\pi/e}\), \(\sqrt2e^{j9\pi/4}\), \(\sqrt2e^{-j9\pi/4}\).</span>`,
+ h:[R`方法卡 M7：\(re^{j\theta}=r\cos\theta+jr\sin\theta\)。`,R`\(9\pi/4=2\pi+\pi/4\)，先把 \(2\pi\) 减掉。`],
+ sol:R`\(\tfrac13e^{j\pi}=-\tfrac13\)；\(e^{j\pi/3}=\tfrac12+j\tfrac{\sqrt3}{2}\)；\(e^{\pm j5\pi/e}=\cos(5\pi/e)\pm j\sin(5\pi/e)\approx0.8754\mp j0.4834\)（官方解答说明：指数分母里的 \(e\) 是自然常数，化不成特殊角）；\(\sqrt2e^{j9\pi/4}=\sqrt2e^{j\pi/4}=1+j\)；\(\sqrt2e^{-j9\pi/4}=1-j\)。`},
+{id:"Problem 2.6.2",tags:["off"],m:"m7",stem:R`<span class="en">Express each of the following complex numbers in polar form \((re^{j\theta}\), with \(-\pi\lt\theta\le\pi)\): \(5\), \(-2\), \(1+j\), \(j5\), \((1-j)^2\), \(\sqrt2+j\sqrt2\). Find the absolute value of the above complex numbers.</span>`,
+ h:[R`方法卡 M7。先把 \((1-j)^2\) 展开。`,R`负实数的辐角取 \(\pi\)，不取 \(-\pi\)。`],
+ sol:R`\(5=5e^{j0}\)；\(-2=2e^{j\pi}\)；\(1+j=\sqrt2e^{j\pi/4}\)；\(j5=5e^{j\pi/2}\)；\((1-j)^2=-2j=2e^{-j\pi/2}\)；\(\sqrt2+j\sqrt2=2e^{j\pi/4}\)。模依次为 \(5,2,\sqrt2,5,2,2\)。`},
+{id:"Problem 2.6.3",tags:["off"],m:"m6",stem:R`<span class="en">Determine the values for \(E_\infty\) and \(P_\infty\) for each of the following signals: \(x_1(t)=e^{-2t}u(t)\); \(x_2(t)=e^{-j(2t+\pi/2)}\); \(x_3(t)=e^{-|t|}\); \(x_4(t)=\cos t\).</span>`,
+ h:[R`方法卡 M6：先判断每个信号衰不衰减。`,R`\(|x_2(t)|=1\)。\(x_3\) 的 \(|x_3|^2=e^{-2|t|}\) 是偶函数，算一半乘 2。`,R`\(\cos^2t=\frac{1+\cos2t}{2}\)。`],
+ sol:R`\(x_1\)：\(E_\infty=\int_0^\infty e^{-4t}dt=\tfrac14\)，\(P_\infty=0\)。\(x_2\)：\(E_\infty=\infty\)，\(P_\infty=1\)。\(x_3\)：\(E_\infty=2\int_0^\infty e^{-2t}dt=1\)，\(P_\infty=0\)。\(x_4\)：\(E_\infty=\infty\)，\(P_\infty=\tfrac12\)。`},
+{id:"Problem 2.6.4",tags:["off"],m:"m2",stem:R`<span class="en">Let \(x\) be a signal with \(x(t)=0\) for all \(t\lt3\). Using the notation \(x_{a,t_0}\), determine the values of \(t\) where the following signals are guaranteed to be zero: \(x_{-1,-1}\); \(x_{-1,-1}+x_{-1,-2}\); \(x_{-1,-1}\,x_{-1,-2}\); \(x_{3,0}\); \(x_{1/3,0}\).</span>`,
+ h:[R`\(x_{a,t_0}(t)\) 读的是原信号的 \(a(t-t_0)\) 处。这个位置小于 3 时结果一定是 0。`,R`解不等式 \(a(t-t_0)\lt3\)。\(a\lt0\) 时不等号要反向。`,R`和：两项都为 0 才保证为 0（交集）。积：有一项为 0 就为 0（并集）。`],
+ sol:R`\(x_{-1,-1}(t)=x(-t-1)\)：\(-t-1\lt3\Rightarrow t\gt-4\)。\(x_{-1,-2}\)：\(t\gt-5\)。和：\(t\gt-4\)。积：\(t\gt-5\)。\(x_{3,0}\)：\(3t\lt3\Rightarrow t\lt1\)。\(x_{1/3,0}\)：\(t\lt9\)。`},
+{id:"Problem 2.6.5",tags:["off"],m:"m5",stem:R`<span class="en">Determine whether each of the following signals is periodic. If a signal is periodic, state its fundamental period: \(x_1(t)=je^{j10t}\); \(x_2(t)=4e^{-j5t}\); \(x_3(t)=\tfrac12e^{1+j10t}\); \(x_4(t)=\tfrac12e^{(1+j10)t}\); \(x_5(t)=2\cos(10t+1)-\sin(4t-1)\).</span>`,
+ h:[R`方法卡 M5。`,R`仔细看 \(x_3\) 和 \(x_4\) 的指数：哪个里面的 1 乘了 \(t\)？`,R`\(x_5\)：两个分量的周期是 \(\pi/5\) 和 \(\pi/2\)，找最小公共周期。`],
+ sol:R`\(x_1\)：周期，\(T_0=\pi/5\)。\(x_2\)：周期，\(T_0=2\pi/5\)。\(x_3=\tfrac e2e^{j10t}\)：周期，\(T_0=\pi/5\)。\(x_4=\tfrac12e^{t}e^{j10t}\)：不周期。\(x_5\)：\(m\tfrac\pi5=n\tfrac\pi2\Rightarrow2m=5n\)，最小 \(m=5,n=2\)，\(T_0=\pi\)。`},
+{id:"Problem 2.6.6",tags:["off"],m:"m1",stem:R`<span class="en">Consider the continuous-time signal \(x(t)=\delta(t+2)-\delta(t-2)\) for all \(t\in\mathbb{R}\). Calculate \(E_\infty\) for the signal \(y\) defined as \(y(t)=\int_{-\infty}^{t}x(\tau)d\tau\) for all \(t\in\mathbb{R}\).</span>`,
+ h:[R`§E：impulse 积分得到 step。`,R`\(y(t)=u(t+2)-u(t-2)\)，画出来是什么形状？`],
+ sol:R`\(y(t)=u(t+2)-u(t-2)\)，在 \(-2\le t\lt2\) 上为 1，其余为 0。\(E_\infty=\int_{-2}^{2}1\,dt=4\)。`},
+{id:"Problem 2.6.7",tags:["off"],m:"m4",stem:R`<span class="en">Show that the signal \(x\) given by \(x(t)=1\) for \(a\le t\lt b\), and 0 otherwise, can be expressed as \(u(t-a)u(b-t)\) for all \(t\in\mathbb{R}\). Show that the derivative of the signal \(x\) is given by \(\delta(t-a)-\delta(t-b)\).</span>`,
+ h:[R`\(u(t-a)\) 在 \(t\ge a\) 时为 1；\(u(b-t)\) 在 \(t\le b\) 时为 1。两者相乘什么时候为 1？`,R`求导用方法卡 M3：在 \(a\) 处跳 \(+1\)，在 \(b\) 处跳 \(-1\)。`],
+ sol:R`\(u(t-a)\) 在 \(a\) 处打开，\(u(b-t)\) 在 \(b\) 处关闭，乘积在 \(a\) 到 \(b\) 之间为 1。等价写法 \(x(t)=u(t-a)-u(t-b)\)，逐项求导得 \(\dot x(t)=\delta(t-a)-\delta(t-b)\)。官方解答补充：乘积写法在 \(t=b\) 这一个点上取值为 1，和题目定义差一个点，但单点不影响能量和广义导数。`},
+{id:"Problem 2.6.8",tags:["off"],m:"m3",stem:R`<span class="en">Consider the signal \(x(t)=`+cases([["0",R`t\lt0`],["1",R`0\le t\lt1`],["-2",R`1\le t\lt2`],["0",R`t\ge2`]])+R`\) 1. Sketch the signal for the time interval \([-4,4]\). 2. Find the derivative of signal \(x\). 3. Write the function using step signals.</span>`,
+ h:[R`方法卡 M3 和 M4。`,R`三个跳变：\(t=0\) 处 \(1-0\)，\(t=1\) 处 \(-2-1\)，\(t=2\) 处 \(0-(-2)\)。`],
+ sol:R`跳变量 \(+1,-3,+2\)。\(\dot x(t)=\delta(t)-3\delta(t-1)+2\delta(t-2)\)。\(x(t)=u(t)-3u(t-1)+2u(t-2)\)。`+pl("p268",1,0,-4,4)+dpl("p268",-4,4)},
+{id:"Problem 2.6.9",tags:["off"],m:"m2",stem:R`<span class="en">Let \(x(t)=`+cases([["0",R`t\lt-2`],["1+t",R`-2\le t\lt-1`],["1",R`-1\le t\lt0`],["3",R`0\le t\lt1`],["3-2t",R`1\le t\lt2`],["0",R`t\ge2`]])+R`\) 1. Find \(E_\infty\). 2. Sketch and label: \(x\); \(x_{1,1}\); \(x_{-1,-2}\); \(x_{2,-1}\); \(x_{-1/2,-4}\); \((x+x_{-1,0})u\); \(x(\delta_{1,-3/2}+\delta_{1,3/2})\).</span>`,
+ h:[R`第 1 问用 M1，四段分别积。第 2 问前五个用 M2。`,R`断点 \(-2,-1,0,1,2\) 按 \(t=t_0+\tau/a\) 搬。可以在上面的变换动画里选 Problem 2.6.9 核对。`,R`最后一个：\(x(t)\delta(t-t_1)=x(t_1)\delta(t-t_1)\)，只需要 \(x(-3/2)\) 和 \(x(3/2)\)。`],
+ sol:R`1. \(E_\infty=\tfrac13+1+9+\tfrac13=\tfrac{32}{3}\)。<br>2. 原信号：`+pl("p269",1,0,-4,4)+R`\(x_{1,1}\)（右移 1）：`+pl("p269",1,1,-4,5)+R`\(x_{-1,-2}\)：`+pl("p269",-1,-2,-6,2)+R`\(x_{2,-1}\)：`+pl("p269",2,-1,-4,2)+R`\(x_{-1/2,-4}\)：`+pl("p269",-0.5,-4,-10,2)+R`\((x+x_{-1,0})u\)：\(0\lt t\lt1\) 时为 \(3+1=4\)，\(1\lt t\lt2\) 时为 \((3-2t)+(1-t)=4-3t\)，其余为 0（断点处的单点值见官方解答 p.30）。<br>\(x(\delta_{1,-3/2}+\delta_{1,3/2})\)：\(x(-\tfrac32)=-\tfrac12\)，\(x(\tfrac32)=0\)，结果是 \(-\tfrac12\delta(t+\tfrac32)\)。`}
+];
+const EXAM=[
+{id:"Problem 2.7.1 (Jan 2023)",tags:["exam","ai"],m:"m1",marks:3,stem:R`<span class="en">Find the energy of the signal \(x(t)=e^{-3t}u(t)\) for all \(t\in\mathbb{R}\), where \(u\) is the unit step signal. [3 marks]</span>`,
+ h:[R`方法卡 M1。`,R`\(u(t)\) 让积分从 0 开始：\(E_\infty=\int_0^\infty|e^{-3t}|^2dt\)。`,R`\(|e^{-3t}|^2=e^{-6t}\)。`],
+ sol:R`\(E_\infty=\int_0^\infty e^{-6t}dt=\left[-\tfrac16e^{-6t}\right]_0^\infty=\tfrac16\)。`},
+{id:"Problem 2.7.2 (Jan 2024)",tags:["exam","chk"],m:"s4",marks:2,stem:R`<span class="en">Define the fundamental period of a periodic signal. [2 marks]</span>`,
+ h:[R`看 §D。先写周期信号的条件，再说 fundamental 是其中哪一个 \(T\)。`],
+ sol:R`A signal \(x\) is periodic with period \(T\gt0\) if \(x(t)=x(t+T)\) for all \(t\in\mathbb{R}\). The fundamental period \(T_0\) is the smallest positive value of \(T\) for which this holds.（讲义 §2.4.1 的表述。）`},
+{id:"Problem 2.7.3 (Jan 2023)",tags:["exam","ai"],m:"m2",marks:7,stem:R`<span class="en">A continuous-time signal \(x\) is defined by \(x(t)=`+X23+R`\)<br>1. Sketch the signal \(x\). Label the axes. [1 mark]<br>2. Sketch the signal \(x_{2,2}\) defined by \(x_{2,2}(t)=x(2(t-2))\) for all \(t\in\mathbb{R}\). Label the axes. [3 marks]<br>3. Sketch the signal \(x_{-1,-2}\) defined by \(x_{-1,-2}(t)=x(-1(t+2))\) for all \(t\in\mathbb{R}\). Label the axes. [3 marks]</span>`,
+ h:[R`方法卡 M2。特征点：\(\tau=0\)（高 0）、\(\tau=2\)（高 2）、\(\tau=4\)（高 0）。`,R`第 2 问：\(a=2,t_0=2\)，\(t=2+\tau/2\)。第 3 问：\(a=-1,t_0=-2\)，\(t=-2-\tau\)。`,R`第 2 问三个点到 \(t=2,3,4\)。第 3 问到 \(t=-2,-4,-6\)。`],
+ sol:R`1. 三角形，从 \((0,0)\) 升到 \((2,2)\) 再降到 \((4,0)\)。`+pl("s2023",1,0,-1,6)+R`2. 特征点搬到 \(t=2,3,4\)，峰值 2 在 \(t=3\)。宽度减半，高度不变。`+pl("s2023",2,2,-1,6)+R`3. 特征点搬到 \(t=-2,-4,-6\)，峰值 2 在 \(t=-4\)。`+pl("s2023",-1,-2,-8,1)},
+{id:"Problem 2.7.4 (Jan 2024)",tags:["exam","chk"],m:"m1",marks:10,stem:R`<span class="en">Let \(x\) be the signal defined by \(x(t)=`+X24+R`\)<br>1. Compute the energy of the signal. [3 marks]<br>2. Sketch the signal \(x\). Label the axes. [1 mark]<br>3. Sketch the signal \(x_{-2,1}\) defined by \(x_{-2,1}(t)=x(-2(t-1))\) for all \(t\in\mathbb{R}\). Label the axes. [3 marks]<br>4. Find the derivative of the signal \(x\). Hint: Use the impulse signal at the discontinuities. [3 marks]</span>`,
+ h:[R`依次用 M1、M2、M3。先画出原信号，注意它在 \(t=-2\) 和 \(t=0\) 处有跳变。`,R`能量：\(\int_{-2}^{0}t^2dt+\int_0^2(2-t)^2dt\)。变换：\(t=1-\tau/2\)。`,R`跳变量：\(t=-2\) 处 \(-2-0\)；\(t=0\) 处 \(2-0\)；\(t=2\) 处信号已经降到 0，没有跳变。`],
+ sol:R`1. \(E_\infty=\int_{-2}^{0}t^2dt+\int_0^2(2-t)^2dt=\tfrac83+\tfrac83=\tfrac{16}{3}\)。<br>2. `+pl("s2024",1,0,-4,4)+R`3. 断点 \(\tau=-2,0,2\) 搬到 \(t=2,1,0\)。\(0\lt t\le1\) 上为 \(2t\)；\(1\lt t\le2\) 上为 \(2-2t\)。`+pl("s2024",-2,1,-2,4)+R`4. 段内斜率：\((-2,0)\) 上为 \(1\)，\((0,2)\) 上为 \(-1\)。跳变：\(t=-2\) 处 \(-2\)，\(t=0\) 处 \(+2\)。<br>\(\dot x(t)=-2\delta(t+2)+2\delta(t)+[u(t+2)-u(t)]-[u(t)-u(t-2)]\)。`+dpl("s2024",-4,4)+R`各问和 2023-24 Official Solutions 一致。官方评分里这一问是 4 分（两个 impulse 各 1，分段斜率 2），讲义印的是 3 分。`},
+{id:"Problem 2.7.5 (Jan 2025)",tags:["exam","chk"],m:"m1",marks:11,stem:R`<span class="en">Let \(x\) be the signal defined by \(x(t)=`+X25+R`\)<br>(i) Compute the energy of the signal. [3 marks]<br>(ii) Sketch the signal \(x\). Label the axes. [1 marks]<br>(iii) Sketch the signal \(x_{-1,2}\) defined by \(x_{-1,2}(t)=x(-(t-2))\) for all \(t\in\mathbb{R}\). Label the axes. [3 marks]<br>(iv) Find the derivative of the signal \(x\). Hint: Use the impulse function at the discontinuities. [4 marks]</span>`,
+ h:[R`依次用 M1、M2、M3。这个信号有三处跳变。`,R`能量：\(\int_{-2}^{0}(3-t)^2dt+\int_0^3t^2dt\)。变换：\(t=2-\tau\)。`,R`跳变量：\(t=-2\) 处 \(5-0\)；\(t=0\) 处 \(0-3\)；\(t=3\) 处 \(0-3\)。`],
+ sol:R`(i) \(\int_{-2}^{0}(3-t)^2dt=\left[-\tfrac{(3-t)^3}{3}\right]_{-2}^{0}=\tfrac{125-27}{3}=\tfrac{98}{3}\)；\(\int_0^3t^2dt=9\)。\(E_\infty=\tfrac{98}{3}+9=\tfrac{125}{3}\)。<br>(ii) `+pl("s2025",1,0,-4,5)+R`(iii) 断点 \(\tau=-2,0,3\) 搬到 \(t=4,2,-1\)。\(-1\lt t\le2\) 上为 \(2-t\)；\(2\lt t\le4\) 上为 \(1+t\)。`+pl("s2025",-1,2,-3,6)+R`(iv) 段内斜率：\((-2,0)\) 上 \(-1\)，\((0,3)\) 上 \(+1\)。跳变：\(+5,-3,-3\)。<br>\(\dot x(t)=5\delta(t+2)-3\delta(t)-3\delta(t-3)-[u(t+2)-u(t)]+[u(t)-u(t-3)]\)。`+dpl("s2025",-4,5)+R`<span class="bad">和官方解答有一处不一致：</span>2024-25 Official Solutions 手写的最后一项是 \(+3\delta(t-3)\)。信号在 \(t=3\) 处从 3 降到 0，按讲义的规则（右值 − 左值）跳变量是 \(-3\)，这里保留 \(-3\delta(t-3)\)。其余各问和官方解答一致。这一点建议问老师确认。`},
+{id:"Problem 2.7.6 (Jan 2026)",tags:["exam","chk"],m:"m1",marks:11,stem:R`<span class="en">Consider the signal \(x\) defined by \(x(t)=`+X26+R`\)<br>(i) Compute the energy of the signal. [3 marks]<br>(ii) Sketch the time-shifted signal \(x_{1,2}\) given by \(x_{1,2}(t)=x(t-2)\), for all \(t\in\mathbb{R}\). [2 marks]<br>(iii) Write the signal \(x\) using unit step signals. [3 marks]<br>(iv) The derivative of the signal \(x\) contains an impulse signal. Find its magnitude and time shift. [3 marks]</span>`,
+ h:[R`依次用 M1、M2、M4、M3。`,R`能量第二段：\(|2e^{-(t-2)}|^2=4e^{-2(t-2)}\)，从 2 积到 7。`,R`(iv) 逐个断点检查：\(t=0\) 处 \(0\to0\)；\(t=2\) 处 \(2\to2\)；\(t=7\) 处 \(2e^{-5}\to0\)。只有一处在跳。`],
+ sol:R`(i) \(\int_0^2t^2dt=\tfrac83\)；\(\int_2^74e^{-2(t-2)}dt=2(1-e^{-10})\)。\(E_\infty=\tfrac{14}{3}-2e^{-10}\approx4.667\)。<br>(ii) 整体右移 2：\(2\le t\lt4\) 上为 \(t-2\)，\(4\le t\lt9\) 上为 \(2e^{-(t-4)}\)。`+pl("s2026",1,2,-1,11)+R`(iii) \(x(t)=t\,[u(t)-u(t-2)]+2e^{-(t-2)}[u(t-2)-u(t-7)]\)。<br>(iv) 信号在 \(t=0\) 和 \(t=2\) 处连续，只在 \(t=7\) 处从 \(2e^{-5}\) 跳到 0。impulse 为 \(-2e^{-5}\delta(t-7)\)：大小 \(2e^{-5}\approx0.0135\)（系数为负），time shift 为 7。`}
+];
+const ADV=[
+{id:"Problem 2.8.1",tags:["ai"],m:"m3",stem:R`<span class="en">Consider the periodic signal \(x\) given by \(x(t)=`+cases([["1",R`0\le t\lt1`],["-2",R`1\le t\lt2`]])+R`\) with period \(T=2\). 1. Sketch the signal for the time interval \([-6,6]\). 2. Write the function as an infinite sum of step signals. 3. Find the derivative of signal \(x\). 4. Write the derivative of the signal as an infinite sum of impulse signals.</span>`,
+ h:[R`先做 Problem 2.6.8：那是这个信号的一个周期。`,R`第 \(k\) 个周期从 \(t=2k\) 开始。把 2.6.8 的窗口写法整体平移 \(2k\)，再对所有整数 \(k\) 求和。`,R`相邻周期接起来以后，每个偶数时刻信号从 \(-2\) 跳到 \(1\)，每个奇数时刻从 \(1\) 跳到 \(-2\)。`],
+ sol:R`2. \(x(t)=\sum_{k=-\infty}^{\infty}\Big\{[u(t-2k)-u(t-2k-1)]-2[u(t-2k-1)-u(t-2k-2)]\Big\}\)。<br>3–4. 段内斜率全为 0。偶数时刻跳变 \(+3\)，奇数时刻跳变 \(-3\)：\(\dot x(t)=\sum_{k=-\infty}^{\infty}\big[3\delta(t-2k)-3\delta(t-2k-1)\big]\)。`},
+{id:"Problem 2.8.2",tags:["ai"],m:"s5",stem:R`<span class="en">An alternative definition to the delta signal could be that it is the derivative of the step signal, i.e. \(\delta(t)=\frac{du}{dt}(t)\) for all \(t\in\mathbb{R}\). Show that \(\int_{-\infty}^{\infty}f(t)\delta(t)dt=f(0)\) for any signal \(f\) whose derivative is well defined for all \(t\in\mathbb{R}\).</span>`,
+ h:[R`把 \(\delta\) 换成 \(\frac{du}{dt}\)，然后分部积分。`,R`\(\int f\,u'\,dt=[f\,u]-\int f'\,u\,dt\)。\(u\) 把第二个积分的下限变成 0。`,R`\(\int_0^\infty f'(t)dt=f(\infty)-f(0)\)。`],
+ sol:R`\(\int_{-\infty}^{\infty}f\frac{du}{dt}dt=\big[f(t)u(t)\big]_{-\infty}^{\infty}-\int_{-\infty}^{\infty}f'(t)u(t)dt=f(\infty)-\int_0^\infty f'(t)dt=f(\infty)-\big(f(\infty)-f(0)\big)=f(0)\)。这里用到 \(f(\infty)\) 存在。`}
+];
+const VAR=[
+{id:"V1 · 变式自 2.7.1",tags:["ai"],m:"m1",stem:R`衰减率从 3 改成 5。求 \(x(t)=e^{-5t}u(t)\) 的能量。`,h:[R`和 2.7.1 完全同一流程。`],sol:R`\(E_\infty=\int_0^\infty e^{-10t}dt=\tfrac1{10}\)。`},
+{id:"V2 · 变式自 2.7.1",tags:["ai"],m:"m1",stem:R`加了系数，并且起始时刻从 0 改成 1。求 \(x(t)=2e^{-t}u(t-1)\) 的能量。`,h:[R`\(u(t-1)\) 让积分从 1 开始。`,R`\(|x|^2=4e^{-2t}\)。`],sol:R`\(E_\infty=\int_1^\infty4e^{-2t}dt=2e^{-2}\approx0.271\)。`},
+{id:"V3 · 变式自 2.7.3",tags:["ai"],m:"m2",stem:R`信号和 2.7.3 相同，\(x(t)=`+X23+R`\)。把压缩改成拉伸：画出 \(x_{1/2,-1}(t)=x\big(\tfrac12(t+1)\big)\)。`,h:[R`\(a=\tfrac12,\ t_0=-1\)，\(t=-1+2\tau\)。`],sol:R`特征点 \(\tau=0,2,4\) 搬到 \(t=-1,3,7\)，峰值 2 在 \(t=3\)。宽度变成 2 倍。`+pl("s2023",0.5,-1,-3,9)},
+{id:"V4 · 变式自 2.7.3 / 2.7.4",tags:["ai"],m:"m2",stem:R`信号和 2.7.3 相同。同时翻转和压缩：画出 \(x_{-2,3}(t)=x(-2(t-3))\)。`,h:[R`\(t=3-\tau/2\)。`],sol:R`特征点搬到 \(t=3,2,1\)，峰值 2 在 \(t=2\)。这个三角形左右对称，所以翻转后形状看不出变化，但位置和宽度变了。`+pl("s2023",-2,3,-1,5)},
+{id:"V5 · 变式自 2.7.5",tags:["ai"],m:"m3",stem:R`换了两段表达式，并且故意让中间的断点连续。\(x(t)=`+cases([["2t+1",R`-1\le t\lt1`],["4-t",R`1\le t\lt3`],["0",R`\text{otherwise}`]])+R`\)。(i) 求能量。(ii) 求导数。`,h:[R`M1 和 M3。`,R`逐个断点算左值和右值：\(t=-1\)：\(0\to-1\)；\(t=1\)：\(3\to3\)；\(t=3\)：\(1\to0\)。`],sol:R`(i) \(\int_{-1}^{1}(2t+1)^2dt=\tfrac{27-(-1)}{6}=\tfrac{14}{3}\)；\(\int_1^3(4-t)^2dt=\tfrac{27-1}{3}=\tfrac{26}{3}\)。\(E_\infty=\tfrac{40}{3}\)。<br>(ii) \(t=1\) 处连续，没有 impulse。\(\dot x(t)=-\delta(t+1)-\delta(t-3)+2[u(t+1)-u(t-1)]-[u(t-1)-u(t-3)]\)。`+pl("vD",1,0,-3,5)+dpl("vD",-3,5)},
+{id:"V6 · 变式自 2.7.6",tags:["ai"],m:"m4",stem:R`第一段改成常数，指数衰减率改成 3。\(x(t)=`+cases([["2",R`0\le t\lt1`],[R`2e^{-3(t-1)}`,R`1\le t\lt4`],["0",R`\text{otherwise}`]])+R`\)。(i) 求能量。(ii) 用 unit step 写出 \(x\)。(iii) 导数里有几个 impulse？分别求系数和位置。`,h:[R`M1、M4、M3。`,R`断点：\(t=0\)：\(0\to2\)；\(t=1\)：\(2\to2\)；\(t=4\)：\(2e^{-9}\to0\)。`],sol:R`(i) \(\int_0^14\,dt=4\)；\(\int_1^44e^{-6(t-1)}dt=\tfrac23(1-e^{-18})\)。\(E_\infty=\tfrac{14}{3}-\tfrac23e^{-18}\approx4.667\)。<br>(ii) \(x(t)=2[u(t)-u(t-1)]+2e^{-3(t-1)}[u(t-1)-u(t-4)]\)。<br>(iii) 两个：\(2\delta(t)\) 和 \(-2e^{-9}\delta(t-4)\)。\(t=1\) 处连续。`+pl("vS",1,0,-1,6)},
+{id:"V7 · 变式自 Problem 2.6.5",tags:["ai"],m:"m5",stem:R`换了频率。(a) \(x(t)=3\cos(6t)+\sin(9t+2)\) 周期吗？\(T_0\)？ (b) \(x(t)=e^{(-2+j4)t}\) 周期吗？`,h:[R`M5。(a) 两个周期是 \(\pi/3\) 和 \(2\pi/9\)。`],sol:R`(a) \(m\tfrac\pi3=n\tfrac{2\pi}{9}\Rightarrow3m=2n\)，最小 \(m=2,n=3\)，\(T_0=\tfrac{2\pi}{3}\)。(b) 不周期，模 \(e^{-2t}\) 在衰减。`},
+{id:"V8 · 变式自 Problem 2.6.6",tags:["ai"],m:"m1",stem:R`impulse 的位置不对称了。\(x(t)=\delta(t+1)-\delta(t-3)\)，\(y(t)=\int_{-\infty}^{t}x(\tau)d\tau\)。求 \(y\) 的 \(E_\infty\)。`,h:[R`\(y(t)=u(t+1)-u(t-3)\)。`],sol:R`\(y\) 在 \(-1\le t\lt3\) 上为 1。\(E_\infty=4\)。`}
+];
+const MOCK=[
+{id:"模拟卷 A · 易（17 分，建议 20 分钟）",tags:["ai"],stem:R`<b>A1.</b> State the definition of the total energy \(E_\infty\) of a signal \(x\). [2 marks]<br><b>A2.</b> Find the energy of the signal \(x(t)=e^{-4t}u(t)\). [3 marks]<br><b>A3.</b> Let \(x(t)=`+cases([["1",R`0\le t\lt2`],["3",R`2\le t\lt3`],["0",R`\text{otherwise}`]])+R`\)<br>(i) Sketch the signal \(x\). Label the axes. [1 mark]<br>(ii) Compute the energy of the signal. [3 marks]<br>(iii) Sketch \(x_{1,1}(t)=x(t-1)\). [2 marks]<br>(iv) Write \(x\) using unit step signals. [3 marks]<br>(v) Find the derivative of \(x\). [3 marks]`,h:[],
+ sol:R`<b>评分标准</b><br>A1 [2]：写出 \(E_\infty=\int_{-\infty}^{\infty}|x(t)|^2dt\) (1)；有模号或说明对复信号取模 (1)。<br>A2 [3]：积分下限为 0 (1)；被积函数 \(e^{-8t}\) (1)；结果 \(\tfrac18\) (1)。<br>A3(i) [1]：两级台阶，轴和数值标清。`+pl("mA",1,0,-1,5)+R`A3(ii) [3]：分两段 (1)；\(\int_0^21\,dt=2\)、\(\int_2^39\,dt=9\) (1)；\(E_\infty=11\) (1)。<br>A3(iii) [2]：断点移到 \(1,3,4\) (1)；高度 1 和 3 不变并标轴 (1)。<br>A3(iv) [3]：\(x(t)=u(t)+2u(t-2)-3u(t-3)\)，每项 1 分。等价的窗口写法 \([u(t)-u(t-2)]+3[u(t-2)-u(t-3)]\) 同样给分。<br>A3(v) [3]：\(\dot x(t)=\delta(t)+2\delta(t-2)-3\delta(t-3)\)，每个 impulse 的系数和位置 1 分。`},
+{id:"模拟卷 B · 真题难度（16 分，建议 25 分钟）",tags:["ai"],stem:R`<b>B1.</b> Define the fundamental period of a periodic signal. [2 marks]<br><b>B2.</b> Determine \(E_\infty\) and \(P_\infty\) for the signal \(x(t)=2e^{j3t}\). [3 marks]<br><b>B3.</b> Let \(x(t)=`+cases([["t+2",R`-1\le t\lt1`],["3-t",R`1\le t\lt3`],["0",R`\text{otherwise}`]])+R`\)<br>(i) Compute the energy of the signal. [3 marks]<br>(ii) Sketch the signal \(x\). Label the axes. [1 mark]<br>(iii) Sketch \(x_{-2,1}(t)=x(-2(t-1))\). Label the axes. [3 marks]<br>(iv) Find the derivative of \(x\). [4 marks]`,h:[],
+ sol:R`<b>评分标准</b><br>B1 [2]：\(x(t)=x(t+T)\) for all \(t\) (1)；最小的正数 \(T\) (1)。<br>B2 [3]：\(|x(t)|^2=4\) (1)；\(E_\infty=\infty\) (1)；\(P_\infty=4\) (1)。<br>B3(i) [3]：\(\int_{-1}^{1}(t+2)^2dt=\tfrac{26}{3}\) (1)；\(\int_1^3(3-t)^2dt=\tfrac83\) (1)；\(E_\infty=\tfrac{34}{3}\) (1)。<br>B3(ii) [1]：`+pl("mB",1,0,-3,5)+R`B3(iii) [3]：断点 \(\tau=-1,1,3\) 搬到 \(t=\tfrac32,\tfrac12,-\tfrac12\) (1)；\(-\tfrac12\lt t\le\tfrac12\) 上为 \(1+2t\)，\(\tfrac12\lt t\le\tfrac32\) 上为 \(4-2t\) (1)；跳变处两个高度都画出并标轴 (1)。`+pl("mB",-2,1,-2,3)+R`B3(iv) [4]：斜率部分 \([u(t+1)-u(t-1)]-[u(t-1)-u(t-3)]\) (2)；\(+\delta(t+1)\) (1)；\(-\delta(t-1)\)，并且 \(t=3\) 处没有 impulse (1)。<br>\(\dot x(t)=\delta(t+1)-\delta(t-1)+[u(t+1)-u(t-1)]-[u(t-1)-u(t-3)]\)。`+dpl("mB",-3,5)},
+{id:"模拟卷 C · 偏难（19 分，建议 35 分钟）",tags:["ai"],stem:R`<b>C1.</b> Determine whether \(x(t)=\cos(4t)+\sin(6t)\) is periodic. If it is, state its fundamental period. [3 marks]<br><b>C2.</b> Let \(x(t)=`+cases([[R`e^{2t}`,R`-1\le t\lt0`],["2-t",R`0\le t\lt2`],["0",R`\text{otherwise}`]])+R`\)<br>(i) Compute the energy of the signal. [3 marks]<br>(ii) Write \(x\) using unit step signals. [3 marks]<br>(iii) Sketch \(x_{-1,1}(t)=x(-(t-1))\). Label the axes. [3 marks]<br>(iv) The derivative of \(x\) contains impulse signals. Find the magnitude and time shift of each. [4 marks]<br><b>C3.</b> Let \(w(t)=\delta(t+1)-\delta(t-3)\) and \(y(t)=\int_{-\infty}^{t}w(\tau)d\tau\). Find \(E_\infty\) for \(y\). [3 marks]`,h:[],
+ sol:R`<b>评分标准</b><br>C1 [3]：分量周期 \(\pi/2\) 和 \(\pi/3\) (1)；\(m\tfrac\pi2=n\tfrac\pi3\)，最小 \(m=2,n=3\) (1)；\(T_0=\pi\) (1)。<br>C2(i) [3]：\(\int_{-1}^{0}e^{4t}dt=\tfrac{1-e^{-4}}{4}\) (1)；\(\int_0^2(2-t)^2dt=\tfrac83\) (1)；\(E_\infty=\tfrac83+\tfrac{1-e^{-4}}{4}\approx2.912\) (1)。<br>C2(ii) [3]：\(x(t)=e^{2t}[u(t+1)-u(t)]+(2-t)[u(t)-u(t-2)]\)，每个窗口 1 分，表达式 1 分。<br>C2(iii) [3]：断点 \(\tau=-1,0,2\) 搬到 \(t=2,1,-1\) (1)；\(-1\lt t\le1\) 上为 \(1+t\)，\(1\lt t\le2\) 上为 \(e^{2(1-t)}\) (1)；形状和轴 (1)。`+pl("mC",-1,1,-3,4)+R`C2(iv) [4]：\(t=-1\) 处 \(0\to e^{-2}\)：\(e^{-2}\delta(t+1)\)，\(e^{-2}\approx0.135\) (2)；\(t=0\) 处 \(1\to2\)：\(\delta(t)\) (1)；指出 \(t=2\) 处连续，没有 impulse (1)。<br>C3 [3]：\(y(t)=u(t+1)-u(t-3)\) (1)；在 \(-1\le t\lt3\) 上为 1 (1)；\(E_\infty=4\) (1)。<br>原信号：`+pl("mC",1,0,-3,4)}
+];
+const EXT=[
+{id:"X1 · 自编 · 变换对能量的影响",tags:["ai"],stem:R`设 \(x\) 的能量为 \(E\)。证明 \(x_{a,t_0}\)（\(a\ne0\)）的能量是 \(E/|a|\)。然后用 2.7.3 的信号验证：\(x\) 的能量是 \(\tfrac{16}{3}\)，\(x_{2,2}\) 的能量应该是多少？`,h:[R`写出 \(\int|x(a(t-t_0))|^2dt\)，换元 \(\tau=a(t-t_0)\)。`,R`\(dt=d\tau/a\)。\(a\lt0\) 时积分上下限会对调，再调回来多一个负号，合起来是 \(1/|a|\)。`],sol:R`\(\int_{-\infty}^{\infty}|x(a(t-t_0))|^2dt=\frac{1}{|a|}\int_{-\infty}^{\infty}|x(\tau)|^2d\tau=\frac{E}{|a|}\)。平移和翻转（\(|a|=1\)）不改变能量；压缩 2 倍能量减半。\(x_{2,2}\) 的能量是 \(\tfrac83\)。`},
+{id:"X2 · 自编 · 奇偶分解",tags:["ai"],stem:R`任何实信号都可以写成 \(x=x_e+x_o\)，其中 \(x_e(t)=\tfrac12[x(t)+x(-t)]\)，\(x_o(t)=\tfrac12[x(t)-x(-t)]\)。(a) 验证 \(x_e\) 是偶信号、\(x_o\) 是奇信号。(b) 证明 \(E_\infty[x]=E_\infty[x_e]+E_\infty[x_o]\)。`,h:[R`(a) 把 \(t\) 换成 \(-t\) 代进去。`,R`(b) 展开 \((x_e+x_o)^2\)，交叉项 \(x_ex_o\) 是什么对称性？`],sol:R`(a) \(x_e(-t)=\tfrac12[x(-t)+x(t)]=x_e(t)\)；\(x_o(-t)=-x_o(t)\)。(b) \(x^2=x_e^2+2x_ex_o+x_o^2\)。偶乘奇是奇函数，在对称区间上积分为 0，所以交叉项消失。`},
+{id:"X3 · 自编 · 超出考试范围 · 缩放后的 impulse",tags:["ai"],stem:R`用讲义的矩形脉冲 \(\delta_n\) 说明：对 \(a\gt0\)，\(\delta(at)\) 相当于 \(\tfrac1a\delta(t)\)。`,h:[R`\(\delta_n(at)\) 的高度还是 \(n\)，宽度变成多少？`,R`面积 = 高 × 宽。`],sol:R`\(\delta_n(at)\) 在 \(|at|\le\tfrac1{2n}\) 即 \(|t|\le\tfrac1{2na}\) 上为 \(n\)，宽度是 \(\tfrac1{na}\)，面积是 \(\tfrac1a\)。\(n\to\infty\) 时它是一个面积为 \(\tfrac1a\) 的 impulse，即 \(\tfrac1a\delta(t)\)。`}
+];
+const TAG={chk:["off","已对照官方解答"],off:["off","官方解答"],ai:["ai","AI 解答，未经老师核对"],exam:["exam","真题"]};
+const MNAME={m1:"M1 求能量",m2:"M2 画变换",m3:"M3 求导",m4:"M4 用 step 表示",m5:"M5 周期",m6:"M6 能量与功率",m7:"M7 复数互化",s4:"§D 周期与奇偶",s5:"§E step 与 impulse"};
+function qhtml(q){return `<div class="q"><div><b>${q.id}</b> ${q.tags.map(t=>`<span class="tag ${TAG[t][0]}">${TAG[t][1]}</span>`).join("")}${q.m?`<a class="tag" href="#${q.m}">${MNAME[q.m]}</a>`:""}</div><div class="stem">${q.stem}</div>`+
+ q.h.map((h,i)=>`<details><summary>提示 ${i+1}</summary><div>${h}</div></details>`).join("")+
+ `<details><summary>${q.h.length?"完整解答":"评分标准和答案"}</summary><div>${q.sol}</div></details></div>`;}
+function renderMath(el){ if(window.renderMathInElement) renderMathInElement(el,{delimiters:[{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false}); }
+function drawSketches(){document.querySelectorAll("canvas.sk").forEach(c=>sketch(c,c.dataset.sig,+c.dataset.a,+c.dataset.t0,+c.dataset.x0,+c.dataset.x1));
+ document.querySelectorAll("canvas.dsk").forEach(c=>dsketch(c,c.dataset.sig,+c.dataset.x0,+c.dataset.x1));}
+
+/* ---------- links into the user's own notes ---------- */
+const NOTE="https://zgqmoe.github.io/notes/eeen20131/chapter-2/#", PROB="#";
+const NLINK={s1:[["Notation","notation"],["Operations / Calculus","operations"]],s2:[["Energy / Power / RMS","energy"]],s3:[["Time Transform","time-transform"]],s4:[["Periodic / Even / Odd","classes"]],s5:[["Unit Step","step"],["Impulse","impulse"],["Piecewise Derivative","piecewise-derivative"]],s6:[["Complex Signal","complex-signal"],["Periodicity","complex-periodicity"]]};
+const PLINK={m1:[["P2","p2-energy-power-rms"],["P5","p5-impulse-step-energy"]],m2:[["P3","p3-time-transform"]],m3:[["P8","p8-piecewise-derivative"],["P10","p10-window-derivative"]],m4:[["P6","p6-pulse-forms"],["P7","p7-step-construction"]],m5:[["P4","p4-complex-periodicity"]],m6:[["P2","p2-energy-power-rms"]],m7:[["Complex Number（笔记）","complex-number",1]]};
+for(const [id,ls] of Object.entries(NLINK)) $(id).insertAdjacentHTML("afterend",`<p class="muted" style="margin:0">你的笔记：${ls.map(l=>`<a href="${NOTE+l[1]}">${l[0]}</a>`).join(" · ")}</p>`);
+for(const [id,ls] of Object.entries(PLINK)) $(id).insertAdjacentHTML("beforeend",`<p class="muted" style="margin:6px 0 0">你的代表题：${ls.map(l=>`<a href="${(l[2]?NOTE:PROB)+l[1]}">${l[0]}</a>`).join(" · ")}</p>`);
+
+/* ---------- boot ---------- */
+[["exBasic",BASIC],["exExam",EXAM],["exAdv",ADV],["exVar",VAR],["exMock",MOCK],["exExt",EXT]].forEach(([id,arr])=>$(id).innerHTML=arr.map(qhtml).join(""));
+const labKeys=["s2023","s2024","s2025","s2026","p268","p269"];
+for(const sel of [$("tSig"),$("jSig")]) sel.innerHTML=labKeys.map(k=>`<option value="${k}">${SIG[k].name}</option>`).join("");
+$("jSig").value="s2025";
+buildFQ(); renderMath(document.body);
+$("fqBtn").onclick=checkFQ; $("fqReset").onclick=()=>{buildFQ();renderMath($("fq"));};
+$("eSr").oninput=labE; ["tSig","tAr","tTr"].forEach(i=>$(i).oninput=labT); $("dNr").oninput=labD; $("jSig").oninput=labJ;
+function redraw(){labE();labT();labD();labJ();drawSketches();}
+redraw(); requestAnimationFrame(labC);
+new MutationObserver(()=>setTimeout(redraw,30)).observe(document.head,{childList:true,subtree:true,characterData:true});
+document.querySelectorAll('a[href^="http"]').forEach(a=>a.target="_top");
+
+/* ---------- self-ticked progress, kept in this browser only ---------- */
+const PKEY="eeen20131-ch2-pack-v1";
+let done={}; try{done=JSON.parse(localStorage.getItem(PKEY)||"{}")}catch(e){done={}}
+const save=()=>{try{localStorage.setItem(PKEY,JSON.stringify(done))}catch(e){}};
+const cards=[...document.querySelectorAll(".q")];
+function showProg(){const n=cards.filter(c=>done[c.dataset.k]).length;
+ $("prog").innerHTML=`自己打勾的进度：<b>${n} / ${cards.length}</b> 题 · 只保存在这个浏览器里 · <button id="progReset">清空</button>`;
+ $("progReset").onclick=()=>{done={};save();cards.forEach(c=>{c.classList.remove("isdone");c.querySelector(".done input").checked=false;});showProg();};}
+cards.forEach(c=>{const k=c.querySelector("b").textContent.trim(); c.dataset.k=k;
+ c.firstElementChild.insertAdjacentHTML("afterbegin",`<label class="done"><input type="checkbox"${done[k]?" checked":""}> 做完了</label>`);
+ c.classList.toggle("isdone",!!done[k]);
+ c.querySelector(".done input").onchange=e=>{if(e.target.checked)done[k]=1;else delete done[k];c.classList.toggle("isdone",e.target.checked);save();showProg();};});
+showProg();
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change",redraw);
+</script>
+</html>

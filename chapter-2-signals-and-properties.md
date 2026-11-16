@@ -4,6 +4,8 @@
 
 Signals_and_System_02Oct.pdf · pp. 25-41
 
+[Study pack](./chapter-2-study-pack.md) · 讲解 / 动画 / 概念题 / 真题 / 模拟卷
+
 ---
 
 <a id="map"></a>
