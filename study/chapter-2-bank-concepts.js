@@ -3,15 +3,9 @@
 (function () {
   "use strict";
   const { pick, F, ftex, ntex, mcq } = QUIZ;
-  const C = CH2, M = C.M, R = String.raw, { draw, piFrac, OWN, LEC, AI } = BANK.lib;
+  const C = CH2, M = C.M, R = String.raw, { piFrac, OWN, LEC, AI, T, part } = BANKLIB;
   const NOTE = "https://zgqmoe.github.io/notes/eeen20131/chapter-2/";
   const see = (anchor, name) => '回看 <a href="' + NOTE + "keypoints/#" + anchor + '">要点 · ' + name + "</a>。";
-  /* one-part question from a pool of parameter sets */
-  const T = (id, title, pool, make, tags) => ({ id, title, tags: tags || [], vary: pool.length > 1, gen(first) {
-    const p = make(draw(id, pool, first));
-    return { stem: p.stem || "", parts: p.parts || [{ q: p.q, ...mcq(p.good, p.bad, p.fill), hints: p.hints, sol: p.sol }] };
-  } });
-  const part = (q, good, bad, hints, sol, fill) => ({ q, ...mcq(good, bad, fill), hints, sol });
   const num = (v) => M(typeof v === "number" ? ntex(v) : v);
   const sq = (v) => (v < 0 ? "(" + v + ")" : String(v));
 

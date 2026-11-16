@@ -5,14 +5,7 @@
   "use strict";
   const { pick, int, F, fadd, ftex, ntex, mcq } = QUIZ;
   const C = CH2, M = C.M, R = String.raw;
-  const EXAM = ["exam", "真题"], CHK = ["off", "已对照官方解答"], AI = ["ai", "AI 解答"], OFF = ["off", "官方解答"], LEC = ["", "讲义 Problem"], OWN = ["ai", "自编"];
-  const fresh = "同题型，数字已更换，不是原题。";
-  const other = (pool, cur) => pick(pool.filter((v) => v !== cur));
-  const state = {};
-  /* first -> pool[0]; otherwise a different entry from last time */
-  const draw = (id, pool, first) => (state[id] = first ? pool[0] : other(pool, state[id]));
-  const piFrac = (n, d) => { const f = F(n, d); return f.d === 1 ? (f.n === 1 ? "" : f.n) + "\\pi" : "\\tfrac{" + (f.n === 1 ? "" : f.n) + "\\pi}{" + f.d + "}"; };
-  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  const { EXAM, CHK, AI, OFF, LEC, OWN, fresh, draw, piFrac, gcd } = BANKLIB;
 
   /* ---------- signal pools ---------- */
   const TRI = [ // triangle-type signals with two transforms each (2.7.3)
@@ -214,5 +207,5 @@
     ] },
   ];
 
-  window.BANK = Object.assign(window.BANK || {}, { basics, exam, mocks, lib: { partExpEnergy, partSumPeriod, partPairEnergy, piFrac, draw, fresh, OWN, AI, LEC, OFF } });
+  window.BANK = Object.assign(window.BANK || {}, { basics, exam, mocks, lib: { partExpEnergy, partSumPeriod, partPairEnergy } });
 })();

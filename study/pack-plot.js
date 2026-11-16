@@ -58,8 +58,20 @@
     return [lo < 0 ? lo - pad : -pad * 0.4, hi + pad];
   }
 
-  /* spec: { pcs, a = 1, t0 = 0, x0, x1 } draws x(a(t - t0)). */
+  /* value and breakpoints of a combination: terms [{ pcs, c, d }] means sum of c * x(t - d) */
+  const evTerms = (terms, t) => terms.reduce((s, k) => s + (k.c ?? 1) * ev(k.pcs, t - (k.d || 0)), 0);
+  const bpsTerms = (terms) => [...new Set(terms.flatMap((k) => bps(k.pcs).map((b) => b + (k.d || 0))))].sort((x, y) => x - y);
+  function drawTerms(c, spec) {
+    const f = (t) => evTerms(spec.terms, t), [y0, y1] = spec.y || yrange(f, spec.x0, spec.x1);
+    const v = { x0: spec.x0, x1: spec.x1, y0, y1, sx: spec.sx || 1, sy: spec.sy }, P = axes(c, v);
+    curve(P, v, f, css("--blue"), { breaks: bpsTerms(spec.terms) });
+    if (spec.label) { P.g.fillStyle = css("--fg"); P.g.textAlign = "left"; P.g.fillText(spec.label, P.L + 10, P.T + P.fs); }
+    return P;
+  }
+
+  /* spec: { pcs, a = 1, t0 = 0, x0, x1 } draws x(a(t - t0)); a spec with `terms` draws a combination. */
   function draw(c, spec) {
+    if (spec.terms) return drawTerms(c, spec);
     const a = spec.a ?? 1, t0 = spec.t0 ?? 0, f = (t) => ev(spec.pcs, a * (t - t0));
     const [y0, y1] = spec.y || yrange((t) => ev(spec.pcs, t), Math.min(...bps(spec.pcs)) - 1, Math.max(...bps(spec.pcs)) + 1);
     const v = { x0: spec.x0, x1: spec.x1, y0, y1, sx: spec.sx || (spec.x1 - spec.x0 > 14 ? 2 : 1) }, P = axes(c, v);
@@ -81,5 +93,5 @@
     return P;
   }
 
-  window.PLOT = { css, fmt, ev, bps, jumps, axes, curve, arrow, yrange, draw, drawDerivative };
+  window.PLOT = { css, fmt, ev, bps, jumps, evTerms, axes, curve, arrow, yrange, draw, drawDerivative };
 })();

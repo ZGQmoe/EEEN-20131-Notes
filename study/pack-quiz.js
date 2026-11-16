@@ -38,6 +38,12 @@
     return { plot: { pcs, a, t0, x0, x1 }, key: "plot:" + sig.join(",") };
   }
 
+  /* A plot option for a combination of shifted, scaled signals: terms [{ pcs, c, d }]. */
+  function plotTerms(terms, x0, x1, y) {
+    const sig = []; for (let i = 0; i <= 80; i++) sig.push(Math.round(PLOT.evTerms(terms, x0 + ((x1 - x0) * i) / 80 + 0.0131) * 50));
+    return { plot: { terms, x0, x1, y }, key: "plot:" + sig.join(",") };
+  }
+
   function renderMath(el) {
     if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "\\[", right: "\\]", display: true }, { left: "\\(", right: "\\)", display: false }], throwOnError: false });
   }
@@ -77,6 +83,7 @@
         const inst = type.gen(first); live.set(type.id, inst);
         body.innerHTML = "";
         const stem = document.createElement("div"); stem.className = "stem"; stem.innerHTML = inst.stem; body.appendChild(stem);
+        if (inst.figs) { const g = document.createElement("div"); g.className = "figs"; inst.figs.forEach((f) => { const c = document.createElement("canvas"); c.width = 640; c.height = 300; g.appendChild(c); PLOT.draw(c, f); c._spec = f; }); body.appendChild(g); }
         if (inst.given) { const g = document.createElement("div"); g.className = "given"; const c = document.createElement("canvas"); c.width = 1120; c.height = 400; g.appendChild(c); body.appendChild(g); (inst.given.deriv ? PLOT.drawDerivative : PLOT.draw)(c, inst.given); c._spec = inst.given; }
         inst.parts.forEach((p) => {
           p.wrong = 0; p.done = false; p.neededSol = false;
@@ -127,5 +134,5 @@
   /* redraw every canvas when the host page re-themes us */
   function redrawAll() { document.querySelectorAll("canvas").forEach((c) => { if (c._spec) (c._spec.deriv ? PLOT.drawDerivative : PLOT.draw)(c, c._spec); }); }
 
-  window.QUIZ = { pick, shuffle, int, F, fadd, fsub, fmul, fval, ftex, ntex, mcq, plotOpt, render, renderMath, redrawAll };
+  window.QUIZ = { pick, shuffle, int, F, fadd, fsub, fmul, fval, ftex, ntex, mcq, plotOpt, plotTerms, render, renderMath, redrawAll };
 })();
