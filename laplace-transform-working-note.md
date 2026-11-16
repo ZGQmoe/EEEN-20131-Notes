@@ -25,13 +25,13 @@ ROC is determined by convergence of the original integral; a rational expression
 ```math
 x(t)=1,\ t\ge0:
 \qquad X(s)=\frac{1}{s},
-\qquad \operatorname{Re}(s)>0
+\qquad \mathrm{Re}(s)>0
 ```
 
 ```math
 x(t)=e^t,\ t\ge0:
 \qquad X(s)=\frac{1}{s-1},
-\qquad \operatorname{Re}(s)>1
+\qquad \mathrm{Re}(s)>1
 ```
 
 At $s=1+j2$, the fraction is finite, but the integral does not converge: this point lies outside the ROC.
@@ -50,7 +50,7 @@ At $s=0$, the displayed fraction is $0/0$; the singularity is removable and $X(0
 \mathcal L\{e^{-at}\}(s)
 =\int_0^\infty e^{-(s+a)t}\thinspace dt
 =\frac{1}{s+a},
-\qquad \operatorname{Re}(s)>-a
+\qquad \mathrm{Re}(s)>-a
 ```
 
 Linearity lets each partial-fraction term map through a transform pair:
@@ -184,7 +184,7 @@ y(t)=\underbrace{\frac{1}{2}e^{-10t}}_{\text{transient}}
 \qquad y(0^{+})=0
 ```
 
-Steady-state gain and phase measurements · wait for the transient to become negligible · after $5\tau$, about $0.67\%$ of its initial amplitude for this exponential.
+Steady-state gain and phase measurements · wait for the transient to become negligible · after $5\tau$, about 0.67% of its initial amplitude for this exponential.
 
 <!-- Second lecture provenance: Transfer_functions_and_system_responses.pdf, pp. 18–30. -->
 
@@ -209,7 +209,7 @@ y_{\mathrm{tr}}=Be^{p_{1}t}+De^{p_{2}t}\quad\text{(overdamped)}.
 \end{aligned}
 ```
 
-Underdamped pole plot · horizontal coordinate $-\zeta\omega_{n}$ $\to$ envelope · vertical coordinate $\pm\omega_{d}$ $\to$ oscillation · $\lvert p\rvert=\omega_{n}$ · $\zeta=-\operatorname{Re}(p)/\omega_{n}$. Fixed $\omega_{n}$, for $0<\zeta<1$ · increasing $\zeta$ moves the pair toward the negative real axis.
+Underdamped pole plot · horizontal coordinate $-\zeta\omega_{n}$ $\to$ envelope · vertical coordinate $\pm\omega_{d}$ $\to$ oscillation · $\lvert p\rvert=\omega_{n}$ · $\zeta=-\mathrm{Re}(p)/\omega_{n}$. Fixed $\omega_{n}$, for $0<\zeta<1$ · increasing $\zeta$ moves the pair toward the negative real axis.
 
 ```math
 \begin{aligned}
@@ -299,7 +299,7 @@ These find endpoint values under their regularity/pole conditions; they do not r
 
 ## Focused recall prompts
 
-1. Derive $\mathcal L\{x'\}=sX-x(0^+)$; identify both boundary terms.
+1. Derive $\mathcal L[x']=sX-x(0^{+})$; identify both boundary terms.
 2. Why can $1/(s-1)$ be finite at $s=1+j2$ while that point is outside the ROC?
 3. Why does a finite-duration signal have no infinite-time convergence boundary?
 4. From $y'+2y=x$, derive $H=Y/X$ and state the initial-condition assumption.
