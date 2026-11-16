@@ -21,7 +21,7 @@
 - 单位元：$x\ast\delta=x$
 - 和平移的 impulse 卷积就是平移：$x(t)\ast\delta(t-t_{0})=x(t-t_{0})$
 - $\delta(t-t_{0})\ast\delta(t-t_{1})=\delta(t-t_{0}-t_{1})$
-- 求导可以挪到任意一个因子上：$\dfrac{d}{dt}(x\ast h)=\dfrac{dx}{dt}\ast h=x\ast\dfrac{dh}{dt}$
+- 求导可以挪到任意一个因子上：$\frac{d}{dt}(x\ast h)=\frac{dx}{dt}\ast h=x\ast\frac{dh}{dt}$
 - 和 $u$ 卷积就是积分：$(x\ast u)(t)=\displaystyle\int_{-\infty}^{t}x(\tau)\thinspace d\tau$
 
 做题：
