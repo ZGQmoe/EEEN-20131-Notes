@@ -1,0 +1,121 @@
+<!doctype html>
+<!-- AI-assisted schematics for Chapter 2: energy as area, the impulse limit, piecewise derivative, complex exponential.
+     One lab per #hash so each can be embedded next to its concept in the notes. -->
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 2 Labs · EEEN20131</title>
+<link rel="stylesheet" href="../study/pack.css">
+<style>main{max-width:1000px}section[hidden]{display:none}</style>
+<main>
+<header><h1>Chapter 2 Labs</h1><small>EEEN20131 · energy / impulse / piecewise derivative / complex exponential</small></header>
+<nav role="tablist" aria-label="知识点">
+<button role="tab" data-k="energy">能量 = 面积</button><button role="tab" data-k="impulse">δₙ → δ</button><button role="tab" data-k="derivative">跳变 → impulse</button><button role="tab" data-k="cexp">复指数</button>
+</nav>
+
+<section class="lab" id="energy">
+<div class="ctl"><label>σ = <output id="eS"></output><input id="eSr" type="range" min="0.5" max="5" step="0.5" value="3"></label></div>
+<canvas id="cE" width="1640" height="520"></canvas>
+<div class="read" id="eRead"></div>
+<p class="muted">x(t) = e^(−σt)u(t)。蓝线是 x，绿色阴影是 |x|² 下的面积，也就是 E∞。</p>
+</section>
+
+<section class="lab" id="impulse">
+<div class="ctl"><label>n = <output id="dN"></output><input id="dNr" type="range" min="1" max="40" step="1" value="2"></label></div>
+<canvas id="cD1" width="1640" height="440"></canvas><canvas id="cD2" width="1640" height="360"></canvas>
+<p class="muted">上：δₙ，高 n、宽 1/n，面积恒为 1。下：它从 −∞ 积到 t 的结果，n 增大时趋近 unit step。</p>
+</section>
+
+<section class="lab" id="derivative">
+<div class="ctl"><label>信号 <select id="jSig"></select></label></div>
+<canvas id="cJ1" width="1640" height="460"></canvas><canvas id="cJ2" width="1640" height="460"></canvas>
+<div class="read" id="jRead"></div>
+<p class="muted">上：x。下：ẋ。橙色箭头是 impulse，旁边的数是系数，等于上图在该处的跳变量（右值 − 左值）。</p>
+</section>
+
+<section class="lab" id="cexp">
+<div class="ctl">
+<label>σ = <output id="cS"></output><input id="cSr" type="range" min="-1" max="0.4" step="0.1" value="-0.3"></label>
+<label>ω = <output id="cW"></output><input id="cWr" type="range" min="0" max="10" step="0.5" value="4"></label>
+</div>
+<canvas id="cC" width="1640" height="620"></canvas>
+<div class="read" id="cRead"></div>
+<p class="muted">左：复平面上 e^(st) 的轨迹。右：实部，虚线是包络 ±e^(σt)。</p>
+</section>
+</main>
+<script src="../study/pack-plot.js"></script>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id), { css, fmt, ev, bps, axes, curve } = PLOT;
+const SIG = {
+  s2024: ["2.7.4 的信号", [[-2, 0, "lin", 1, 0], [0, 2, "lin", -1, 2]]],
+  s2025: ["2.7.5 的信号", [[-2, 0, "lin", -1, 3], [0, 3, "lin", 1, 0]]],
+  s2026: ["2.7.6 的信号", [[0, 2, "lin", 1, 0], [2, 7, "exp", 2, 1, 2]]],
+  p268: ["Problem 2.6.8 的信号", [[0, 1, "lin", 0, 1], [1, 2, "lin", 0, -2]]],
+  p269: ["Problem 2.6.9 的信号", [[-2, -1, "lin", 1, 1], [-1, 0, "lin", 0, 1], [0, 1, "lin", 0, 3], [1, 2, "lin", -2, 3]]],
+};
+$("jSig").innerHTML = Object.entries(SIG).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
+$("jSig").value = "s2025";
+
+function labE() {
+  const s = +$("eSr").value; $("eS").textContent = s.toFixed(1);
+  const v = { x0: -1, x1: 4, y0: -0.1, y1: 1.15, sx: 1, sy: 0.25 }, P = axes($("cE"), v), { g, X, Y } = P;
+  g.fillStyle = css("--shade"); g.beginPath(); g.moveTo(X(0), Y(0));
+  for (let i = 0; i <= 400; i++) { const t = (4 * i) / 400; g.lineTo(X(t), Y(Math.exp(-2 * s * t))); }
+  g.lineTo(X(4), Y(0)); g.closePath(); g.fill();
+  curve(P, v, (t) => (t < 0 ? 0 : Math.exp(-2 * s * t)), css("--green"), { breaks: [0], w: 3 });
+  curve(P, v, (t) => (t < 0 ? 0 : Math.exp(-s * t)), css("--blue"), { breaks: [0] });
+  $("eRead").textContent = `|x(t)|² = e^(−${fmt(2 * s)}t) · E∞ = 1/(2σ) = ${(1 / (2 * s)).toFixed(4)} · time constant τ = 1/σ = ${(1 / s).toFixed(3)}`;
+}
+function labD() {
+  const n = +$("dNr").value; $("dN").textContent = n;
+  const v1 = { x0: -1.2, x1: 1.2, y0: -0.5, y1: Math.max(4, n * 1.15), sx: 0.2 }, P1 = axes($("cD1"), v1), w = 1 / (2 * n);
+  P1.g.fillStyle = css("--shade"); P1.g.fillRect(P1.X(-w), P1.Y(n), P1.X(w) - P1.X(-w), P1.Y(0) - P1.Y(n));
+  curve(P1, v1, (t) => (Math.abs(t) <= w ? n : 0), css("--blue"), { breaks: [-w, w] });
+  P1.g.fillStyle = css("--fg"); P1.g.textAlign = "left"; P1.g.fillText(`高 ${n} × 宽 ${fmt(1 / n)} = 面积 1`, P1.X(0.25), P1.Y(v1.y1 * 0.8));
+  const v2 = { x0: -1.2, x1: 1.2, y0: -0.15, y1: 1.25, sx: 0.2, sy: 0.25 }, P2 = axes($("cD2"), v2);
+  curve(P2, v2, (t) => (t < 0 ? 0 : 1), css("--muted"), { breaks: [0], dash: [10, 8], w: 3 });
+  curve(P2, v2, (t) => (t < -w ? 0 : t > w ? 1 : (t + w) * n), css("--green"));
+}
+function labJ() {
+  const pcs = SIG[$("jSig").value][1], b = bps(pcs), x0 = Math.floor(b[0]) - 2, x1 = Math.ceil(b[b.length - 1]) + 2, e = 1e-7;
+  PLOT.draw($("cJ1"), { pcs, x0, x1, sx: 1 }); PLOT.drawDerivative($("cJ2"), { pcs, x0, x1 });
+  $("jRead").textContent = "跳变量 = 右值 − 左值： " + b.map((t) => `t=${fmt(t)}: ${fmt(ev(pcs, t + e))} − ${fmt(ev(pcs, t - e))} = ${fmt(ev(pcs, t + e) - ev(pcs, t - e))}`).join("   ·   ");
+}
+const t0 = performance.now();
+function labC(now) {
+  const sg = +$("cSr").value, w = +$("cWr").value; $("cS").textContent = sg.toFixed(1); $("cW").textContent = w.toFixed(1);
+  const c = $("cC"), g = c.getContext("2d"), W = c.width, H = c.height, tm = 6, tt = ((now - t0) / 1000) % tm; g.clearRect(0, 0, W, H);
+  const R0 = Math.max(1, Math.exp(sg * tm)) * 1.1, cx = 320, cy = H / 2, sc = 250 / R0;
+  g.strokeStyle = css("--line"); g.lineWidth = 2; g.beginPath(); g.moveTo(cx - 280, cy); g.lineTo(cx + 280, cy); g.moveTo(cx, cy - 280); g.lineTo(cx, cy + 280); g.stroke();
+  g.beginPath(); g.arc(cx, cy, sc, 0, 7); g.stroke();
+  g.fillStyle = css("--muted"); g.font = "24px system-ui"; g.textAlign = "left"; g.fillText("Re", cx + 250, cy - 10); g.fillText("Im", cx + 10, cy - 255); g.fillText("|z|=1", cx + sc * 0.72 + 6, cy - sc * 0.72 - 6);
+  g.strokeStyle = css("--blue"); g.lineWidth = 3; g.beginPath();
+  for (let i = 0; i <= 600; i++) { const t = (tt * i) / 600, r = Math.exp(sg * t) * sc, x = cx + r * Math.cos(w * t), y = cy - r * Math.sin(w * t); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke();
+  const r = Math.exp(sg * tt) * sc, px = cx + r * Math.cos(w * tt), py = cy - r * Math.sin(w * tt);
+  g.strokeStyle = css("--probe"); g.beginPath(); g.moveTo(cx, cy); g.lineTo(px, py); g.stroke(); g.fillStyle = css("--probe"); g.beginPath(); g.arc(px, py, 9, 0, 7); g.fill();
+  const L = 720, Rr = W - 30, X = (t) => L + (t / tm) * (Rr - L), Y = (y) => cy - y * sc;
+  g.strokeStyle = css("--line"); g.lineWidth = 2; g.beginPath(); g.moveTo(L, cy); g.lineTo(Rr, cy); g.moveTo(L, cy - 280); g.lineTo(L, cy + 280); g.stroke();
+  g.fillStyle = css("--muted"); for (let t = 0; t <= tm; t++) g.fillText(t, X(t) - 6, cy + 30); g.fillText("t", Rr - 14, cy - 12); g.fillText("Re{e^(st)}", L + 12, cy - 250);
+  const line = (f, col, dash, wd) => { g.strokeStyle = col; g.lineWidth = wd; g.setLineDash(dash); g.beginPath(); for (let i = 0; i <= 600; i++) { const t = (tm * i) / 600; i ? g.lineTo(X(t), Y(f(t))) : g.moveTo(X(t), Y(f(t))); } g.stroke(); g.setLineDash([]); };
+  line((t) => Math.exp(sg * t), css("--muted"), [8, 8], 2); line((t) => -Math.exp(sg * t), css("--muted"), [8, 8], 2); line((t) => Math.exp(sg * t) * Math.cos(w * t), css("--blue"), [], 4);
+  g.fillStyle = css("--probe"); g.beginPath(); g.arc(X(tt), Y(Math.exp(sg * tt) * Math.cos(w * tt)), 9, 0, 7); g.fill();
+  $("cRead").textContent = `|e^(st)| = e^(${fmt(sg)}t) · τ = ${sg === 0 ? "∞（不衰减）" : (1 / Math.abs(sg)).toFixed(2)} · T₀ = ${w === 0 ? "—（不转）" : "2π/ω = " + ((2 * Math.PI) / w).toFixed(3)} · ${sg === 0 && w !== 0 ? "周期信号" : sg === 0 ? "常数" : "不是周期信号（模在变）"}`;
+  requestAnimationFrame(labC);
+}
+function redraw() { labE(); labD(); labJ(); }
+function activate(k) {
+  if (!$(k)) k = "energy";
+  document.querySelectorAll("section.lab").forEach((s) => (s.hidden = s.id !== k));
+  document.querySelectorAll("[role=tab]").forEach((b) => b.setAttribute("aria-selected", b.dataset.k === k));
+  redraw();
+}
+document.querySelector("nav").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) location.hash = b.dataset.k; });
+addEventListener("hashchange", () => activate(location.hash.slice(1)));
+$("eSr").oninput = labE; $("dNr").oninput = labD; $("jSig").oninput = labJ;
+activate(location.hash.slice(1)); requestAnimationFrame(labC);
+new MutationObserver(() => setTimeout(redraw, 30)).observe(document.head, { childList: true, subtree: true, characterData: true });
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change", redraw);
+</script>
+</html>

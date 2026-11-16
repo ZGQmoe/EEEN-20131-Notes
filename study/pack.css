@@ -1,0 +1,57 @@
+/* Shared look for the practice pages and chapter labs. Variable names match visuals/signals-lab.html
+   so the personal site can re-theme an embedded page. */
+:root{color-scheme:light dark;--bg:#fff;--fg:#17212d;--muted:#586574;--line:#d6dee6;--blue:#2563eb;--green:#008564;--probe:#a44900;--shade:#00856430;--card:color-mix(in srgb,var(--fg) 6%,transparent)}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--muted:#adb9c7;--line:#303b49;--blue:#83afff;--green:#63dcb2;--probe:#ffba75;--shade:#63dcb240;--card:color-mix(in srgb,var(--fg) 8%,transparent)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"PingFang SC",sans-serif}
+main{max-width:860px;margin:auto;padding:20px 18px 60px}
+h1{font-size:24px;margin:0}h2{font-size:20px;margin:26px 0 8px}
+a{color:var(--blue)}small,.muted{color:var(--muted)}
+main>header{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+nav[role=tablist]{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;border-bottom:1px solid var(--line);padding-bottom:10px}
+button,select{font:inherit;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:5px 12px;cursor:pointer}
+button[aria-selected=true]{background:var(--fg);color:var(--bg)}
+button:disabled{opacity:.5;cursor:default}
+select{background:var(--bg)}
+output{font-variant-numeric:tabular-nums;font-weight:600}
+.read{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:0 8px;margin-left:6px;color:var(--muted);white-space:nowrap;font-weight:400}
+.tag.exam{border-color:var(--probe);color:var(--probe)}.tag.off{border-color:var(--green);color:var(--green)}.tag.ai{border-color:var(--blue);color:var(--blue)}
+
+/* labs */
+.lab canvas{width:100%;height:auto;display:block;margin:6px 0}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 24px;margin:6px 0}
+.ctl label{display:block;font-size:14px}.ctl input[type=range]{width:100%}
+
+/* question cards */
+.intro{margin:4px 0 12px}
+.stats{font-size:14px;color:var(--muted);margin:8px 0 14px}
+details.qcard{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--card)}
+details.qcard>summary{cursor:pointer;padding:10px 14px;list-style:none;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+details.qcard>summary::-webkit-details-marker{display:none}
+details.qcard>summary::before{content:"▸";color:var(--muted);width:1em}
+details.qcard[open]>summary::before{content:"▾"}
+details.qcard[open]>summary{border-bottom:1px solid var(--line)}
+.qbody{padding:10px 16px 14px}
+.st{margin-left:auto;font-size:13px;color:var(--muted);white-space:nowrap}
+.st.ok{color:var(--green)}.st.hint{color:var(--blue)}.st.sol{color:var(--probe)}
+.stem{margin:6px 0 10px}.en{font-family:Georgia,"Times New Roman",serif}
+.part{border-top:1px dashed var(--line);padding:10px 0 4px;margin-top:8px}
+.part:first-of-type{border-top:0;margin-top:0}
+.opts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.opts.plots{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{display:flex;align-items:flex-start;gap:8px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer;background:var(--bg)}
+.opt input{margin-top:6px}
+.opt canvas{width:100%;height:auto;display:block}
+.opt.wrong{opacity:.45;text-decoration:line-through;cursor:default}
+.opts.plots .opt.wrong{text-decoration:none;opacity:.3}
+.opt.right{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
+.fb{font-size:15px;margin:6px 0}
+.fb .h{border-left:3px solid var(--blue);padding:2px 0 2px 10px;margin:6px 0}
+.fb .s{border-left:3px solid var(--green);padding:2px 0 2px 10px;margin:6px 0}
+.fb .no{color:var(--probe)}.fb .yes{color:var(--green)}
+.foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:14px;color:var(--muted)}
+.score{font-weight:600;margin:10px 0}
+.given{max-width:560px}.given canvas{width:100%;height:auto;display:block}
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:2px 0;margin:.6em 0}
+@media(max-width:560px){.opts.plots{grid-template-columns:1fr}}

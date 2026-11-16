@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- AI-assisted practice pages for EEEN20131 Chapter 2. One page, one part per #hash. Sources are tagged on every question. -->
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 2 练习 · EEEN20131</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="pack.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<main>
+<header><h1>Chapter 2 练习</h1><small>EEEN20131 · Continuous-Time Signals</small></header>
+<nav role="tablist" aria-label="练习部分"></nav>
+<p class="intro" id="intro"></p>
+<div id="root"></div>
+</main>
+<script src="pack-plot.js"></script>
+<script src="pack-quiz.js"></script>
+<script src="chapter-2-parts.js"></script>
+<script src="chapter-2-bank.js"></script>
+<script src="chapter-2-bank-concepts.js"></script>
+<script>
+"use strict";
+const PARTS = {
+  concepts: ["概念题", "只考概念，题型固定。点“换一组数字”可以反复刷同一个题型。选错一次给一条提示，提示用完给完整解答。"],
+  basics: ["基础题", "讲义 §2.6 的 Problems 2.6.1–2.6.9，改成了选择题。第一次出现的是讲义原题的数字，解答按官方解答手册。"],
+  exam: ["真题", "讲义 §2.7 收录的 Jan 2023–Jan 2026 真题。第一次出现的是真题的数字；Jan 2024、2025、2026 的答案已对照 Official Solutions。画图题的选项是四张图。"],
+  tricky: ["变式", "自编。挑的是这一章里冷门但容易丢分的角度，不是把真题换个数字。"],
+  mocks: ["模拟卷", "自编，题型和分值仿照真题。每一问第一次就选对才得分。"],
+  extension: ["延伸", "前面都做完再看。前两题来自讲义 Advanced problems，其余自编，难度或范围超出考试常规。"],
+};
+const nav = document.querySelector("nav"), root = document.getElementById("root"), intro = document.getElementById("intro");
+nav.innerHTML = Object.entries(PARTS).map(([k, v]) => `<button role="tab" data-k="${k}">${v[0]}</button>`).join("");
+function show(k) {
+  if (!PARTS[k]) k = "concepts";
+  nav.querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", b.dataset.k === k));
+  intro.textContent = PARTS[k][1]; root.innerHTML = "";
+  if (k === "mocks") BANK.mocks.forEach((paper, i) => {
+    const h = document.createElement("h2"); h.textContent = paper.name; const s = document.createElement("small"); s.textContent = "  " + paper.time; h.appendChild(s); root.appendChild(h);
+    const box = document.createElement("div"); root.appendChild(box);
+    QUIZ.render(box, paper.types, { storeKey: "eeen20131-ch2-mock" + i, score: true });
+  });
+  else QUIZ.render(root, BANK[k], { storeKey: "eeen20131-ch2-" + k });
+  document.querySelectorAll('a[href^="http"]').forEach((a) => (a.target = "_top"));
+}
+nav.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) location.hash = b.dataset.k; });
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+show(location.hash.slice(1));
+new MutationObserver(() => setTimeout(QUIZ.redrawAll, 30)).observe(document.head, { childList: true, subtree: true, characterData: true });
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change", QUIZ.redrawAll);
+</script>
+</html>

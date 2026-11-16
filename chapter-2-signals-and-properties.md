@@ -4,8 +4,6 @@
 
 Signals_and_System_02Oct.pdf · pp. 25-41
 
-[Study pack](./chapter-2-study-pack.md) · 讲解 / 动画 / 概念题 / 真题 / 模拟卷
-
 ---
 
 <a id="map"></a>
@@ -155,6 +153,8 @@ Practice: [breakpoint transform](./chapter-2-representative-problems.md#p3-time-
 <a id="energy"></a>
 
 **Energy / power / RMS**
+
+[能量 = 面积 · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/chapter-2-labs.html#energy)
 
 Circuit origin:
 
@@ -322,6 +322,8 @@ Practice: [two-step pulse](./chapter-2-representative-problems.md#p6-pulse-forms
 
 **Dirac delta**
 
+[δₙ → δ · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/chapter-2-labs.html#impulse)
+
 ```math
 \delta_{n}(t)=
 \begin{cases}
@@ -429,6 +431,8 @@ z^{\ast}=x-jy,
 <a id="complex-signal"></a>
 
 **Signal**
+
+[增长 / 衰减 + 转动 · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/chapter-2-labs.html#cexp)
 
 ```math
 s=\sigma+j\omega
@@ -545,6 +549,8 @@ Practice: [level-change method](./chapter-2-representative-problems.md#p7-step-c
 <a id="piecewise-derivative"></a>
 
 **Piecewise derivative**
+
+[跳变 → impulse · 交互图](https://zgqmoe.github.io/EEEN-20131-Notes/visuals/chapter-2-labs.html#derivative)
 
 For differentiable $f$ and $a<b$:
 

@@ -2,7 +2,7 @@
 
 # Chapter 2 — Representative Problems
 
-[Concept map](./chapter-2-signals-and-properties.md#map) · selected D0/D+1/D+3 redo set · [Study pack](./chapter-2-study-pack.md)
+[Concept map](./chapter-2-signals-and-properties.md#map) · selected D0/D+1/D+3 redo set
 
 Selected examples · advanced still in scope · not a completion record
 
