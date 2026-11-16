@@ -1,11 +1,11 @@
 /* Shared canvas plotting for piecewise signals. Used by the chapter labs and the practice pages.
    A signal is a list of pieces [a, b, kind, p1, p2, p3], valid on a <= t < b and zero elsewhere:
-     "lin": value p1*t + p2        "exp": value p1*exp(-p2*(t - p3)) */
+     "lin": value p1*t + p2        "exp": value p1*exp(-p2*(t - p3))        "quad": value p1*t^2 + p2*t + p3 */
 (function () {
   "use strict";
   const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const fmt = (v) => { const r = Math.round(v * 1000) / 1000; return Object.is(r, -0) ? "0" : String(r); };
-  const pieceValue = (p, t) => (p[2] === "lin" ? p[3] * t + p[4] : p[3] * Math.exp(-p[4] * (t - p[5])));
+  const pieceValue = (p, t) => (p[2] === "lin" ? p[3] * t + p[4] : p[2] === "quad" ? p[3] * t * t + p[4] * t + p[5] : p[3] * Math.exp(-p[4] * (t - p[5])));
   const ev = (pcs, t) => { for (const p of pcs) if (t >= p[0] && t < p[1]) return pieceValue(p, t); return 0; };
   const bps = (pcs) => [...new Set(pcs.flatMap((p) => [p[0], p[1]]))].sort((x, y) => x - y);
   const jumps = (pcs) => { const e = 1e-7; return bps(pcs).map((b) => ({ t: b, w: ev(pcs, b + e) - ev(pcs, b - e) })).filter((j) => Math.abs(j.w) > 1e-6); };
