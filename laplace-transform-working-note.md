@@ -1,11 +1,11 @@
 # Laplace Transform — Working Note
 
-> 2026-11-12 discussion draft. Captures the concepts connected in conversation; full lecture reading and problem practice remain to be done.
+<!-- Working note: first discussion 2026-11-12; system responses added 2026-11-16. -->
 
 ## Transform and complex frequency
 
 ```math
-X(s)=\mathcal L\{x\}(s)=\int_{0}^{\infty}x(t)e^{-st}\,dt,
+X(s)=\mathcal L\{x\}(s)=\int_{0}^{\infty}x(t)e^{-st}\thinspace dt,
 \qquad s=\sigma+j\omega
 ```
 
@@ -13,10 +13,10 @@ X(s)=\mathcal L\{x\}(s)=\int_{0}^{\infty}x(t)e^{-st}\,dt,
 e^{-st}=e^{-\sigma t}e^{-j\omega t}
 ```
 
-- \(\sigma\): exponential weighting / convergence direction.
-- \(\omega\): angular frequency, \(\omega=2\pi f\).
-- Fourier transform: the \(\sigma=0\) slice, when the integral exists.
-- The one-sided integral starts at \(t=0\); multiplying by \(u(t)\) gates a signal to \(t\ge0\). A step response is \(h*u\), a different object.
+- $\sigma$: exponential weighting / convergence direction.
+- $\omega$: angular frequency, $\omega=2\pi f$.
+- Fourier transform: the $\sigma=0$ slice, when the integral exists.
+- The one-sided integral starts at $t=0$; multiplying by $u(t)$ gates a signal to $t\ge0$. A step response is $h*u$, a different object.
 
 ## Region of convergence (ROC)
 
@@ -34,7 +34,7 @@ x(t)=e^t,\ t\ge0:
 \qquad \operatorname{Re}(s)>1
 ```
 
-At \(s=1+j2\), the fraction is finite, but the integral does not converge: this point lies outside the ROC.
+At $s=1+j2$, the fraction is finite, but the integral does not converge: this point lies outside the ROC.
 
 ```math
 x(t)=1,\ 0\le t<2:
@@ -42,13 +42,13 @@ x(t)=1,\ 0\le t<2:
 \qquad \mathrm{ROC}=\mathbb C
 ```
 
-At \(s=0\), the displayed fraction is \(0/0\); the singularity is removable and \(X(0)=\int_0^2 1\,dt=2\). Finite time support removes the infinite-time convergence issue.
+At $s=0$, the displayed fraction is $0/0$; the singularity is removable and $X(0)=\int_0^2 1\thinspace dt=2$. Finite time support removes the infinite-time convergence issue.
 
 ## Inverse transform and partial fractions
 
 ```math
 \mathcal L\{e^{-at}\}(s)
-=\int_0^\infty e^{-(s+a)t}\,dt
+=\int_0^\infty e^{-(s+a)t}\thinspace dt
 =\frac{1}{s+a},
 \qquad \operatorname{Re}(s)>-a
 ```
@@ -68,16 +68,16 @@ The table records pairs derived from the defining integral; it avoids repeating 
 
 ```math
 \mathcal L\{x'(t)\}
-=\int_0^\infty x'(t)e^{-st}\,dt
+=\int_0^\infty x'(t)e^{-st}\thinspace dt
 =\left[x(t)e^{-st}\right]_0^\infty+sX(s)
 =sX(s)-x(0^+)
 ```
 
-Within the ROC, the upper boundary term vanishes; the lower boundary is \(x(0^+)e^0\), subtracted. The derivative of the kernel is \(-se^{-st}\), producing \(+sX(s)\) after integration by parts.
+Within the ROC, the upper boundary term vanishes; the lower boundary is $x(0^+)e^0$, subtracted. The derivative of the kernel is $-se^{-st}$, producing $+sX(s)$ after integration by parts.
 
 ## Differential equation and transfer function
 
-For \(y'(t)+2y(t)=x(t)\):
+For $y'(t)+2y(t)=x(t)$:
 
 ```math
 sY(s)-y(0^+)+2Y(s)=X(s)
@@ -89,7 +89,7 @@ Zero initial condition gives:
 H(s)=\frac{Y(s)}{X(s)}=\frac{1}{s+2}
 ```
 
-With a unit-step input, \(X(s)=1/s\):
+With a unit-step input, $X(s)=1/s$:
 
 ```math
 Y(s)=\frac{1}{s(s+2)}
@@ -98,31 +98,194 @@ Y(s)=\frac{1}{s(s+2)}
 y(t)=\frac12(1-e^{-2t}),\ t\ge0
 ```
 
-Zero initial condition isolates the input-driven response for \(H=Y/X\). Nonzero initial state contributes an additional natural response.
+Zero initial condition isolates the input-driven response for $H=Y/X$. Nonzero initial state contributes an additional natural response.
 
 ## LTI convolution and output poles
 
 ```math
-y(t)=h(t)*x(t)
+y_{\mathrm{zs}}(t)=h(t)\ast x(t)
 \quad\longleftrightarrow\quad
-Y(s)=H(s)X(s),
+Y_{\mathrm{zs}}(s)=H(s)X(s),
 \qquad H(s)=\mathcal L\{h(t)\}
 ```
 
 Use the product identity on a shared region where the transforms are defined. Output poles can originate from either factor:
 
-- poles of \(H(s)\): system natural modes;
-- poles of \(X(s)\): modes supplied by the input.
+- poles of $H(s)$: system natural modes;
+- poles of $X(s)$: modes supplied by the input.
 
-For \(H=1/(s+2)\) and a step input \(X=1/s\), the output has a pole at \(-2\) from the system transient and one at \(0\) from the input's steady component.
+For $H=1/(s+2)$ and a step input $X=1/s$, the output has a pole at $-2$ from the system transient and one at $0$ from the input's steady component.
+
+<!-- Second lecture provenance: Transfer_functions_and_system_responses.pdf, pp. 2–17; https://canvas.manchester.ac.uk/courses/88089/files/16532001?module_item_id=4404401 -->
+
+## First-order responses and RC
+
+```math
+\tau\dot y+y=kx,\qquad \tau>0,\qquad
+H(s)=\frac{k}{\tau s+1},\qquad H(0)=k,\qquad p=-\frac{1}{\tau}
+```
+
+```math
+\underbrace{Y(s)}_{\text{total}}
+=\underbrace{H(s)X(s)}_{\text{zero state}}
++\underbrace{\frac{y_{0}}{s+1/\tau}}_{\text{zero input}},\qquad y_{0}=y(0^{+})
+```
+
+RC · capacitor output · KVL $x=Ri+y,\ i=C\dot y$ · $\tau=RC,\ k=1$. Initial capacitor voltage $y_{0}=V_{0}$ → $V_{0}e^{-t/(RC)}$. ↔ [RC differential equation and initial state](./chapter-6-lti-and-convolution.md#ode)
+
+### System and input poles
+
+| Source in the first-order examples | Pole(s) | Time-domain term |
+| --- | --- | --- |
+| $H(s)=k/(\tau s+1)$ | $-1/\tau$ | $Be^{-t/\tau}$ · system transient |
+| Unit step · $X(s)=1/s$ | $0$ | Constant · step steady state |
+| Switched-on sine · $X(s)=\omega_{0}/(s^{2}+\omega_{0}^{2})$ | $\pm j\omega_{0}$ | Sine and cosine at $\omega_{0}$ · sinusoidal steady state |
+
+```math
+x(t)=1,\quad y(0^{+})=0
+\quad\Longrightarrow\quad y(t)=\underbrace{k}_{\text{steady state}}
+-\underbrace{k e^{-t/\tau}}_{\text{transient}}
+```
+
+Natural term $Be^{-t/\tau}$ · pole $\to$ decay rate $1/\tau$ · initial condition and input $\to$ coefficient $B$ · step from rest $B=-k$ · zero input $B=y_{0}$.
+
+### Switched-on sine
+
+```math
+\frac{\omega_{0}}{s^{2}+\omega_{0}^{2}}\longleftrightarrow\sin(\omega_{0}t),
+\qquad
+\frac{s}{s^{2}+\omega_{0}^{2}}\longleftrightarrow\cos(\omega_{0}t),
+\qquad t\geq 0
+```
+
+```math
+Y=HX
+\quad\longrightarrow\quad
+\frac{P}{s+1/\tau}+\frac{Qs+T}{s^{2}+\omega_{0}^{2}}
+\quad\longrightarrow\quad y_{\mathrm{tr}}+y_{\mathrm{ss}}
+```
+
+Partial fractions · one constant numerator for the linear factor · linear numerator for the quadratic factor · clear denominators and match powers of $s$.
+
+```math
+\begin{aligned}
+x(t)&=A\sin(\omega_{0}t),\qquad t\geq 0,\\
+y_{\mathrm{ss}}(t)&=A\lvert H(j\omega_{0})\rvert
+\sin\bigl(\omega_{0}t+\arg H(j\omega_{0})\bigr)
+\qquad\text{(stable system)}.
+\end{aligned}
+```
+
+RC from rest · $\tau=0.1$ s · $x(t)=\sin(10t)$ V · $H(s)=10/(s+10)$ · $H(j10)=1/(1+j)$.
+
+```math
+y(t)=\underbrace{\frac{1}{2}e^{-10t}}_{\text{transient}}
++\underbrace{\frac{1}{\sqrt{2}}\sin(10t-\pi/4)}_{\text{steady state}},
+\qquad y(0^{+})=0
+```
+
+Steady-state gain and phase measurements · wait for the transient to become negligible · after $5\tau$, about $0.67\%$ of its initial amplitude for this exponential.
+
+<!-- Second lecture provenance: Transfer_functions_and_system_responses.pdf, pp. 18–30. -->
+
+## Second-order responses and RLC
+
+```math
+H(s)=\frac{k\omega_{n}^{2}}{s^{2}+2\zeta\omega_{n}s+\omega_{n}^{2}},
+\qquad
+p_{1,2}=-\zeta\omega_{n}\pm\omega_{n}\sqrt{\zeta^{2}-1}
+```
+
+$k=H(0)$ · $\omega_{n}$ natural angular frequency · $\zeta$ damping ratio · constant nonzero numerator $\to$ no finite zeros.
+
+```math
+\begin{aligned}
+0<\zeta<1 &: \quad p=-\zeta\omega_{n}\pm j\omega_{d},
+\qquad \omega_{d}=\omega_{n}\sqrt{1-\zeta^{2}} \quad \text{(underdamped)},\\
+\zeta=1 &: \quad p=-\omega_{n}\ \text{(double pole)},
+\qquad y_{\mathrm{tr}}=(B+Dt)e^{-\omega_{n}t}\quad\text{(critical)},\\
+\zeta>1 &: \quad p_{1},p_{2}<0,\qquad
+y_{\mathrm{tr}}=Be^{p_{1}t}+De^{p_{2}t}\quad\text{(overdamped)}.
+\end{aligned}
+```
+
+Underdamped pole plot · horizontal coordinate $-\zeta\omega_{n}$ $\to$ envelope · vertical coordinate $\pm\omega_{d}$ $\to$ oscillation · $\lvert p\rvert=\omega_{n}$ · $\zeta=-\operatorname{Re}(p)/\omega_{n}$. Fixed $\omega_{n}$, for $0<\zeta<1$ · increasing $\zeta$ moves the pair toward the negative real axis.
+
+```math
+\begin{aligned}
+y_{\mathrm{tr}}(t)&=e^{-\zeta\omega_{n}t}\bigl[B\cos(\omega_{d}t)+D\sin(\omega_{d}t)\bigr],\\
+y(0^{+})&=y_{\mathrm{ss}}(0^{+})+B,\\
+\dot y(0^{+})&=\dot y_{\mathrm{ss}}(0^{+})-\zeta\omega_{n}B+\omega_{d}D
+\qquad(0<\zeta<1).
+\end{aligned}
+```
+
+$B$ from initial output · $D$ from initial slope · $\zeta>0$ $\to$ natural terms decay. Unit step $\to y_{\mathrm{ss}}=k$ · sinusoid $\to$ steady oscillation at input $\omega_{0}$, transient oscillation at system $\omega_{d}$.
+
+### Series RLC with capacitor output
+
+```math
+x=Ri+L\dot i+y,\quad i=C\dot y
+\quad\Longrightarrow\quad LC\ddot y+RC\dot y+y=x
+```
+
+```math
+y(0^{+})=i(0^{+})=0\quad\Longrightarrow\quad
+H(s)=\frac{1}{LCs^{2}+RCs+1},\qquad
+\omega_{n}=\frac{1}{\sqrt{LC}},\quad
+2\zeta\omega_{n}=\frac{R}{L}
+```
+
+Initial state · capacitor voltage and inductor current · $\dot y(0^{+})=i(0^{+})/C$. Positive $R,L,C$ · negative root sum and positive root product · both poles in the left half-plane.
+
+Worked example · $L=1$ H, $C=100\thinspace \mu\mathrm{F}$, $R=100\thinspace \Omega$ · $\omega_{n}=100\thinspace \mathrm{rad/s}$, $\zeta=1/2$ · input $\sin(100t)$ V from rest.
+
+```math
+\frac{10^{6}}{(s^{2}+10000)(s^{2}+100s+10000)}
+=
+\underbrace{\frac{-s}{s^{2}+10000}}_{\text{input poles}}
++\underbrace{\frac{(s+50)+50}{(s+50)^{2}+(50\sqrt{3})^{2}}}_{\text{system poles}}
+```
+
+Two quadratic factors · a linear numerator over each · match powers · complete the square in the system factor · split the numerator at $s+50$ for the shifted sine and cosine pairs.
+
+```math
+y(t)=\underbrace{-\cos(100t)}_{\text{steady state}}
++\underbrace{e^{-50t}\left[\cos(50\sqrt{3}\thinspace t)
++\frac{1}{\sqrt{3}}\sin(50\sqrt{3}\thinspace t)\right]}_{\text{transient}},
+\qquad y(0^{+})=\dot y(0^{+})=0
+```
+
+$H(j100)=-j$ · unit gain, phase lag $\pi/2$ · same steady-state term by direct evaluation. $\omega_{0}=\omega_{n}$ in this example · $\omega_{d}=50\sqrt{3}$ · envelope $e^{-50t}$.
 
 ## Poles, zeros, stability, minimum phase
 
-- Poles: denominator roots; a pole \(p=\sigma+j\omega\) corresponds to an exponential/oscillatory mode.
+- Poles: denominator roots; a pole $p=\sigma+j\omega$ corresponds to an exponential/oscillatory mode.
 - Zeros: numerator roots; they shape the response and phase.
 - For a causal rational system, the ROC lies right of the rightmost pole. BIBO stability requires the imaginary axis to lie inside the ROC; for proper causal rational systems this means all poles are strictly in the left half-plane.
 - A simple imaginary-axis pole can give sustained natural oscillation; it is generally not BIBO stable. A right-half-plane pole or repeated imaginary-axis pole is unstable.
 - A stable system is minimum phase when its inverse is stable. A right-half-plane zero becomes a right-half-plane pole in the inverse; the forward system may still be stable.
+
+<!-- Second lecture provenance: Transfer_functions_and_system_responses.pdf, pp. 31–32. -->
+
+### Added zero and initial undershoot
+
+```math
+\widehat H(s)=(1+\xi s)H(s),\qquad
+z=-\frac{1}{\xi},\qquad
+\widehat y_{\mathrm{step}}=y_{\mathrm{step}}+\xi\dot y_{\mathrm{step}}
+```
+
+Hat · modified transfer function · same poles for the example · left-half-plane poles and a right-half-plane zero $\to$ stable forward system, unstable inverse · non-minimum phase.
+
+```math
+\widehat H(s)=\frac{1-s}{s^{2}+0.25s+1},
+\qquad z=+1,\qquad
+\dot{\widehat y}_{\mathrm{step}}(0^{+})=-1,\qquad
+\widehat y_{\mathrm{step}}(\infty)=1
+```
+
+Unit step from rest · negative initial slope via $\xi\ddot y_{\mathrm{step}}(0^{+})$ · positive final value · initial undershoot.
 
 ## Initial-value and final-value theorems
 
@@ -136,14 +299,13 @@ These find endpoint values under their regularity/pole conditions; they do not r
 
 ## Focused recall prompts
 
-1. Derive \(\mathcal L\{x'\}=sX-x(0^+)\); identify both boundary terms.
-2. Why can \(1/(s-1)\) be finite at \(s=1+j2\) while that point is outside the ROC?
+1. Derive $\mathcal L\{x'\}=sX-x(0^+)$; identify both boundary terms.
+2. Why can $1/(s-1)$ be finite at $s=1+j2$ while that point is outside the ROC?
 3. Why does a finite-duration signal have no infinite-time convergence boundary?
-4. From \(y'+2y=x\), derive \(H=Y/X\) and state the initial-condition assumption.
-5. In \(Y=HX\), distinguish a pole inherited from the input from a system pole.
+4. From $y'+2y=x$, derive $H=Y/X$ and state the initial-condition assumption.
+5. In $Y=HX$, distinguish a pole inherited from the input from a system pole.
 6. State the stability test using the ROC; distinguish it from minimum-phase classification.
 7. Explain what the initial-value and final-value theorems return, and when they may be used.
 
-## Next pass
-
-Finish the current Fourier reading first. Then read the Laplace lecture fully, work through its examples/problems, answer the recall prompts closed-book, and refine this draft. Discussion here does not by itself confirm independent mastery.
+8. **Closed book · first-order sine.** Given $\tau\dot y+y=kx$, $x(t)=\sin(\omega_{0}t)$ for $t\geq 0$, $y(0^{+})=0$: derive $H$, decompose $Y=HX$, and recover $y_{\mathrm{tr}}$ and $y_{\mathrm{ss}}$. Check $y(0^{+})$ and verify steady-state gain and phase with $H(j\omega_{0})$.
+9. **Closed book · RLC.** Given $L=1$ H, $C=100\thinspace \mu\mathrm{F}$, $R=100\thinspace \Omega$, and $\sin(100t)$ V from rest: derive $H$ from KVL, locate both pole pairs, and rebuild the two time-domain terms. Check both initial conditions.
