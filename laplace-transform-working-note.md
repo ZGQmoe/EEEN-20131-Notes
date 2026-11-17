@@ -131,6 +131,27 @@ Within the ROC, the upper boundary term vanishes; the lower boundary is $x(0^+)e
 
 ## Differential equation and transfer function
 
+<!-- Source: Signals_and_System_15Nov.pdf, §8.3.1, pp. 175–176. -->
+
+```math
+\begin{aligned}
+\sum_{k=0}^{N}a_{k}y^{(k)}(t)&=\sum_{k=0}^{M}b_{k}x^{(k)}(t)\\
+\Longrightarrow\quad
+\left(\sum_{k=0}^{N}a_{k}s^{k}\right)Y(s)
+&=\left(\sum_{k=0}^{M}b_{k}s^{k}\right)X(s),\\
+H(s)&=\frac{\sum_{k=0}^{M}b_{k}s^{k}}{\sum_{k=0}^{N}a_{k}s^{k}}.
+\end{aligned}
+```
+
+Constant-coefficient ODE · zero initial terms · $k$th derivative contributes $s^{k}$ · input side gives the numerator · output side gives the denominator.
+
+```math
+2\ddot y+3\dot y+y=2\dot x+4x
+\quad\Longrightarrow\quad H(s)=\frac{2s+4}{2s^{2}+3s+1}.
+```
+
+Input slope $\dot x$ · term $2s$ in the numerator · same denominator as for $4x$ alone.
+
 For $y'(t)+2y(t)=x(t)$:
 
 ```math
