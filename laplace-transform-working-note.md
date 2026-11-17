@@ -68,10 +68,10 @@ At $s=0$, the displayed fraction is $0/0$; the singularity is removable and $X(0
 ```math
 x(t),\quad t\in[0,\infty)
 \quad\overset{\mathcal{L}}{\underset{\mathcal{L}^{-1}}{\rightleftarrows}}\quad
-X(s),\quad \forall s\in\mathbb{C}\ \text{with}\ \operatorname{Re}(s)>\sigma_{x}.
+X(s),\quad \forall s\in\mathbb{C}\ \text{with}\ \mathrm{Re}(s)>\sigma_{x}.
 ```
 
-Right-sided signal · whole open half-plane · inverse from any vertical line $\operatorname{Re}(s)=\sigma>\sigma_{x}$.
+Right-sided signal · whole open half-plane · inverse from any vertical line $\mathrm{Re}(s)=\sigma>\sigma_{x}$.
 
 ```math
 \begin{aligned}
@@ -110,13 +110,13 @@ The table records pairs derived from the defining integral; it avoids repeating 
 | --- | --- |
 | Linearity | $A x_{1}(t)+B x_{2}(t) \leftrightarrow A X_{1}(s)+B X_{2}(s)$ |
 | Delay by $t_{0}\geq 0$ | $x(t-t_{0})u(t-t_{0}) \leftrightarrow e^{-s t_{0}}X(s)$ |
-| Time scaling, $a>0$ | $x(at) \leftrightarrow \frac{1}{a}X\!\left(\frac{s}{a}\right)$ |
+| Time scaling, $a>0$ | $x(at) \leftrightarrow \frac{1}{a}X\left(\frac{s}{a}\right)$ |
 | Conjugation | $x(t)^{\ast} \leftrightarrow \bigl[X(s^{\ast})\bigr]^{\ast}$ |
 | Convolution | $(x_{1}\ast x_{2})(t) \leftrightarrow X_{1}(s)X_{2}(s)$ |
 | Differentiation | [Derivative and initial condition](#derivative-and-initial-condition) |
 | Integration from zero | $\int_{0}^{t}x(\tau)\thinspace d\tau \leftrightarrow \frac{X(s)}{s}$ |
 
-Linearity and convolution · shared ROC gives a guaranteed domain. Integration · guaranteed for $\operatorname{Re}(s)>\max(\sigma_{x},0)$.
+Linearity and convolution · shared ROC gives a guaranteed domain. Integration · guaranteed for $\mathrm{Re}(s)>\max(\sigma_{x},0)$.
 
 ## Derivative and initial condition
 
