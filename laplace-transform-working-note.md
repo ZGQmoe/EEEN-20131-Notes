@@ -143,7 +143,7 @@ H(s)&=\frac{\sum_{k=0}^{M}b_{k}s^{k}}{\sum_{k=0}^{N}a_{k}s^{k}}.
 \end{aligned}
 ```
 
-Constant-coefficient ODE · zero initial terms · $k$th derivative contributes $s^{k}$ · input side gives the numerator · output side gives the denominator.
+Constant-coefficient ODE · zero initial terms · derivative of order $k$ contributes $s^{k}$ · input side gives the numerator · output side gives the denominator.
 
 ```math
 2\ddot y+3\dot y+y=2\dot x+4x
