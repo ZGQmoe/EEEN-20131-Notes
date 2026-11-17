@@ -384,6 +384,44 @@ sX(s)=\int_{0}^{\infty}x(t)\thinspace se^{-st}\thinspace dt
 - Weight $se^{-st}$ · unit area · time scale $1/s$.
 - Causal rational $X(s)$ · final-value check on $sX(s)$ after cancellation · every remaining pole strictly in the left half-plane.
 
+### General proofs
+
+```math
+sX(s)-L=\int_{0}^{\infty}\bigl[x(t)-L\bigr]se^{-st}\thinspace dt,
+\qquad \int_{0}^{\infty}se^{-st}\thinspace dt=1,
+\qquad s>0\text{ in the ROC}.
+```
+
+**Initial value** · $L=x(0^{+})$ finite · some real $a>0$ in the absolute ROC.
+Given $\varepsilon>0$, choose $\delta>0$ with $\lvert x(t)-L\rvert<\varepsilon$ for $0<t<\delta$.
+
+```math
+\begin{aligned}
+\lvert sX(s)-L\rvert
+&\leq \int_{0}^{\delta}\lvert x(t)-L\rvert se^{-st}\thinspace dt
+ + \int_{\delta}^{\infty}\lvert x(t)-L\rvert se^{-st}\thinspace dt\\
+&\leq \varepsilon+
+\underbrace{s e^{-(s-a)\delta}}_{\to 0\ \text{as}\ s\to+\infty}
+\underbrace{\int_{\delta}^{\infty}\lvert x(t)-L\rvert e^{-at}\thinspace dt}_{\text{finite, independent of }s},
+\qquad s>a.
+\end{aligned}
+```
+
+**Final value** · $x$ locally integrable · $L=\lim_{t\to\infty}x(t)$ finite · bounded tail gives absolute convergence for every $s>0$.
+Given $\varepsilon>0$, choose $T$ with $\lvert x(t)-L\rvert<\varepsilon$ for $t\geq T$.
+
+```math
+\begin{aligned}
+\lvert sX(s)-L\rvert
+&\leq \int_{0}^{T}\lvert x(t)-L\rvert se^{-st}\thinspace dt
+ + \int_{T}^{\infty}\lvert x(t)-L\rvert se^{-st}\thinspace dt\\
+&\leq \underbrace{s\int_{0}^{T}\lvert x(t)-L\rvert\thinspace dt}_{\to 0\ \text{as}\ s\to0^{+}}
++\varepsilon .
+\end{aligned}
+```
+
+Both bounds · limit superior of the error at most $\varepsilon$ · arbitrary $\varepsilon>0$ gives zero error in the limit.
+
 ```math
 X(s)=\frac{1}{s(s+2)}
 \quad\Longrightarrow\quad sX(s)=\frac{1}{s+2}
