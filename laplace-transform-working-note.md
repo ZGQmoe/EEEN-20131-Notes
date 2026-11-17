@@ -16,11 +16,24 @@ e^{-st}=e^{-\sigma t}e^{-j\omega t}
 - $\sigma$: exponential weighting / convergence direction.
 - $\omega$: angular frequency, $\omega=2\pi f$.
 - Fourier transform: the $\sigma=0$ slice, when the integral exists.
-- The one-sided integral starts at $t=0$; multiplying by $u(t)$ gates a signal to $t\ge0$. A step response is $h*u$, a different object.
+- One-sided transform · $t=0$ as the switching or observation time · $x(t)u(t)$ for right-sided support · stored pre-switch state via initial conditions.
 
 ## Region of convergence (ROC)
 
-ROC is determined by convergence of the original integral; a rational expression alone is not enough.
+<!-- Source: Signals_and_System_15Nov.pdf, §§8.2.2–8.2.3, pp. 170–172. -->
+
+```math
+\begin{aligned}
+\left|x(t)e^{-(\sigma+j\omega)t}\right|
+&=\left|x(t)\right|e^{-\sigma t},\\
+I(\sigma)&=\int_{0}^{\infty}\left|x(t)\right|e^{-\sigma t}\thinspace dt,\\
+\mathrm{ROC}&=\lbrace \sigma+j\omega: I(\sigma)<\infty,\ \omega\in\mathbb{R}\rbrace .
+\end{aligned}
+```
+
+$\left|e^{-j\omega t}\right|=1$ · absolute convergence depends on $\sigma$ alone.
+$\sigma_{1}>\sigma_{0}$ · $e^{-\sigma_{1}t}\leq e^{-\sigma_{0}t}$ for $t\geq 0$ · $I(\sigma_{1})\leq I(\sigma_{0})$.
+Abscissa of convergence $\sigma_{x}=\inf\lbrace \sigma:I(\sigma)<\infty\rbrace$ · threshold set by $x(t)$ · test the boundary separately.
 
 ```math
 x(t)=1,\ t\ge0:
@@ -29,12 +42,16 @@ x(t)=1,\ t\ge0:
 ```
 
 ```math
-x(t)=e^t,\ t\ge0:
-\qquad X(s)=\frac{1}{s-1},
-\qquad \mathrm{Re}(s)>1
+\begin{aligned}
+x(t)&=e^{t},\quad t\geq 0,\\
+I(\sigma)&=\int_{0}^{\infty}e^{(1-\sigma)t}\thinspace dt<\infty
+\quad\Longleftrightarrow\quad \sigma>1,\\
+X(s)&=\lim_{T\to\infty}\frac{1-e^{-(s-1)T}}{s-1}
+=\frac{1}{s-1},\qquad \mathrm{Re}(s)>1 .
+\end{aligned}
 ```
 
-At $s=1+j2$, the fraction is finite, but the integral does not converge: this point lies outside the ROC.
+$s=1+j2$ · finite rational value · the upper-limit term keeps oscillating · outside the ROC.
 
 ```math
 x(t)=1,\ 0\le t<2:
@@ -45,6 +62,27 @@ x(t)=1,\ 0\le t<2:
 At $s=0$, the displayed fraction is $0/0$; the singularity is removable and $X(0)=\int_0^2 1\thinspace dt=2$. Finite time support removes the infinite-time convergence issue.
 
 ## Inverse transform and partial fractions
+
+<!-- Source: Signals_and_System_15Nov.pdf, §8.2.4, pp. 172–173. -->
+
+```math
+x(t),\quad t\in[0,\infty)
+\quad\overset{\mathcal{L}}{\underset{\mathcal{L}^{-1}}{\rightleftarrows}}\quad
+X(s),\quad \forall s\in\mathbb{C}\ \text{with}\ \operatorname{Re}(s)>\sigma_{x}.
+```
+
+Right-sided signal · whole open half-plane · inverse from any vertical line $\operatorname{Re}(s)=\sigma>\sigma_{x}$.
+
+```math
+\begin{aligned}
+X(\sigma+j\omega)&=\mathcal{F}_{\omega}\{x(t)e^{-\sigma t}\},\\
+x(t)&=e^{\sigma t}\mathcal{F}_{\omega}^{-1}\{X(\sigma+j\omega)\}
+=\frac{1}{2\pi j}\int_{\sigma-j\infty}^{\sigma+j\infty}
+X(s)e^{st}\thinspace ds .
+\end{aligned}
+```
+
+Fixed $\sigma$ · one Fourier spectrum over all $\omega$ · inverse Fourier, then remove the weight · $ds=j\thinspace d\omega$ · Bromwich integral, for $t>0$ at continuity points.
 
 ```math
 \mathcal L\{e^{-at}\}(s)
@@ -63,6 +101,22 @@ x(t)=\frac12e^{-t}-\frac12e^{-3t},\ t\ge0
 ```
 
 The table records pairs derived from the defining integral; it avoids repeating each integral.
+
+## Laplace properties
+
+<!-- Source: Signals_and_System_15Nov.pdf, §8.2.5, pp. 173–174. -->
+
+| Property | Time domain ↔ Laplace domain |
+| --- | --- |
+| Linearity | $A x_{1}(t)+B x_{2}(t) \leftrightarrow A X_{1}(s)+B X_{2}(s)$ |
+| Delay by $t_{0}\geq 0$ | $x(t-t_{0})u(t-t_{0}) \leftrightarrow e^{-s t_{0}}X(s)$ |
+| Time scaling, $a>0$ | $x(at) \leftrightarrow \frac{1}{a}X\!\left(\frac{s}{a}\right)$ |
+| Conjugation | $x(t)^{\ast} \leftrightarrow \bigl[X(s^{\ast})\bigr]^{\ast}$ |
+| Convolution | $(x_{1}\ast x_{2})(t) \leftrightarrow X_{1}(s)X_{2}(s)$ |
+| Differentiation | [Derivative and initial condition](#derivative-and-initial-condition) |
+| Integration from zero | $\int_{0}^{t}x(\tau)\thinspace d\tau \leftrightarrow \frac{X(s)}{s}$ |
+
+Linearity and convolution · shared ROC gives a guaranteed domain. Integration · guaranteed for $\operatorname{Re}(s)>\max(\sigma_{x},0)$.
 
 ## Derivative and initial condition
 
@@ -132,6 +186,17 @@ H(s)=\frac{k}{\tau s+1},\qquad H(0)=k,\qquad p=-\frac{1}{\tau}
 ```
 
 RC · capacitor output · KVL $x=Ri+y,\ i=C\dot y$ · $\tau=RC,\ k=1$. Initial capacitor voltage $y_{0}=V_{0}$ → $V_{0}e^{-t/(RC)}$. ↔ [RC differential equation and initial state](./chapter-6-lti-and-convolution.md#ode)
+
+<!-- Source: Signals_and_System_15Nov.pdf, §8.1, pp. 167–169. -->
+
+```math
+RC\dot v_{C}=v_{\mathrm{in}}-v_{C}
+\quad\Longrightarrow\quad
+V_{C}(s)=\frac{1}{RCs}\bigl[V_{\mathrm{in}}(s)-V_{C}(s)\bigr]
+\qquad \text{(zero initial voltage)}.
+```
+
+Feedback view · integrator $1/s$ · $v_{C}$ fed back into the difference · collect $V_{C}$ terms for the closed-loop transfer function · assess the poles of the whole loop.
 
 ### System and input poles
 
@@ -260,6 +325,15 @@ $H(j100)=-j$ · unit gain, phase lag $\pi/2$ · same steady-state term by direct
 
 ## Poles, zeros, stability, minimum phase
 
+<!-- Source: Signals_and_System_15Nov.pdf, §§8.3.1–8.4.1, pp. 175–179. -->
+
+$H(s)=B(s)/A(s)$ in reduced form · $M=\deg B$, $N=\deg A$ · system order $N$.
+
+- $M<N$ · strictly proper · $H(s)\to0$ at high frequency.
+- $M=N$ · biproper · nonzero high-frequency limit · direct feedthrough.
+- $M>N$ · improper · unbounded high-frequency gain.
+- Proper · $M\leq N$ · stability classification via pole locations.
+
 - Poles: denominator roots; a pole $p=\sigma+j\omega$ corresponds to an exponential/oscillatory mode.
 - Zeros: numerator roots; they shape the response and phase.
 - For a causal rational system, the ROC lies right of the rightmost pole. BIBO stability requires the imaginary axis to lie inside the ROC; for proper causal rational systems this means all poles are strictly in the left half-plane.
@@ -289,13 +363,34 @@ Unit step from rest · negative initial slope via $\xi\ddot y_{\mathrm{step}}(0^
 
 ## Initial-value and final-value theorems
 
+<!-- Source: Signals_and_System_15Nov.pdf, §8.2.6, p. 174; Laplace_Transform_lecture1.pdf, Initial and final value theorems. -->
+
 ```math
-x(0^+)=\lim_{s\to\infty}sX(s),
+\underbrace{x(0^{+})}_{\text{initial value}}
+=\lim_{s\to+\infty}sX(s),
 \qquad
-x(\infty)=\lim_{s\to0}sX(s)
+\underbrace{\lim_{t\to\infty}x(t)}_{\text{final value}}
+=\lim_{s\to0^{+}}sX(s).
 ```
 
-These find endpoint values under their regularity/pole conditions; they do not reconstruct the full waveform. Revisit the final-value theorem when reading that lecture section.
+```math
+sX(s)=\int_{0}^{\infty}x(t)\thinspace se^{-st}\thinspace dt
+=\int_{0}^{\infty}x\!\left(\frac{u}{s}\right)e^{-u}\thinspace du,
+\qquad s>0\text{ in the ROC},\quad u=st.
+```
+
+- Initial value · large positive $s$ · $u/s\to0^{+}$ · finite right limit and ordinary bounded signal as in the lecture.
+- Final value · small positive $s$ · $u/s\to\infty$ for $u>0$ · finite time-domain limit required.
+- Weight $se^{-st}$ · unit area · time scale $1/s$.
+- Causal rational $X(s)$ · final-value check on $sX(s)$ after cancellation · every remaining pole strictly in the left half-plane.
+
+```math
+X(s)=\frac{1}{s(s+2)}
+\quad\Longrightarrow\quad sX(s)=\frac{1}{s+2}
+\quad\Longrightarrow\quad x(0^{+})=0,\qquad x(\infty)=\frac{1}{2}.
+```
+
+$x(t)=\sin t$ · $sX(s)=s/(s^{2}+1)\to0$ as $s\to0^{+}$ · poles at $\pm j$ · sustained oscillation · no final value.
 
 ## Focused recall prompts
 
