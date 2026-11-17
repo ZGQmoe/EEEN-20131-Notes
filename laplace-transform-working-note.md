@@ -251,6 +251,20 @@ y(t)=\underbrace{\frac{1}{2}e^{-10t}}_{\text{transient}}
 
 Steady-state gain and phase measurements · wait for the transient to become negligible · after $5\tau$, about 0.67% of its initial amplitude for this exponential.
 
+<!-- Source: Signals_and_System_15Nov.pdf, §8.3, p. 175. -->
+
+**Unstable system** · causal $H(s)=1/(s-1)$ · ROC $\mathrm{Re}(s)>1$ · input $\sin t$ switched on from rest.
+
+```math
+H(j)=\frac{-1-j}{2},
+\qquad
+y(t)=\underbrace{-\frac{1}{2}(\sin t+\cos t)}_{\text{forced sinusoid}}
++\underbrace{\frac{1}{2}e^{t}}_{\text{growing natural mode}},
+\qquad t\geq 0.
+```
+
+$s=j$ outside the ROC · algebraic evaluation gives the gain and phase of the sinusoidal particular solution · pole at $+1$ excited by switch-on, even from rest · growing total response · no sinusoidal steady state.
+
 <!-- Second lecture provenance: Transfer_functions_and_system_responses.pdf, pp. 18–30. -->
 
 ## Second-order responses and RLC
